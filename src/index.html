@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/system.js"></script>
+    <script>
+        System.config({
+            baseURL: 'js',
+            paths: {
+                'traceur': 'traceur.min.js',
+                'vue': 'vue.min.js'
+            }
+        });
+        System.import('main');
+    </script>
+</head>
+<body>
+<div id="main">
+    <div v-component="{{currentView}}"></div>
+</div>
+</body>
+</html>
