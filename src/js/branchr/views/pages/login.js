@@ -1,21 +1,20 @@
-import Vue from 'vue';
-import http from 'http';
+import View from 'view';
+import APIService from 'branchr/services/api-service';
 
-export default Vue.extend({
-    template: '<h1>Users</h1><ul><li v-repeat="users">{{id}}:{{name}}</li></ul><input type="text" v-model="newUsername"><button v-on="click: registerNewUser()">Add</button>',
+export default new View('/html/login.html', {
     data: function() {
         return {
             users: [],
             newUsername: ''
         }
     },
-    attached: function() {
+    created: function() {
         this.updateUsers();
     },
     methods: {
         updateUsers: function() {
             let self = this;
-            http.get("http://localhost:3000/user/")
+            APIService.user.list()
                 .then(res => {
                     self.users = res.data.map((o) => {
                         return {
@@ -28,10 +27,21 @@ export default Vue.extend({
         },
         registerNewUser: function() {
             console.log(`Putting new user ${this.newUsername}`);
-            http.put(`http://localhost:3000/user/${this.newUsername}`, {foo: 'bar'})
+            APIService.user.register({name: this.newUsername})
                 .then(res => {
                     this.updateUsers();
                     this.newUsername = '';
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert(err.data);
+                });
+        },
+        removeUser: function(name) {
+            console.log(`Removing user ${name}`);
+            APIService.user.unregister(name)
+                .then(res => {
+                    this.updateUsers();
                 })
                 .catch(err => {
                     console.error(err);

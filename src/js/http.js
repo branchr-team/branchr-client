@@ -1,21 +1,41 @@
+function createXHR(method, url) {
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
+        // XHR for Chrome/Firefox/Opera/Safari.
+        xhr.open(method, url, true);
+    } else if (typeof XDomainRequest != "undefined") {
+        // XDomainRequest for IE.
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+    } else {
+        // CORS not supported.
+        xhr = null;
+    }
+    return xhr;
+}
 class HTTPResponse {
-    constructor(request) {
-        this.status = request.status;
+    constructor(xhr) {
+        this.status = xhr.status;
         this.headers = {
             get: function(name) {
-                return request.getResponseHeader(name);
+                return xhr.getResponseHeader(name);
             }
         };
-        this.data = (this.headers.get('Content-Type').indexOf('json') != -1)?
-            JSON.parse(request.responseText) :
-            request.response;
+        var self = this;
+        this.data = function() {
+            let contentType = self.headers.get('Content-Type');
+            if (contentType && typeof contentType === 'string' && contentType.indexOf('json') != -1)
+                return JSON.parse(xhr.responseText);
+            else
+                return xhr.response;
+        }();
+        this.xhr = xhr;
     }
 }
 class HTTP {
     request(method, url, data) {
-        let self = this;
         return new Promise((resolve, reject) => {
-            let req = new XMLHttpRequest();
+            let req = createXHR(method, url);
             req.addEventListener('load', function() {
                 let res = new HTTPResponse(this);
                 if (res.status == 200) {
@@ -25,9 +45,8 @@ class HTTP {
                 }
             });
             req.addEventListener('error', function() {
-                reject(res);
+                reject(new HTTPResponse(this));
             });
-            req.open(method, url, true);
             if (data) {
                 req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
                 req.send(JSON.stringify(data));
@@ -37,13 +56,16 @@ class HTTP {
         });
     }
     get(url) {
-        return this.request('get', url);
+        return this.request('GET', url);
     }
     post(url, data) {
-        return this.request('post', url, data);
+        return this.request('POST', url, data);
     }
     put(url, data) {
-        return this.request('put', url, data);
+        return this.request('PUT', url, data);
+    }
+    delete(url) {
+        return this.request('DELETE', url);
     }
 }
 

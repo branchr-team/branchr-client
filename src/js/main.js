@@ -1,11 +1,14 @@
 import Vue from 'vue';
-import LoginComponent from 'branchr/components/pages/login';
-
-Vue.component('login', LoginComponent);
+import LoginView from 'branchr/views/pages/login';
 
 var vm = new Vue({
     el: '#main',
     data: {
-        currentView: 'login'
+        currentView: ''
     }
+});
+
+LoginView.load().then(l => {
+    Vue.component('login', l);
+    vm.currentView = 'login';
 });

@@ -1,0 +1,9 @@
+<h1>Users</h1>
+<ul>
+    <li v-repeat="users">
+        {{name}}
+        <button v-on="click: removeUser(name)">x</button>
+    </li>
+</ul>
+<input type="text" v-model="newUsername">
+<button v-on="click: registerNewUser()">Add</button>
