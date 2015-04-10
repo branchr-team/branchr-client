@@ -5,7 +5,9 @@ The web client for Branchr.
 
 `npm install`
 
-Ensure you have gulp installed globally: `npm install -g gulp`.
+Ensure you have gulp and bower installed globally: 
+```npm install -g gulp```
+```npm install -g bower```
 
 ## Usage
 
