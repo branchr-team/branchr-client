@@ -5,5 +5,7 @@
         <button v-on="click: removeUser(name)">x</button>
     </li>
 </ul>
-<input type="text" v-model="newUsername">
-<button v-on="click: registerNewUser()">Add</button>
+<form v-on="submit: registerNewUser">
+    <input type="text" v-model="newUsername">
+    <button type="submit">Add</button>
+</form>

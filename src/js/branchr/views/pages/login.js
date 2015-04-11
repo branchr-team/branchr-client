@@ -25,7 +25,8 @@ export default new View('/html/login.html', {
                 })
                 .catch(err => alert(err));
         },
-        registerNewUser: function() {
+        registerNewUser: function(e) {
+            e.preventDefault();
             console.log(`Putting new user ${this.newUsername}`);
             APIService.user.register({name: this.newUsername})
                 .then(res => {
