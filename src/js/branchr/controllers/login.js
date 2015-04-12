@@ -1,7 +1,11 @@
-import View from 'view';
+import PageController from 'page-controller';
 import APIService from 'branchr/services/api-service';
 
-export default new View('/html/login.html', {
+export default new PageController({
+    url: '/login',
+    name: 'login',
+    template: '/html/login.html'
+}, {
     data: function() {
         return {
             users: [],
@@ -34,8 +38,7 @@ export default new View('/html/login.html', {
                     this.newUsername = '';
                 })
                 .catch(err => {
-                    console.error(err);
-                    alert(err.data);
+                    alert(err.data.msg);
                 });
         },
         removeUser: function(name) {
@@ -45,8 +48,7 @@ export default new View('/html/login.html', {
                     this.updateUsers();
                 })
                 .catch(err => {
-                    console.error(err);
-                    alert(err.data);
+                    alert(err.data.msg);
                 });
         }
     }

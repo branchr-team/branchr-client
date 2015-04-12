@@ -63,7 +63,8 @@ gulp.task('bower-copy-js', ['bower'], function() {
         'es6-module-loader/dist/es6-module-loader.js*',
         'traceur/traceur.min*',
         'system.js/dist/system.js*',
-        'vue/dist/vue.min*'
+        'vue/dist/vue.min*',
+        'director/build/director.min.js'
     ];
     return gulp.src(deps.map(function(dep) {
         var a = path.join(paths.bower.src, dep);
@@ -107,9 +108,9 @@ gulp.task('assets', function() {
 });
 
 gulp.task('clean', function(cb) {
-	return del([
+    return del([
         path.join('build')
-	], cb);
+    ], cb);
 });
 
 gulp.task('build', function(cb) {
@@ -122,7 +123,7 @@ gulp.task('build', function(cb) {
 
 gulp.task('serve', ['build'], function() {
     if (!prod) {
-		gulp.watch([path.join(paths.html.src, '/**/*'), path.join('src', '*.html')], ['html']);
+        gulp.watch([path.join(paths.html.src, '/**/*'), path.join('src', '*.html')], ['html']);
         gulp.watch([path.join(paths.js.src, '/**/*')], ['js']);
         gulp.watch([path.join(paths.scss.src, '/**/*')], ['scss']);
     }

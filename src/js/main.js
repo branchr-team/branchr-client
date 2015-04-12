@@ -1,14 +1,21 @@
+import Router from 'director';
 import Vue from 'vue';
-import LoginView from 'branchr/views/pages/login';
+import HomeController from 'branchr/controllers/home';
+import LoginController from 'branchr/controllers/login';
+
+var nav = [
+    HomeController,
+    LoginController
+];
 
 var vm = new Vue({
     el: '#main',
     data: {
-        currentView: ''
+        currentView: '',
+        nav: nav
     }
 });
 
-LoginView.load().then(l => {
-    Vue.component('login', l);
-    vm.currentView = 'login';
-});
+var routes = {};
+nav.forEach((c) => routes[c.url] = function() {c.render(vm);});
+Router(routes).init(nav[0].url);

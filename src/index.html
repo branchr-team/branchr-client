@@ -9,15 +9,21 @@
             baseURL: 'js',
             paths: {
                 'traceur': 'traceur.min.js',
-                'vue': 'vue.min.js'
+                'vue': 'vue.min.js',
+                'director': 'director.min.js'
             }
         });
         System.import('main');
     </script>
 </head>
-<body>
-<div id="main">
-    <div v-component="{{currentView}}"></div>
-</div>
+<body id="main">
+    <nav>
+        <ul>
+            <li v-repeat="nav">
+                <a v-attr="href: '#'+url">{{name}}</a>
+            </li>
+        </ul>
+    </nav>
+    <main v-component="{{currentView}}"></main>
 </body>
 </html>
