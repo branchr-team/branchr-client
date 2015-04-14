@@ -2,10 +2,10 @@
 <ul>
     <li v-repeat="users">
         {{name}}
-        <button v-on="click: removeUser(name)">x</button>
+        <button class="btn--red btn--s" v-on="click: removeUser(name)">x</button>
     </li>
 </ul>
 <form v-on="submit: registerNewUser">
-    <input type="text" v-model="newUsername">
-    <button type="submit">Add</button>
+    <input type="text" style="color: black;" v-model="newUsername">
+    <button class="btn--green" type="submit">Add</button>
 </form>

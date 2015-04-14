@@ -1,7 +1,55 @@
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
+@import "../../bower_components/furtive/scss/all";
+
+/* WARNING!
+ * Putting anything other than truly global styles (like *) in this file is
+ * considered bad practice. For more information, see link below:
+ * http://thesassway.com/beginner/how-to-structure-a-sass-project
+ */
 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
+
+/* The following is purely example.
+ * @TODO Delete this code and replace with real stuff.
+ */
+
+body {
+	@extend .bg--dark-gray;
+}
+
+nav, main {
+	padding: 1rem;
+}
+
+nav {
+	@extend .bg--green;
+}
+
+main {
+	@extend .bg--blue;
+	color: white;
+}
+
+li {
+	margin-left: 2em;
+}
+
+.btn--red {
+  @extend %btn--base;
+
+  border-color: darken($red, 3%);
+  background-color: $red;
+  color: $white;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: darken($red, 10%);
+  }
+}
+
