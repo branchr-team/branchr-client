@@ -1,11 +1,9 @@
-import PageController from 'page-controller';
+import Vue from 'vue';
 import APIService from 'services/api-service';
+import template from 'templates/login.html!';
 
-export default new PageController({
-    url: '/login',
-    name: 'login',
-    template: '/html/login.html'
-}, {
+export default Vue.extend({
+	template: template,
     data: function() {
         return {
             users: [],

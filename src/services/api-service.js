@@ -25,6 +25,30 @@ export default {
                 `${base}/user/${name}`
             );
         }
+    },
+    feed: {
+        list: function() {
+            return http.get(
+                `${base}/feed/`
+            );
+        },
+        get: function(id) {
+            return http.get(
+                `${base}/feed/${id}`
+            );
+        },
+        new: function(feed) {
+            return http.put(
+                `${base}/feed`,
+                feed
+            );
+        },
+        update: function(id, o) {
+            return http.put(
+                `${base}/feed/${id}`,
+				o
+            );
+        }
 
     }
 }

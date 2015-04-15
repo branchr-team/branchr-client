@@ -1,0 +1,13 @@
+<h1>Feed</h1>
+<pre>
+{{feedJson}}
+</pre>
+<hr>
+<pre>
+{{postFieldJson}}
+</pre>
+<hr>
+<form v-on="submit: createPost">
+	<div v-repeat="postFields" v-component="{{component}}"></div>
+	<button type="submit">Post</div>
+</form>

@@ -1,11 +1,9 @@
-import PageController from 'page-controller';
+import Vue from 'vue';
 import APIService from 'services/api-service';
+import template from 'templates/home.html!';
 
-export default new PageController({
-    url: '/',
-    name: 'home',
-    template: '/html/home.html'
-}, {
+export default Vue.extend({
+	template: template,
     data: function() { return {
         foo: 'bar'
     }},

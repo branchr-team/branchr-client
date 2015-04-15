@@ -3,15 +3,19 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="js/system.js"></script>
+    <script src="lib/system.js"></script>
     <script>
         System.config({
-            baseURL: 'js',
+            baseURL: '',
             paths: {
-                'traceur': 'traceur.min.js',
-                'vue': 'vue.min.js',
-                'director': 'director.min.js'
-            }
+                'traceur': 'lib/traceur.min.js',
+                'vue': 'lib/vue.min.js',
+                'director': 'lib/director.min.js',
+                'http': 'lib/http.js',
+            },
+			map: {
+				'html': 'lib/text'
+			}
         });
         System.import('main');
     </script>
@@ -24,6 +28,11 @@
             </li>
         </ul>
     </nav>
-    <main v-component="{{currentView}}"></main>
+    <main 
+		v-cloak
+		v-component="{{ctrlName}}"
+		v-ref="ctrl"
+		>
+	</main>
 </body>
 </html>
