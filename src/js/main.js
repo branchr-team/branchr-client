@@ -1,7 +1,7 @@
 import Router from 'director';
 import Vue from 'vue';
-import HomeController from 'branchr/controllers/home';
-import LoginController from 'branchr/controllers/login';
+import HomeController from 'controllers/home';
+import LoginController from 'controllers/login';
 
 var nav = [
     HomeController,
