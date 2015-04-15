@@ -1,5 +1,5 @@
 import PageController from 'page-controller';
-import APIService from 'branchr/services/api-service';
+import APIService from 'services/api-service';
 
 export default new PageController({
     url: '/login',
