@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="lib/system.js"></script>
     <script>
         System.config({
@@ -24,7 +25,7 @@
     <nav>
         <ul>
             <li v-repeat="nav">
-                <a v-attr="href: '#'+url">{{name}}</a>
+                <a class='btn--link' v-attr="href: '#'+url">{{name}}</a>
             </li>
         </ul>
     </nav>
