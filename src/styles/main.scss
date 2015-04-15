@@ -18,7 +18,7 @@
  */
 
 body {
-	@extend .bg--dark-gray;
+	@extend .bg--mid-gray;
 }
 
 nav, main {
@@ -30,7 +30,7 @@ nav {
 }
 
 main {
-	@extend .bg--blue;
+	@extend .bg--dark-gray;
 	color: white;
 }
 
@@ -53,3 +53,6 @@ li {
   }
 }
 
+input {
+	color: black;
+}

@@ -3,6 +3,7 @@ import Vue from 'vue';
 
 import 'components/post-fields';
 
+// @TODO Move code elsewhere
 var pages = [];
 var navPages = [];
 function page(url, name, componentUrl, nav = false) {
@@ -30,12 +31,14 @@ var vm = new Vue({
     }
 });
 
+// @TODO Move code elsewhere
 var routes = {};
 pages.forEach((c) => routes[c.url] = function(...params) {
 	c.loadComponent().then(comp => {
 		Vue.component(c.name, comp.default);
 		vm.ctrlName = c.name;
 		setTimeout(function() {
+			// @TODO Find a better way to do this
 			vm.$.ctrl.params = params;
 		}, 0);
 	});
