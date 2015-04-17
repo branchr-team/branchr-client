@@ -1,5 +1,6 @@
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
 @import "../../bower_components/furtive/scss/all";
+//@import url(http://fonts.googleapis.com/css?family=Viga);
 
 /* WARNING!
  * Putting anything other than truly global styles (like *) in this file is
@@ -18,20 +19,80 @@
  */
 
 body {
-	@extend .bg--mid-gray;
+  @extend .bg--dark-gray;
+  background-image: url("../assets/images/grit-bg@2x.png");
 }
 
-nav, main {
-	padding: 1rem;
+header {
+  @extend .bg--white;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
+}
+
+.logo {
+  padding-right: 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $dark-gray;
+}
+
+/* unvisited link */
+.logo a:link {
+  text-decoration: none;
+}
+
+/* visited link */
+.logo a:visited {
+  text-decoration: none;
+}
+
+/* mouse over link */
+.logo a:hover {
+  text-decoration: none;
+}
+
+/* selected link */
+.logo a:active {
+  text-decoration: none;
 }
 
 nav {
-	@extend .bg--green;
+  //@extend .bg--green;
+  display: block;
+  padding: 0;
+  text-transform: capitalize;
 }
 
-main {
-	@extend .bg--dark-gray;
-	color: white;
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0;
+}
+
+#login {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+footer {
+  padding-top: 0.5rem;
+  border-top: solid $gray-mid-6 1px;
+  color: $light-gray;
+  text-transform: capitalize;
+  font-size: $font-size;
+}
+
+footer div {
+  display: inline;
+}
+
+footer a {
+  padding-left: 0.5rem;
 }
 
 li {
