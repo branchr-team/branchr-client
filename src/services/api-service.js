@@ -1,6 +1,7 @@
 import http from 'http';
 
-const base = 'http://localhost:3000';
+//const base = 'http://localhost:3000';
+const base = 'https://branchr.herokuapp.com';
 
 export default {
     user: {
@@ -15,8 +16,8 @@ export default {
             );
         },
         register: function(user) {
-            return http.put(
-                `${base}/user/${user.name}`,
+            return http.post(
+                `${base}/user`,
                 user
             );
         },
@@ -38,17 +39,41 @@ export default {
             );
         },
         new: function(feed) {
-            return http.put(
+            return http.post(
                 `${base}/feed`,
                 feed
             );
         },
         update: function(id, o) {
-            return http.put(
+            return http.patch(
                 `${base}/feed/${id}`,
 				o
             );
         }
-
+    },
+    contrib: {
+        get: function(id) {
+            return http.get(
+                `${base}/contrib/${id}`
+            );
+        },
+        getByFeed: function(feedId) {
+            return http.get(
+                `${base}/contrib?feedId=${feedId}`
+            );
+        },
+        create: function(o) {
+            return http.post(
+                `${base}/contrib`,
+                o
+            );
+        }
+    },
+    engine: {
+        get: function(id) {
+            return http.get(
+                `${base}/engine/${id}`
+            );
+        }
     }
 }

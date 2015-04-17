@@ -1,5 +1,8 @@
-@import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
-@import "../../bower_components/furtive/scss/all";
+@import '../../bower_components/bourbon/app/assets/stylesheets/bourbon';
+@import '../../bower_components/furtive/scss/all';
+
+@import 'components/contrib';
+
 //@import url(http://fonts.googleapis.com/css?family=Viga);
 
 /* WARNING!
@@ -20,6 +23,7 @@
 
 body {
   @extend .bg--dark-gray;
+  color: $white;
   background-image: url("../assets/images/grit-bg@2x.png");
 }
 
@@ -28,6 +32,10 @@ header {
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
   box-shadow: 0px 0 15px 0 rgba(0,0,0,0.4);
+}
+
+[v-cloak] {
+  visibility: hidden;
 }
 
 .logo {

@@ -7,41 +7,67 @@ export default Vue.extend({
 	template: template,
 	data: function() {
 		return {
-			params: null,
+            params: null,
+            feedId: null,
 			feed: null,
-			feedJson: null,
-			postFieldJson: null,
-			postFields: null,
+            feedJson: null,
+            engine: null,
+            engineJson: null,
+			fields: null,
+            fieldsJson: null,
+            contribs: null,
+            contribsJson: null
 		}
 	},
 	created: function() {
-		this.$watch('postFields', function(f) {
-			this.postFieldJson = JSON.stringify(f, null, 4);
+		this.$watch('fields', function(f) {
+			this.fieldsJson = JSON.stringify(f, null, 4);
 		}, true);
 	},
 	methods: {
 		updateFeed: function() {
-			APIService.feed.get(this.id).then(resp => {
-				this.feed = resp.data;
-				this.postFields = [];
-				for (var p in this.feed.postParams) {
-					this.postFields.push({
-						component: PostFields.getComponentFromCode(this.feed.postParams[p]),
-						name: p,
-						model: null
-					});
-				}
-				this.feedJson = JSON.stringify(this.feed, null, 4);
-			});
+			APIService.feed.get(this.feedId)
+                .then(resp => {
+                    this.feed = resp.data;
+                    this.feedJson = JSON.stringify(this.feed, null, 4);
+                    APIService.contrib.getByFeed(this.feed._id).then(resp => {
+                        console.log(resp.data);
+                        this.contribs = resp.data.map(c => c._id);
+                        this.contribsJson = JSON.stringify(this.contribs, null, 4);
+                    });
+                    return APIService.engine.get(resp.data.engineId);
+                })
+                .then(resp => {
+                    this.engine = resp.data;
+                    this.engineJson = JSON.stringify(this.engine, null, 4);
+                    this.fields = this.engine.fields.map(f => {
+                        return {
+                            component: PostFields.getComponentFromCode(f.type),
+                            default: f.default,
+                            key: f.key,
+                            name: f.key,
+                            model: null
+                        };
+                    });
+                });
 		},
 		createPost: function(e) {
-			e.preventDefault()
-			console.log("Creating post from fields: ", this.postFields.map(f => f.model));
+			e.preventDefault();
+            let params = {};
+            this.fields.forEach(f => {
+                params[f.key] = f.model;
+            });
+            let contrib = {
+                engineId: this.engine._id,
+                feedId: this.feed._id,
+                params: params
+            };
+            APIService.contrib.create(contrib).then(this.updateFeed);
 		}
 	},
 	watch: {
 		params: function(p) {
-			this.id = p[0];
+            this.feedId = p;
 			this.updateFeed();
 		}
 	}

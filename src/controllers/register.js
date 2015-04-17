@@ -1,0 +1,26 @@
+import Vue from 'vue';
+import APIService from 'services/api-service';
+import Router from 'director';
+import template from 'templates/register.html!';
+
+export default Vue.extend({
+    template: template,
+    data: function() { return {
+        user: {
+            username: null,
+            password: null,
+            fname: null,
+            lname: null
+        }
+    }},
+    methods: {
+        register: function(e) {
+            e.preventDefault();
+            alert(this.user.username);
+            APIService.user.register(this.user)
+                .then(() => {
+
+                });
+        }
+    }
+});

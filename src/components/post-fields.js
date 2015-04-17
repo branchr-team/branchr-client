@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 Vue.component('post-field-string', {
-	template: '{{name}}<input type="text" v-model="model"></input>'
+	template: '{{name}}<input type="text" value="{{default}}" v-model="model">'
 });
 
 Vue.component('post-field-number', {

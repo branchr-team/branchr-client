@@ -25,7 +25,7 @@
     <header>
         <div class="measure py1">
             <a class="logo flt--left" href="">Branchr</a>
-            <nav>
+            <nav v-cloak>
                 <ul class="flt--left">
                     <li v-repeat="nav" style="display: inline;">
                         <a class='btn--link' v-attr="href: '#'+url">{{name}}</a>
