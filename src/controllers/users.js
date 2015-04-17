@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import APIService from 'services/api-service';
-import template from 'templates/login.html!';
+import template from 'templates/users.html!';
 
 export default Vue.extend({
 	template: template,

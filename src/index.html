@@ -27,16 +27,16 @@
             <a class="logo flt--left" href="">Branchr</a>
             <nav v-cloak>
                 <ul class="flt--left">
-                    <li v-repeat="nav" style="display: inline;">
+                    <li v-repeat="nav">
                         <a class='btn--link' v-attr="href: '#'+url">{{name}}</a>
                     </li>
                 </ul>
                 <ul class="flt--right">
-                    <li style="display: inline;">
-                        <a href="" class='btn--link small'>What is Branchr?</a>
+                    <li>
+                        <a href="#/" class='btn--link small'>What is Branchr?</a>
                     </li>
-                    <li style="display: inline;">
-                        <a href="" class='btn btn--s' id="login">Login</a>
+                    <li>
+                        <a href="#/" class='btn btn--s'>Login</a>
                     </li>
                 </ul>
                 <div style="clear: both"></div>
@@ -47,7 +47,7 @@
 		v-cloak
 		v-component="{{ctrlName}}"
 		v-ref="ctrl"
-        class="py1 measure"
+        class="p2"
 		>
 	</main>
     <footer class="measure">

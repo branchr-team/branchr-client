@@ -1,15 +1,19 @@
 <h1>{{feed.name}}</h1>
-<div v-repeat="contribs">
-    <b-contrib contrib-id="{{$value}}"></b-contrib>
+
+<div class="grd-row">
+    <div class="grd-row-col-4-6">
+        <div v-repeat="contribs">
+            <b-contrib contrib-id="{{$value}}"></b-contrib>
+        </div>
+    </div>
+    <div class="grd-row-col-2-6">
+        <h3>Feed</h3><pre>{{feedJson}}</pre>
+        <h3>Engine</h3><pre>{{engineJson}}</pre>
+        <h3>Fields</h3><pre>{{fieldsJson}}</pre>
+    </div>
 </div>
 
-<hr><h2>Feed</h2><pre>{{feedJson}}</pre>
-<hr><h2>Engine</h2><pre>{{engineJson}}</pre>
-<hr><h2>Fields</h2><pre>{{fieldsJson}}</pre>
-
-<hr>
-
-<form v-on="submit: createPost">
+<form class="measure" v-on="submit: createPost">
 	<div v-repeat="fields" v-component="{{component}}"></div>
 	<button class='btn--blue' type="submit">Post</button>
 </form>

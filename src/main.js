@@ -22,8 +22,7 @@ function page(url, name, componentUrl, nav = false) {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 page('/', 'home', 'controllers/home', true);
-page('/login', 'login', 'controllers/login', true);
-page('/register', 'register', 'controllers/register', true);
+page('/users', 'users', 'controllers/users', true);
 page('/feeds', 'feeds', 'controllers/feeds', true);
 page('/feed/:id', 'feed', 'controllers/feed');
 
