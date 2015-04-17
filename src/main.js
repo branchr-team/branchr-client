@@ -18,10 +18,15 @@ function page(url, name, componentUrl, nav = false) {
 	if (nav) navPages.push(o);
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 page('/', 'home', 'controllers/home', true);
 page('/login', 'login', 'controllers/login', true);
 page('/feeds', 'feeds', 'controllers/feeds', true);
 page('/feed/:id', 'feed', 'controllers/feed');
+page('/dev', 'dev', 'controllers/developer-tools', true);
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 var vm = new Vue({
     el: '#main',
