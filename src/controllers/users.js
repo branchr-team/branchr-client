@@ -20,12 +20,7 @@ export default Vue.extend({
 			this.loading = true;
             APIService.user.list()
                 .then(res => {
-                    self.users = res.data.map((o) => {
-                        return {
-                            id: o._id.toString(),
-                            name: o.name
-                        };
-                    });
+                    self.users = res.data;
 					self.loading = false;
                 })
                 .catch(err => alert(err));
@@ -33,7 +28,7 @@ export default Vue.extend({
         registerNewUser: function(e) {
             e.preventDefault();
             console.log(`Putting new user ${this.newUsername}`);
-            APIService.user.register({name: this.newUsername})
+            APIService.user.register({username: this.newUsername})
                 .then(res => {
                     this.updateUsers();
                     this.newUsername = '';
@@ -42,9 +37,9 @@ export default Vue.extend({
                     alert(err.data.msg);
                 });
         },
-        removeUser: function(name) {
-            console.log(`Removing user ${name}`);
-            APIService.user.unregister(name)
+        removeUser: function(username) {
+            console.log(`Removing user ${username}`);
+            APIService.user.unregister(username)
                 .then(res => {
                     this.updateUsers();
                 })

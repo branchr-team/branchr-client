@@ -3,8 +3,8 @@
 	<loading-content v-with="loadState: loading">
 		<ul>
 			<li v-repeat="users">
-				{{name}}
-				<button class="btn--red btn--s" v-on="click: removeUser(name)">x</button>
+				{{username}}
+				<button class="btn--red btn--s" v-on="click: removeUser(username)">x</button>
 			</li>
 		</ul>
 		<form v-on="submit: registerNewUser">
