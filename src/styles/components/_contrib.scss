@@ -1,11 +1,6 @@
 .b-contrib {
-  @extend .measure ;
-  @extend .py1;
-  margin: 1rem;
-
   iframe {
     border: 0;
     width: 100%;
   }
-
 }

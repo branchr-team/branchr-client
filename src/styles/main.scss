@@ -13,34 +13,72 @@
  * http://thesassway.com/beginner/how-to-structure-a-sass-project
  */
 
+
+/********************
+ * General
+ ********************/
+
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
 
-body {
-  @extend .bg--dark-gray;
-  color: $white;
-}
-
-header {
-  @extend .bg--white;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  box-shadow: 0px 0 15px 0 rgba(0,0,0,0.4);
+* {
+  transition: opacity 0.33s ease;
 }
 
 [v-cloak] {
   visibility: hidden;
 }
 
-* {
-	transition: opacity 0.33s ease;
+.fade-enter, .fade-leave {
+  opacity: 0;
 }
 
-.fade-enter, .fade-leave {
-	opacity: 0;
+body {
+  @extend .bg--dark-gray;
+  background-image: url("../assets/images/grit-bg@2x.png")
+;
+  color: $white;
+}
+
+.btn--red {
+  @extend %btn--base;
+
+  border-color: darken($red, 3%);
+  background-color: $red;
+  color: $white;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: darken($red, 10%);
+  }
+}
+
+input {
+  color: black;
+}
+
+.card {
+  
+  @extend .bg--white;
+  @extend .p1;
+  @extend .py1;
+  border-bottom: $subtle-gray solid 1px;
+}
+
+/********************
+ * Header
+ ********************/
+
+header {
+  @extend .bg--white;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
+  box-shadow: 0px 0 15px 0 rgba(0,0,0,0.4);
 }
 
 .logo {
@@ -87,6 +125,10 @@ nav ul li {
   margin: 0;
 }
 
+/********************
+ * Footer
+ ********************/
+
 footer {
   padding-top: 0.5rem;
   border-top: solid $gray-mid-6 1px;
@@ -107,21 +149,3 @@ li {
 	margin-left: 2em;
 }
 
-.btn--red {
-  @extend %btn--base;
-
-  border-color: darken($red, 3%);
-  background-color: $red;
-  color: $white;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: $white;
-    background-color: darken($red, 10%);
-  }
-}
-
-input {
-	color: black;
-}
