@@ -9,6 +9,9 @@ Ensure you have gulp and bower installed globally:
 ```npm install -g gulp```
 ```npm install -g bower```
 
+Also ensure you have the [ruby sass compiler](http://sass-lang.com/install)
+installed (needed for gulp).
+
 ## Usage
 
 `gulp serve` will automatically install bower dependencies, run the build process, 
