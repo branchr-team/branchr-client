@@ -7,39 +7,29 @@ export default Vue.extend({
 	template: template,
 	data: function() {
 		return {
+			loading: true,
             params: null,
             feedId: null,
 			feed: null,
-            feedJson: null,
             engine: null,
-            engineJson: null,
 			fields: null,
-            fieldsJson: null,
-            contribs: null,
-            contribsJson: null
+            contribs: null
 		}
-	},
-	created: function() {
-		this.$watch('fields', function(f) {
-			this.fieldsJson = JSON.stringify(f, null, 4);
-		}, true);
 	},
 	methods: {
 		updateFeed: function() {
 			APIService.feed.get(this.feedId)
                 .then(resp => {
                     this.feed = resp.data;
-                    this.feedJson = JSON.stringify(this.feed, null, 4);
                     APIService.contrib.getByFeed(this.feed._id).then(resp => {
                         console.log(resp.data);
                         this.contribs = resp.data.map(c => c._id);
-                        this.contribsJson = JSON.stringify(this.contribs, null, 4);
+						this.loading = false;
                     });
                     return APIService.engine.get(resp.data.engineId);
                 })
                 .then(resp => {
                     this.engine = resp.data;
-                    this.engineJson = JSON.stringify(this.engine, null, 4);
                     this.fields = this.engine.fields.map(f => {
                         return {
                             component: PostFields.getComponentFromCode(f.type),
@@ -67,7 +57,7 @@ export default Vue.extend({
 	},
 	watch: {
 		params: function(p) {
-            this.feedId = p;
+            this.feedId = p[0];
 			this.updateFeed();
 		}
 	}

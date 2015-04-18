@@ -6,6 +6,7 @@ export default Vue.extend({
 	template: template,
     data: function() {
         return {
+			loading: true,
             users: [],
             newUsername: ''
         }
@@ -16,6 +17,7 @@ export default Vue.extend({
     methods: {
         updateUsers: function() {
             let self = this;
+			this.loading = true;
             APIService.user.list()
                 .then(res => {
                     self.users = res.data.map((o) => {
@@ -23,7 +25,8 @@ export default Vue.extend({
                             id: o._id.toString(),
                             name: o.name
                         };
-                    })
+                    });
+					self.loading = false;
                 })
                 .catch(err => alert(err));
         },

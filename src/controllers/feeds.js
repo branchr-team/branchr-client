@@ -6,10 +6,12 @@ export default Vue.extend({
 	template: template,
     data: function() {
         return {
+			loading: true,
             feeds: []
         }
     },
     created: function() {
+		setTimeout(() => {if (this.loading == null) this.loading = true}, 1000);
         this.updateFeeds();
     },
     methods: {
@@ -21,6 +23,7 @@ export default Vue.extend({
 						o.id = o._id;
 						return o;
 					});
+					self.loading = false;
                 })
                 .catch(err => alert(err));
         }

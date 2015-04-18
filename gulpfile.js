@@ -62,7 +62,18 @@ gulp.task('bower-copy-js', ['bower'], function() {
         .pipe(gulp.dest(path.join('build', 'lib')))
 });
 
-gulp.task('copy', ['bower-copy-js'], function() {
+gulp.task('bower-copy-assets', ['bower'], function() {
+    var deps = [
+		'loading/*.svg'
+    ];
+	return gulp.src(deps.map(function(dep) {
+		var a = path.join(paths.bower.src, dep);
+		return a;
+	}), {base: paths.bower.src})
+        .pipe(gulp.dest(path.join('build', 'assets')))
+});
+
+gulp.task('copy', ['bower-copy-js', 'bower-copy-assets'], function() {
 	return gulp.src([
 		path.join('src', '**/*'),
 		'!'+paths.styles.src+'**/*'

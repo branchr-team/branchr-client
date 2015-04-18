@@ -1,13 +1,15 @@
 <div class="measure">
-    <h1>Users</h1>
-    <ul>
-        <li v-repeat="users">
-            {{name}}
-            <button class="btn--red btn--s" v-on="click: removeUser(name)">x</button>
-        </li>
-    </ul>
-    <form v-on="submit: registerNewUser">
-        <input type="text" style="color: black;" v-model="newUsername">
-        <button class="btn--green" type="submit">Add</button>
-    </form>
+	<h1>Users</h1>
+	<loading-content v-with="loadState: loading">
+		<ul>
+			<li v-repeat="users">
+				{{name}}
+				<button class="btn--red btn--s" v-on="click: removeUser(name)">x</button>
+			</li>
+		</ul>
+		<form v-on="submit: registerNewUser">
+			<input type="text" style="color: black;" v-model="newUsername">
+			<button class="btn--green" type="submit">Add</button>
+		</form>
+	</loading-content>
 </div>
