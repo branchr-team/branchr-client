@@ -1,0 +1,15 @@
+.btn--red {
+  @extend %btn--base;
+
+  border-color: darken($red, 3%);
+  background-color: $red;
+  color: $white;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: darken($red, 10%);
+  }
+}
+

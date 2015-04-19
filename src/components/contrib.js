@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import APIService from 'services/api-service';
-import template from 'templates/contrib.html!';
+import template from 'templates/components/contrib.html!';
 
 Vue.component('b-contrib', {
     template: template,

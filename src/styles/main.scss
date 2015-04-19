@@ -1,11 +1,16 @@
 @import '../../bower_components/bourbon/app/assets/stylesheets/bourbon';
 @import '../../bower_components/furtive/scss/all';
 
+@import "colors";
+@import "base";
+
+@import "partials/animations";
+@import "partials/buttons";
+@import "partials/card";
+
 @import 'components/loading-spinner';
 @import 'components/loading-content';
 @import 'components/contrib';
-
-//@import url(http://fonts.googleapis.com/css?family=Viga);
 
 /* WARNING!
  * Putting anything other than truly global styles (like *) in this file is
@@ -13,139 +18,13 @@
  * http://thesassway.com/beginner/how-to-structure-a-sass-project
  */
 
-
-/********************
- * General
- ********************/
-
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
 
-* {
-  transition: opacity 0.33s ease;
-}
-
 [v-cloak] {
   visibility: hidden;
-}
-
-.fade-enter, .fade-leave {
-  opacity: 0;
-}
-
-body {
-  @extend .bg--dark-gray;
-  background-image: url("../assets/images/grit-bg@2x.png")
-;
-  color: $white;
-}
-
-.btn--red {
-  @extend %btn--base;
-
-  border-color: darken($red, 3%);
-  background-color: $red;
-  color: $white;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: $white;
-    background-color: darken($red, 10%);
-  }
-}
-
-input {
-  color: black;
-}
-
-.card {
-  
-  @extend .bg--white;
-  @extend .p1;
-  @extend .py1;
-  border-bottom: $subtle-gray solid 1px;
-}
-
-/********************
- * Header
- ********************/
-
-header {
-  @extend .bg--white;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  box-shadow: 0px 0 15px 0 rgba(0,0,0,0.4);
-}
-
-.logo {
-  padding-right: 1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: $dark-gray;
-}
-
-/* unvisited link */
-.logo a:link {
-  text-decoration: none;
-}
-
-/* visited link */
-.logo a:visited {
-  text-decoration: none;
-}
-
-/* mouse over link */
-.logo a:hover {
-  text-decoration: none;
-}
-
-/* selected link */
-.logo a:active {
-  text-decoration: none;
-}
-
-nav {
-  display: block;
-  padding: 0;
-  text-transform: capitalize;
-}
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline;
-  margin: 0;
-}
-
-/********************
- * Footer
- ********************/
-
-footer {
-  padding-top: 0.5rem;
-  border-top: solid $gray-mid-6 1px;
-  color: $light-gray;
-  text-transform: capitalize;
-  font-size: $font-size;
-}
-
-footer div {
-  display: inline;
-}
-
-footer a {
-  padding-left: 0.5rem;
-}
-
-li {
-	margin-left: 2em;
 }
 

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import APIService from 'services/api-service';
-import template from 'templates/home.html!';
+import template from 'templates/pages/home.html!';
 
 export default Vue.extend({
 	template: template,

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import APIService from 'services/api-service';
 import Router from 'director';
-import template from 'templates/register.html!';
+import template from 'templates/pages/register.html!';
 
 export default Vue.extend({
     template: template,

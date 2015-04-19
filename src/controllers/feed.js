@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import APIService from 'services/api-service';
 import * as PostFields from 'components/post-fields';
-import template from 'templates/feed.html!';
+import template from 'templates/pages/feed.html!';
 
 export default Vue.extend({
 	template: template,

@@ -1,0 +1,13 @@
+<loading-content v-with="loadState: loading">
+    <h1>{{feed.name}}</h1>
+    <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contribs">
+        <b-contrib class="bg--white" contrib-id="{{$value}}"></b-contrib>
+    </div>
+    <form class="measure" v-on="submit: createPost">
+        <div v-repeat="fields" v-component="{{component}}"></div>
+        <button class='btn--blue' type="submit">Post</button>
+    </form>
+    <h3>Feed</h3><pre>{{feed | json 4}}</pre>
+    <h3>Engine</h3><pre>{{engine | json 4}}</pre>
+    <h3>Fields</h3><pre>{{fields | json 4}}</pre>
+</loading-content>
