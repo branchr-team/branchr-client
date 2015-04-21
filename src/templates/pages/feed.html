@@ -2,6 +2,7 @@
     <h1>{{feed.name}}</h1>
     <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contribs">
         <b-contrib class="bg--white" contrib-id="{{$value}}"></b-contrib>
+        <button class="btn--red" v-on="click: deleteContrib($value)">Delete</button>
     </div>
     <form class="measure" v-on="submit: createPost">
         <div v-repeat="fields" v-component="{{component}}"></div>

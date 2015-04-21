@@ -21,7 +21,7 @@ export default Vue.extend({
 			APIService.feed.get(this.feedId)
                 .then(resp => {
                     this.feed = resp.data;
-                    APIService.contrib.getByFeed(this.feed._id).then(resp => {
+                    APIService.contrib.listByFeedId(this.feed._id).then(resp => {
                         console.log(resp.data);
                         this.contribs = resp.data.map(c => c._id);
 						this.loading = false;
@@ -53,7 +53,10 @@ export default Vue.extend({
                 params: params
             };
             APIService.contrib.create(contrib).then(this.updateFeed);
-		}
+		},
+        deleteContrib: function(contribId) {
+            APIService.contrib.delete(contribId).then(this.updateFeed);
+        }
 	},
 	watch: {
 		params: function(p) {

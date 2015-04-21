@@ -1,79 +1,55 @@
 import http from 'http';
 
-//const base = 'http://localhost:3000';
-const base = 'https://branchr.herokuapp.com';
+const base = 'http://localhost:3000';
+//const base = 'https://branchr.herokuapp.com';
+
+var engineCache = {};
 
 export default {
-    user: {
-        list: function() {
-            return http.get(
-                `${base}/user/`
-            );
-        },
-        get: function(name) {
-            return http.get(
-                `${base}/user/${name}`
-            );
-        },
-        register: function(user) {
-            return http.post(
-                `${base}/user`,
-                user
-            );
-        },
-        unregister: function(name) {
-            return http.delete(
-                `${base}/user/${name}`
-            );
-        }
-    },
     feed: {
-        list: function() {
-            return http.get(
-                `${base}/feed/`
-            );
-        },
         get: function(id) {
-            return http.get(
-                `${base}/feed/${id}`
-            );
+            return http.get(`${base}/feed/${id}`);
         },
-        new: function(feed) {
-            return http.post(
-                `${base}/feed`,
-                feed
-            );
+        create: function(feed) {
+            return http.post(`${base}/feed`, feed);
         },
-        update: function(id, o) {
-            return http.patch(
-                `${base}/feed/${id}`,
-				o
-            );
+        update: function(id, feed) {
+            return http.put(`${base}/feed/${id}`, feed);
+        },
+        list: function() {
+            return http.get(`${base}/feed/`);
         }
     },
     contrib: {
-        get: function(id) {
-            return http.get(
-                `${base}/contrib/${id}`
-            );
+        get(contribId) {
+            return http.get(`${base}/contrib/${contribId}`);
         },
-        getByFeed: function(feedId) {
-            return http.get(
-                `${base}/contrib?feedId=${feedId}`
-            );
+        create(contrib) {
+            return http.post(`${base}/contrib`, contrib);
         },
-        create: function(o) {
-            return http.post(
-                `${base}/contrib`,
-                o
-            );
+        delete(contribId) {
+            return http.delete(`${base}/contrib/${contribId}`);
+        },
+        listByFeedId(feedId) {
+            return http.get(`${base}/contrib/?feedId=${feedId}`);
         }
+
     },
     engine: {
-        get: function(id) {
-            return http.get(
-                `${base}/engine/${id}`
-            );
+        get: function(engineId) {
+            if (engineId in engineCache) {
+                // Cache hit
+                console.log('Cache hit!', engineId);
+                return Promise.resolve(engineCache[engineId]);
+            } else {
+                // Cache miss
+                console.log('Cache miss!', engineId);
+                return http.get(`${base}/engine/${engineId}`)
+                    .then(engine => {
+                        engineCache[engineId] = engine;
+                        return engine;
+                    });
+            }
         }
     }
 }
