@@ -3,14 +3,14 @@ The web client for Branchr.
 
 ## Installation
 
-`npm install`
-
 Ensure you have gulp and bower installed globally: 
-```npm install -g gulp```
-```npm install -g bower```
+```npm install -g gulp bower```
 
 Also ensure you have the [ruby sass compiler](http://sass-lang.com/install)
 installed (needed for gulp).
+
+Then:
+`npm install`
 
 ## Usage
 
