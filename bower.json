@@ -19,7 +19,6 @@
     "bourbon": "~4.2.2",
     "plugin-text": "https://github.com/systemjs/plugin-text.git#~0.0.2",
     "furtive": "~2.1.0",
-    "ace-builds": "~1.1.9",
     "loading": "*"
   }
 }
