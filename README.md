@@ -3,8 +3,8 @@ The web client for Branchr.
 
 ## Prerequisites
 
-This project requires [`node`](https://nodejs.org/) and
-[`ruby`](https://www.ruby-lang.org/en/) to be installed on the system.
+This project requires [node](https://nodejs.org/) and
+[ruby](https://www.ruby-lang.org/en/) to be installed on the system.
 
 Ensure you have gulp and bower installed globally:
 ```npm install -g gulp bower```
