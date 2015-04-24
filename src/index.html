@@ -14,28 +14,28 @@
                 'director': 'lib/director.min.js',
                 'http': 'lib/http.js'
             },
-			map: {
-				'html': 'lib/text'
-			}
+            map: {
+                'html': 'lib/text'
+            }
         });
         System.import('main');
     </script>
 </head>
-<body id="main">
+<body id="main" v-class="ctrlName">
     <header>
-        <div class="measure py1">
+        <div class="measure">
             <a class="logo flt--left" href="">Branchr</a>
             <nav v-cloak>
                 <ul class="flt--left">
-                    <li v-repeat="nav">
+                    <li v-repeat="nav" class="py1" v-class="name">
                         <a class='btn--link' v-attr="href: '#'+url">{{name}}</a>
                     </li>
                 </ul>
                 <ul class="flt--right">
-                    <li>
+                    <li class="py1">
                         <a href="#/description" class='btn--link small'>What is Branchr?</a>
                     </li>
-                    <li>
+                    <li class="py1">
                         <a href="#/" class='btn btn--s'>Login</a>
                     </li>
                 </ul>

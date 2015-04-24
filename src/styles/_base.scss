@@ -1,10 +1,26 @@
 /********************
+ * Fonts
+ ********************/
+
+@import url(http://fonts.googleapis.com/css?family=Viga&subset=latin,latin-ext);
+
+/********************
+ * Icon Packs
+ ********************/
+
+@import url(http://i.icomoon.io/public/temp/6e11deb35a/Branchr/style.css);
+
+/********************
  * General
  ********************/
 
+* {
+  font-family: Viga;
+}
+
 body {
   @extend .bg--dark-gray;
-  background-image: url("assets/images/grit-bg@2x.png");
+  //background-image: url("/assets/images/grit-bg@2x.png");
   color: $white;
 }
 
@@ -16,55 +32,90 @@ input {
  * Header
  ********************/
 
+$nav-colors: (
+    ('home', 'rgb(42,220,142)'),
+    ('users','rgb(253,209,8)'),
+    ('feeds','rgb(214,47,28)')
+);
+
 header {
   @extend .bg--white;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  box-shadow: 0px 0 15px 0 rgba(0,0,0,0.4);
-}
 
-.logo {
-  padding-right: 1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: $dark-gray;
-}
+  //-webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
+  //-moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0 15px 0 rgba(0, 0, 0, 0.4);
 
-/* unvisited link */
-.logo a:link {
-  text-decoration: none;
-}
+  .logo {
+    padding-right: 1rem;
+    font-size: larger;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $dark-gray;
+  }
 
-/* visited link */
-.logo a:visited {
-  text-decoration: none;
-}
+  nav {
+    display: block;
+    padding: 0;
+    text-transform: capitalize;
 
-/* mouse over link */
-.logo a:hover {
-  text-decoration: none;
-}
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
 
-/* selected link */
-.logo a:active {
-  text-decoration: none;
-}
+      li {
+        display: inline;
+        margin: 0;
 
-nav {
-  display: block;
-  padding: 0;
-  text-transform: capitalize;
-}
+        border: {
+          width: 5px 0px;
+          style: solid;
+          color: transparent;
+        }
 
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+        a {
+          color: inherit;
+        }
 
-nav ul li {
-  display: inline;
-  margin: 0;
+        @each $page in $nav-colors {
+          body.#{nth($page,1)} &.#{nth($page,1)} {
+            border-bottom-color: #{nth($page,2)};
+          }
+        }
+        body.page &.page {
+
+        }
+      }
+
+      &.flt--left li {
+        float: left;
+      }
+
+      &.flt--right li {
+        float: left;
+      }
+    }
+
+    /* unvisited link */
+    a:link {
+      text-decoration: none;
+    }
+
+    /* visited link */
+    a:visited {
+      text-decoration: none;
+    }
+
+    /* mouse over link */
+    a:hover {
+      text-decoration: none;
+    }
+
+    /* selected link */
+    a:active {
+      text-decoration: none;
+    }
+  }
 }
 
 /********************
@@ -72,21 +123,22 @@ nav ul li {
  ********************/
 
 footer {
+
   padding-top: 0.5rem;
   border-top: solid $gray-mid-6 1px;
   color: $light-gray;
   text-transform: capitalize;
   font-size: $font-size;
-}
 
-footer div {
-  display: inline;
-}
+  div {
+    display: inline;
+  }
 
-footer a {
-  padding-left: 0.5rem;
-}
+  a {
+    padding-left: 0.5rem;
+  }
 
-li {
-  margin-left: 2em;
+  li {
+    margin-left: 2em;
+  }
 }
