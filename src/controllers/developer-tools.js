@@ -5,7 +5,7 @@ import CodeMirror from 'lib/CodeMirror/lib/codemirror';
 import 'lib/CodeMirror/mode/javascript/javascript';
 import 'lib/CodeMirror/keymap/sublime';
 
-import 'lib/CodeMirror/theme/monokai.css!';
+import 'lib/CodeMirror/theme/default.css!';
 import 'lib/CodeMirror/lib/codemirror.css!';
 
 export default Vue.extend({
@@ -27,7 +27,7 @@ export default Vue.extend({
           {
               value: "function myScript(){\n\treturn 100;\n}",
               lineNumbers: true,
-              theme: "monokai",
+              theme: "default",
               mode: "javascript"
           }
         );

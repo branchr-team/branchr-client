@@ -3,17 +3,16 @@ import APIService from 'services/api-service';
 import template from 'templates/pages/home.html!';
 
 export default Vue.extend({
-	template: template,
+    template: template,
     data: function() { return {
         foo: 'bar',
-		loading: true
+        loading: true
     }},
     created: function() {
         console.log("Home created");
-		let self = this;
-		setTimeout(() => {
-			self.loading = false;
-		}, 5000);
+        setTimeout(() => {
+            this.loading = false;
+        }, 2000);
     },
     destroyed: function() {
         console.log("Home destroyed");
