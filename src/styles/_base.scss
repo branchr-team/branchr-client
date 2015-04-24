@@ -15,13 +15,8 @@
  * General
  ********************/
 
-* {
-  font-family: Viga;
-}
-
 body {
   @extend .bg--dark-gray;
-  //background-image: url("/assets/images/grit-bg@2x.png");
   color: $white;
 }
 
@@ -42,9 +37,9 @@ $nav-colors: (
 header {
   @extend .bg--white;
 
-  //-webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
-  //-moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0 15px 0 rgba(0, 0, 0, 0.4);
+
+  position: relative;
 
   .logo {
     padding-right: 1rem;
@@ -52,6 +47,7 @@ header {
     text-decoration: none;
     text-transform: uppercase;
     color: $dark-gray;
+    font-family: Viga;
   }
 
   nav {
@@ -119,12 +115,25 @@ header {
   }
 }
 
+/*************************
+ * Options design pattern
+ *************************/
+
+#options {
+  @extend .bg--light-gray;
+  @extend .small;
+  @extend .py1;
+
+  margin-bottom: 0.5rem;
+}
+
 /********************
  * Footer
  ********************/
 
 footer {
 
+  margin-top: 0.5rem !important;
   padding-top: 0.5rem;
   border-top: solid $gray-mid-6 1px;
   color: $light-gray;
@@ -144,11 +153,10 @@ footer {
   }
 }
 
-
 /********************
  * Editor
  ********************/
 
 #codemirror {
-  font-family: 'Source Code Pro' ;
+  //font-family: 'Source Code Pro' ;
 }
