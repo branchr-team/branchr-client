@@ -47,11 +47,20 @@ gulp.task('bower', function() {
 
 
 gulp.task('bower-copy-js', ['bower'], function() {
+    var depsFolders = [
+        'CodeMirror/**/*'
+    ];
+    gulp.src(depsFolders.map(function(dep) {
+        return path.join(paths.bower.src, dep);
+    }),{base: 'bower_components'})
+      .pipe(gulp.dest(path.join('build', 'lib')));
+
     var deps = [
         'es6-module-loader/dist/es6-module-loader.js*',
         'traceur/traceur.min*',
         'system.js/dist/system.js*',
         'plugin-text/text.js',
+        'plugin-css/css.js',
         'vue/dist/vue.min*',
         'director/build/director.min.js'
     ];
@@ -59,7 +68,7 @@ gulp.task('bower-copy-js', ['bower'], function() {
         var a = path.join(paths.bower.src, dep);
         return a;
     }))
-        .pipe(gulp.dest(path.join('build', 'lib')))
+        .pipe(gulp.dest(path.join('build', 'lib')));
 });
 
 gulp.task('copy', ['bower-copy-js'], function() {
