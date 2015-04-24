@@ -2,13 +2,14 @@ import Vue from 'vue';
 import APIService from 'services/api-service';
 import * as PostFields from 'components/post-fields';
 import template from 'templates/pages/feed.html!';
+import {stateParams} from 'lib/router';
 
 export default Vue.extend({
 	template: template,
-	data: function() {
+	data() {
 		return {
+            stateParams: null,
 			loading: true,
-            params: null,
             feedId: null,
 			feed: null,
             engine: null,
@@ -17,12 +18,11 @@ export default Vue.extend({
 		}
 	},
 	methods: {
-		updateFeed: function() {
+		updateFeed() {
 			APIService.feed.get(this.feedId)
                 .then(resp => {
                     this.feed = resp.data;
                     APIService.contrib.listByFeedId(this.feed._id).then(resp => {
-                        console.log(resp.data);
                         this.contribs = resp.data.map(c => c._id);
 						this.loading = false;
                     });
@@ -41,7 +41,7 @@ export default Vue.extend({
                     });
                 });
 		},
-		createPost: function(e) {
+		createPost(e) {
 			e.preventDefault();
             let params = {};
             this.fields.forEach(f => {
@@ -58,10 +58,10 @@ export default Vue.extend({
             APIService.contrib.delete(contribId).then(this.updateFeed);
         }
 	},
-	watch: {
-		params: function(p) {
-            this.feedId = p[0];
-			this.updateFeed();
-		}
-	}
+    watch: {
+        stateParams(stateParams) {
+            this.feedId = stateParams[0];
+            this.updateFeed();
+        }
+    }
 });

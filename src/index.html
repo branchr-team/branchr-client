@@ -36,13 +36,15 @@
                         <a href="#/description" class='btn--link small'>What is Branchr?</a>
                     </li>
                     <li>
-                        <a href="#/" class='btn btn--s'>Login</a>
+                        <a class='btn btn--s' v-if="!username" v-on="click: openLoginDialog">Login</a>
+                        <a class='btn btn--s' v-if="username">{{username}}</a>
                     </li>
                 </ul>
                 <div style="clear: both"></div>
             </nav>
         </div>
     </header>
+    <login-dialog v-ref="loginDialog"></login-dialog>
     <main
 		v-cloak
 		v-component="{{ctrlName}}"

@@ -15,16 +15,19 @@ export function page(url, name, componentUrl, nav = false) {
 	if (nav) navPages.push(o);
 }
 
+export var stateParams;
+
 export var router;
 export function init(vm, base) {
 	var routes = {};
-	pages.forEach((c) => routes[c.url] = function(...params) {
+	pages.forEach((c) => routes[c.url] = (...params) => {
+        this.stateParams = params;
 		c.loadComponent().then(comp => {
 			Vue.component(c.name, comp.default);
 			vm.ctrlName = c.name;
-			setTimeout(function() {
+			setTimeout(() => {
 				// @TODO Find a better way to do this
-				vm.$.ctrl.params = params;
+				vm.$.ctrl.stateParams = params;
 			}, 0);
 		});
 	});

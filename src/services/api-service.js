@@ -1,22 +1,22 @@
 import http from 'http';
 
-//const base = 'http://localhost:3000';
-const base = 'https://branchr.herokuapp.com';
+const base = 'http://localhost:3000';
+//const base = 'https://branchr.herokuapp.com';
 
 var engineCache = {};
 
 export default {
     feed: {
-        get: function(id) {
+        get(id) {
             return http.get(`${base}/feed/${id}`);
         },
-        create: function(feed) {
+        create(feed) {
             return http.post(`${base}/feed`, feed);
         },
-        update: function(id, feed) {
+        update(id, feed) {
             return http.put(`${base}/feed/${id}`, feed);
         },
-        list: function() {
+        list() {
             return http.get(`${base}/feed/`);
         }
     },
@@ -36,7 +36,7 @@ export default {
 
     },
     engine: {
-        get: function(engineId) {
+        get(engineId) {
             if (engineId in engineCache) {
                 // Cache hit
                 console.log('Cache hit!', engineId);
@@ -50,6 +50,9 @@ export default {
                         return engine;
                     });
             }
+        },
+        create(engine) {
+            return http.post(`${base}/engine`, engine);
         }
     }
 }
