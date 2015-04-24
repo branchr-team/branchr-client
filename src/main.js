@@ -9,6 +9,7 @@ import 'components/contrib';
 router.page('/', 'home', 'controllers/home', true);
 router.page('/users', 'users', 'controllers/users', true);
 router.page('/feeds', 'feeds', 'controllers/feeds', true);
+router.page('/develop', 'develop', 'controllers/developer-tools', true);
 router.page('/feed/:id', 'feed', 'controllers/feed');
 router.page('/description', 'description','controllers/description');
 

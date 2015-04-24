@@ -12,11 +12,17 @@ export default Vue.extend({
     template: template,
     data: function() {
         return {
+            loading: true
         }
     },
     methods: {
     },
+    created: function() {
+        console.log("Develop created");
+    },
     attached: function() {
+        console.log("Develop attached");
+        this.loading = false;
         CodeMirror(document.getElementById("codemirror"),
           {
               value: "function myScript(){\n\treturn 100;\n}",
