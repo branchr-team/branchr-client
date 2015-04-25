@@ -1,3 +1,7 @@
+button:focus {
+  outline: 0;
+}
+
 .btn--red {
   @extend %btn--base;
 
@@ -12,4 +16,3 @@
     background-color: darken($red, 10%);
   }
 }
-

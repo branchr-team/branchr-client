@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import APIService from 'services/api-service';
+import APIService from 'services/api';
 import * as PostFields from 'components/post-fields';
 import template from 'templates/pages/feed.html!';
 import {stateParams} from 'lib/router';

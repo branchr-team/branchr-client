@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import * as router from 'lib/router';
+import * as AuthService from 'services/auth';
 
 import 'components/loading-spinner';
 import 'components/loading-content';
@@ -14,20 +15,25 @@ router.page('/feeds', 'feeds', 'controllers/feeds', true);
 router.page('/feed/:id', 'feed', 'controllers/feed');
 router.page('/description', 'description','controllers/description');
 
-var vm = new Vue({
+export var vm = new Vue({
     el: '#main',
     data: {
         ctrlName: '',
         nav: router.navPages,
-        username: null
+        user: AuthService.user
     },
     methods: {
-        openLoginDialog: function() {
-            this.$.loginDialog.open().then(username => this.username = username);
+        openLoginDialog() {
+            this.$.loginDialog.open().then(() => {
+                this.user = AuthService.user;
+            })
+        },
+        logout() {
+            AuthService.logout().then(() => {
+                this.user = AuthService.user;
+            });
         }
     }
 });
-
-window.vm = vm;
 
 router.init(vm, '/');

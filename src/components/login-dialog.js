@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import APIService from 'services/api-service';
+import * as AuthService from 'services/auth';
 import template from 'templates/components/login-dialog.html!';
 
 Vue.component('login-dialog', {
@@ -19,13 +19,15 @@ Vue.component('login-dialog', {
         },
         close() {
             this.show = false;
-            this.openPromiseResolve(this.username);
+            this.openPromiseResolve();
             this.username = null;
             this.password = null;
         },
         submit(e) {
             e.preventDefault();
-            console.log(`AUTH REQUEST HERE FOR ${this.username}`);
+            AuthService.login(this.username, this.password)
+                .then(user => this.close())
+                .catch(err => console.error(err));
         }
     }
 });

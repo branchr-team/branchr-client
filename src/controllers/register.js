@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import APIService from 'services/api-service';
+import APIService from 'services/api';
 import Router from 'director';
 import template from 'templates/pages/register.html!';
 

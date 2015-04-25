@@ -1,7 +1,24 @@
-import http from 'http';
+import {HTTP} from 'http';
+import {vm} from 'main';
 
-const base = 'http://localhost:3000';
-//const base = 'https://branchr.herokuapp.com';
+//const base = 'http://localhost:3000';
+const base = 'https://branchr.herokuapp.com';
+
+var http = new HTTP([
+    function(resp, next, retry) {
+        switch (resp.status) {
+            case 401:
+                if (resp.retryCount <= 3)
+                    vm.$.loginDialog.open().then(() => {
+                        alert(`${resp.retryCount} Retrying!`);
+                        retry();
+                    });
+                else return;
+                break;
+        }
+        next();
+    }
+]);
 
 var engineCache = {};
 

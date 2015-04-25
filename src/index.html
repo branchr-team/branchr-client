@@ -36,8 +36,16 @@
                         <a href="#/description" class='btn--link small'>What is Branchr?</a>
                     </li>
                     <li>
-                        <a class='btn btn--s' v-if="!username" v-on="click: openLoginDialog">Login</a>
-                        <a class='btn btn--s' v-if="username">{{username}}</a>
+                        <button class="btn btn--s"
+                                v-if="!user"
+                                v-on="click: openLoginDialog">
+                            Login
+                        </button>
+                        <button class="btn btn--s btn--green"
+                                v-if="user"
+                                v-on="click: logout">
+                            {{user.username}}
+                        </button>
                     </li>
                 </ul>
                 <div style="clear: both"></div>
