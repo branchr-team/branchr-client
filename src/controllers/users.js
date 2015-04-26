@@ -8,7 +8,8 @@ export default Vue.extend({
         return {
 			loading: true,
             users: [],
-            newUsername: ''
+            newUsername: '',
+            userId: ''
         }
     },
     created: function() {
@@ -31,6 +32,7 @@ export default Vue.extend({
             APIService.user.register({username: this.newUsername})
                 .then(res => {
                     this.updateUsers();
+                    userId = this.newUserName._id;
                     this.newUsername = '';
                 })
                 .catch(err => {
@@ -39,7 +41,8 @@ export default Vue.extend({
         },
         removeUser: function(username) {
             console.log(`Removing user ${username}`);
-            APIService.user.unregister(username)
+            let userId = this.user_id
+            APIService.user.unregister(userId)
                 .then(res => {
                     this.updateUsers();
                 })

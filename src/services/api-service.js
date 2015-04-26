@@ -1,7 +1,7 @@
 import http from 'http';
 
-//const base = 'http://localhost:3000';
-const base = 'https://branchr.herokuapp.com';
+const base = 'http://localhost:3000';
+//const base = 'https://branchr.herokuapp.com';
 
 var engineCache = {};
 
@@ -51,5 +51,21 @@ export default {
                     });
             }
         }
+    },
+    user: {
+        get(username) {
+            return http.get(`${base}/user/${username}`);
+        },
+        register(username) {
+            return http.post(`${base}/user`, username);
+        },
+        unregister(username) {
+            alert(username);
+            return http.delete(`${base}/user/${username}`);
+        },
+        list: function() {
+            return http.get(`${base}/user/`);
+        }
+
     }
 }
