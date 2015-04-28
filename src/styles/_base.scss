@@ -67,6 +67,7 @@ header {
     text-decoration: none;
     text-transform: uppercase;
     color: $dark-gray;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   }
 
   nav {
@@ -78,8 +79,9 @@ header {
       
       &#navigation {
         text-transform: uppercase;
-        font-size: $font-size-m;
+        font-size: $font-size;
         font-weight: bold;
+        padding-top: 4px;
       }
 
       &#navigation li {
@@ -155,6 +157,33 @@ header {
   @extend .small;
   @extend .py1;
   margin-bottom: 0.5rem;
+}
+
+#options .measure a {
+  @extend .small;
+  //padding: 7px 10px;
+  background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  border-radius: 0;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#options .measure a:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+#options .measure a:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 /********************
