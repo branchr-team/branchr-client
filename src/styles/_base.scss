@@ -1,9 +1,20 @@
+/***************
+ * Custom variables
+ ***************/
+
+$subtle-gray: rgba(#D0D6DC, $alpha-value);
+
+.pHalf  { padding: $padding; }
+.pxHalf { padding-left: $padding / 2; padding-right: $padding / 2; }
+.pyHalf { padding-top: $padding / 2; padding-bottom: $padding / 2; }
+
 /********************
  * Fonts
  ********************/
 
 //@import url(http://fonts.googleapis.com/css?family=Viga&subset=latin,latin-ext);
 @import url(http://fonts.googleapis.com/css?family=Viga|Source+Code+Pro:200,300,400,500,600,700,900&subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Muli);
 
 /********************
  * Icon Packs
@@ -28,10 +39,16 @@ input {
  * Header
  ********************/
 
+//$nav-colors: (
+//    ('home', 'rgb(42,220,142)'),
+//    ('users','rgb(253,209,8)'),
+//    ('feeds','rgb(214,47,28)')
+//);
+
 $nav-colors: (
-    ('home', 'rgb(42,220,142)'),
-    ('users','rgb(253,209,8)'),
-    ('feeds','rgb(214,47,28)')
+                ('explore', 'rgb(42,220,142)'),
+                ('contribute','rgb(255, 199, 0)'),
+                ('develop','rgb(239, 0, 194)')
 );
 
 header {
@@ -41,10 +58,12 @@ header {
 
   position: relative;
 
+  padding-top: 4px;
+
   .logo {
+    font-size: 1.5rem;
     font-family: "Viga";
     padding-right: 1rem;
-    font-size: larger;
     text-decoration: none;
     text-transform: uppercase;
     color: $dark-gray;
@@ -57,10 +76,28 @@ header {
 
     ul {
       
-      &#menu {
-        font-family: "Viga";
+      &#navigation {
+        text-transform: uppercase;
+        font-size: $font-size-m;
+        font-weight: bold;
       }
-      
+
+      &#navigation li {
+
+        border-bottom: {
+          width: 6px;
+          style: solid;
+          color: transparent;
+        }
+
+        @each $page in $nav-colors {
+          body.#{nth($page,1)} &.#{nth($page,1)} {
+            border-bottom-color: #{nth($page,2)};
+          }
+        }
+
+      }
+
       list-style-type: none;
       margin: 0;
       padding: 0;
@@ -69,21 +106,10 @@ header {
         display: inline;
         margin: 0;
 
-        border: {
-          width: 5px 0px;
-          style: solid;
-          color: transparent;
-        }
-
         a {
           color: inherit;
         }
 
-        @each $page in $nav-colors {
-          body.#{nth($page,1)} &.#{nth($page,1)} {
-            border-bottom-color: #{nth($page,2)};
-          }
-        }
         body.page &.page {
 
         }
@@ -120,15 +146,14 @@ header {
   }
 }
 
-/*************************
- * Options design pattern
- *************************/
+/********************
+ * Options pattern
+ ********************/
 
 #options {
-  @extend .bg--light-gray;
+  @extend .bg--white;
   @extend .small;
   @extend .py1;
-
   margin-bottom: 0.5rem;
 }
 

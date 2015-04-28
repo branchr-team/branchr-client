@@ -25,18 +25,18 @@
 <body id="main" v-class="ctrlName">
 <header>
     <div class="measure">
-        <a class="logo flt--left" href="">Branchr</a>
+        <a class="logo flt--left" href="#/feeds">Branchr</a>
         <nav v-cloak>
-            <ul class="flt--left">
-                <li v-repeat="nav" class="py1" v-class="name">
+            <ul class="flt--left" id="navigation">
+                <li v-repeat="nav" class="pyHalf" v-class="name">
                     <a class='btn--link' v-attr="href: '#'+url">{{name}}</a>
                 </li>
             </ul>
-            <ul class="flt--right">
-                <li class="py1">
+            <ul class="flt--right" id="menu">
+                <li class="pyHalf">
                     <a href="#/description" class='btn--link small'>What is Branchr?</a>
                 </li>
-                <li class="py1">
+                <li class="pyHalf">
                     <a href="#/" class='btn btn--s'>Login</a>
                 </li>
             </ul>
