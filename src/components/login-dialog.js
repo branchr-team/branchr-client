@@ -27,7 +27,10 @@ Vue.component('login-dialog', {
             e.preventDefault();
             AuthService.login(this.username, this.password)
                 .then(user => this.close())
-                .catch(err => console.error(err));
+                .catch(err => {
+                    alert('Nope!');
+                    console.error(err)
+                });
         }
     }
 });

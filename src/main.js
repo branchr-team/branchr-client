@@ -2,12 +2,7 @@ import Vue from 'vue';
 import * as router from 'lib/router';
 import * as AuthService from 'services/auth';
 
-import 'components/loading-spinner';
-import 'components/loading-content';
 import 'components/login-dialog';
-import 'components/post-fields';
-import 'components/engine-form-builder';
-import 'components/contrib';
 
 router.page('/', 'home', 'controllers/home', true);
 //router.page('/users', 'users', 'controllers/users', true);
@@ -24,15 +19,14 @@ export var vm = new Vue({
         user: AuthService.user
     },
     methods: {
+        updateUser() {
+            this.user = AuthService.user;
+        },
         openLoginDialog() {
-            this.$.loginDialog.open().then(() => {
-                this.user = AuthService.user;
-            })
+            return this.$.loginDialog.open().then(this.updateUser);
         },
         logout() {
-            AuthService.logout().then(() => {
-                this.user = AuthService.user;
-            });
+            return AuthService.logout().then(this.updateUser);
         }
     }
 });

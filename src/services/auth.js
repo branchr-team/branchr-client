@@ -1,40 +1,37 @@
 import APIService from 'services/api';
+import {setAuthHeaders} from 'services/api';
 
 var storage = window.localStorage;
 
-export var user = null;
-export var token = null;
+export var user;
+export var token;
 
 try {
     user = JSON.parse(storage.getItem('user'));
-} catch (e) {
-    console.log("No valid user found in sessionStorage.");
-}
-
-try {
     token = JSON.parse(storage.getItem('token'));
+    setAuthHeaders(user.username, token);
 } catch (e) {
-    console.log("No valid token found in sessionStorage.");
+    console.log("No valid user/token found in sessionStorage.");
 }
 
 export function login(username, password) {
-    return new Promise((resolve, reject) => {
-        console.log(`AUTH REQUEST HERE FOR ${username}`);
-        let u = {username: username};
-        storage.setItem('user', JSON.stringify(u));
-        storage.setItem('token', 'foo');
-        user = u;
-        resolve(user);
-    })
+    return APIService.login(username, password)
+        .then(resp => {
+            let user = resp.data.user;
+            storage.setItem('user', JSON.stringify(user));
+            this.user = user;
+            storage.setItem('token', JSON.stringify(resp.data.token));
+            this.token = resp.data.token;
+            return user;
+        });
 }
 
 export function logout() {
-    return new Promise((resolve, reject) => {
-        console.log(`AUTH LOGOUT REQUEST HERE FOR ${user.username}`);
-        storage.removeItem('user');
-        user = null;
-        storage.removeItem('token');
-        token = null;
-        resolve();
-    })
+    if (!user) return Promise.resolve();
+    let username = user.username;
+    storage.removeItem('user');
+    this.user = null;
+    storage.removeItem('token');
+    this.token = null;
+    return APIService.logout(username);
 }

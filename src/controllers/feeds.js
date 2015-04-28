@@ -2,11 +2,13 @@ import Vue from 'vue';
 import APIService from 'services/api';
 import template from 'templates/pages/feeds.html!';
 
+import 'components/loading-content';
+
 export default Vue.extend({
 	template: template,
     data: function() {
         return {
-			loading: true,
+			loadState: false,
             feeds: []
         }
     },
@@ -16,14 +18,13 @@ export default Vue.extend({
     },
     methods: {
         updateFeeds: function() {
-            let self = this;
             APIService.feed.list()
                 .then(res => {
-					self.feeds = res.data.map((o) => {
+					this.feeds = res.data.map((o) => {
 						o.id = o._id;
 						return o;
 					});
-					self.loading = false;
+					this.loadState = true;
                 })
                 .catch(err => alert(err));
         }

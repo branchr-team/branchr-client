@@ -36,8 +36,12 @@ class HTTPResponse {
 }
 
 export class HTTP {
-    constructor(interceptors = []) {
+    constructor(
+        interceptors = [],
+        headers = {}
+    ) {
         this.interceptors = interceptors;
+        this.headers = headers;
     }
 
     request(method, url, data) {
@@ -46,6 +50,8 @@ export class HTTP {
             let retryCount = 0;
             function makeRequest() {
                 let req = createXHR(method, url);
+                for (let key in self.headers)
+                    req.setRequestHeader(key, self.headers[key]);
                 req.addEventListener('load', function() {
                     let resp = new HTTPResponse(this, retryCount);
                     let i = 0;
@@ -106,6 +112,9 @@ export class HTTP {
 
     addInterceptor(interceptor) {
         this.interceptors.push(interceptor);
+    }
+    setHeader(key, value) {
+        this.headers[key] = value;
     }
 }
 

@@ -1,39 +1,50 @@
 import Vue from 'vue';
 import APIService from 'services/api';
 import template from 'templates/pages/developer-tools.html!';
-import CodeMirror from 'lib/CodeMirror/lib/codemirror';
-import 'lib/CodeMirror/mode/javascript/javascript';
-import 'lib/CodeMirror/keymap/sublime';
-import 'lib/CodeMirror/keymap/vim';
+import {user} from 'services/auth';
 
-import 'lib/CodeMirror/theme/monokai.css!';
-import 'lib/CodeMirror/lib/codemirror.css!';
-
-var editor;
+import 'components/loading-content';
+import 'components/code-editor';
+import 'components/engine-form-builder';
 
 export default Vue.extend({
     template: template,
     data() {return {
         stateParams: null,
-        keyMap: false
+        loadState: false,
+        feed: null,
+        fields: null,
+        js: '',
+        html: '',
+        css: ''
     }},
     methods: {
-    },
-    ready() {
-        editor = CodeMirror(document.getElementById("codemirror"), {
-            lineNumbers: true,
-            theme: "monokai",
-            mode: "javascript"
-        });
+        save() {
+            APIService.engine.create({
+                js: this.js,
+                html: this.html,
+                css: this.css,
+                fields: this.fields
+            }).then(resp => {
+                this.feed.engineId = resp.data._id;
+                return APIService.feed.update(this.feed._id, this.feed);
+            });
+        }
     },
     watch: {
         stateParams(stateParams) {
-            APIService.engine.get(stateParams[0]).then(resp => {
-                editor.setOption('value', resp.data.js);
-            });
-        },
-        keyMap(keyMap) {
-            editor.setOption('keyMap', keyMap);
+            APIService.feed.get(stateParams[0])
+                .then(resp => {
+                    this.feed = resp.data;
+                    return APIService.engine.get(resp.data.engineId);
+                })
+                .then(resp => {
+                    this.fields = resp.data.fields;
+                    this.js = resp.data.js;
+                    this.html = resp.data.html;
+                    this.css = resp.data.css;
+                    this.loadState = true;
+                });
         }
     }
 });

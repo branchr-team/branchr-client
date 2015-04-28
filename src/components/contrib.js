@@ -6,13 +6,12 @@ Vue.component('b-contrib', {
     template: template,
     paramAttributes: ['contrib-id'],
     data: function() { return {
-		loading: true,
+		loadState: false,
         srcdoc: '',
         contrib: null,
         engine: null
     }},
     attached: function() {
-		let self = this;
         APIService.contrib.get(this.contribId)
             .then(resp => {
                 this.contrib = resp.data;
@@ -31,9 +30,9 @@ Vue.component('b-contrib', {
                     <body>${this.engine.html}</body>
                     </html>`;
                 var iframe = this.$el.getElementsByTagName('iframe')[0];
-                setTimeout(function() {
+                setTimeout(() => {
                     iframe.style.height = iframe.contentWindow.document.body.offsetHeight+'px';
-					self.loading = false;
+					this.loadState = true;
                 }, 1000);
             });
         if (!window.els) window.els = [];

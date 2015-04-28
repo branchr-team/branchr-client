@@ -4,25 +4,43 @@ import {vm} from 'main';
 //const base = 'http://localhost:3000';
 const base = 'https://branchr.herokuapp.com';
 
+var httpNoAuth = new HTTP();
+
 var http = new HTTP([
     function(resp, next, retry) {
-        switch (resp.status) {
-            case 401:
-                if (resp.retryCount <= 3)
-                    vm.$.loginDialog.open().then(() => {
-                        alert(`${resp.retryCount} Retrying!`);
-                        retry();
-                    });
-                else return;
-                break;
-        }
-        next();
+        if (resp.status === 401 && resp.retryCount <= 3)
+            vm.openLoginDialog().then(() => {
+                alert(`${resp.retryCount} Retrying!`);
+                retry();
+            });
+        else next();
     }
 ]);
+
+export function setAuthHeaders(username, token) {
+    http.setHeader('X-Username', username);
+    http.setHeader('X-Token', token);
+}
 
 var engineCache = {};
 
 export default {
+    login(username, password) {
+        return httpNoAuth.post(`${base}/login`, {username: username, password: password})
+            .then(resp => {
+                console.log('Got token: ', resp.data.token);
+                setAuthHeaders(username, resp.data.token);
+                return resp;
+            });
+    },
+    logout(username) {
+        return http.post(`${base}/logout`, {username: username})
+            .then(resp => {
+                http.setHeader('X-Username', null);
+                http.setHeader('X-Token', null);
+                return resp;
+            });
+    },
     feed: {
         get(id) {
             return http.get(`${base}/feed/${id}`);

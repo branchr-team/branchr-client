@@ -1,7 +1,20 @@
-<select v-model="keyMap">
-    <option value="">Normal</option>
-    <option value="sublime">Sublime Text</option>
-    <option value="vim">Vim</option>
-</select>
-<div id="codemirror">
-</div>
+<!-- This block should move to user editing screen -->
+<!--<select v-model="keyMap">-->
+    <!--<option value="">Normal</option>-->
+    <!--<option value="sublime">Sublime Text</option>-->
+    <!--<option value="vim">Vim</option>-->
+<!--</select>-->
+<loading-content v-with="loadState: loadState">
+    <br>
+    <pre>{{feed | json 4}}</pre>
+    <br>
+    <pre>{{fields | json 4}}</pre>
+    <br>
+    <code-editor v-with="value: js" lang-type="js"></code-editor>
+    <br>
+    <code-editor v-with="value: html" lang-type="html"></code-editor>
+    <br>
+    <code-editor v-with="value: css" lang-type="css"></code-editor>
+    <br>
+    <button class="btn btn--blue" v-on="click: save">Save</button>
+</loading-content>

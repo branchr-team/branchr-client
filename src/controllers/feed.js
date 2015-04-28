@@ -4,12 +4,16 @@ import * as PostFields from 'components/post-fields';
 import template from 'templates/pages/feed.html!';
 import {stateParams} from 'lib/router';
 
+import 'components/loading-content';
+import 'components/contrib';
+import 'components/post-fields';
+
 export default Vue.extend({
 	template: template,
 	data() {
 		return {
             stateParams: null,
-			loading: true,
+			loadState: false,
             feedId: null,
 			feed: null,
             engine: null,
@@ -24,7 +28,7 @@ export default Vue.extend({
                     this.feed = resp.data;
                     APIService.contrib.listByFeedId(this.feed._id).then(resp => {
                         this.contribs = resp.data.map(c => c._id);
-						this.loading = false;
+                        this.loadState = true;
                     });
                     return APIService.engine.get(resp.data.engineId);
                 })

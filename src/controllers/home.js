@@ -2,17 +2,18 @@ import Vue from 'vue';
 import APIService from 'services/api';
 import template from 'templates/pages/home.html!';
 
+import 'components/loading-content';
+
 export default Vue.extend({
 	template: template,
     data: function() { return {
-        foo: 'bar',
-		loading: true
+        loadState: false,
+        foo: 'bar'
     }},
     created: function() {
         console.log("Home created");
-		let self = this;
 		setTimeout(() => {
-			self.loading = false;
+			this.loadState = true;
 		}, 5000);
     },
     destroyed: function() {
