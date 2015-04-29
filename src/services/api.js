@@ -41,6 +41,14 @@ export default {
                 return resp;
             });
     },
+    register(username, password,fname,lname) {
+        return httpNoAuth.post(`${base}/register`, {username: username, password: password, fname: fname, lname: lname})
+            .then(resp => {
+                console.log('Got token: ', resp.data.token);
+                setAuthHeaders(username, resp.data.token);
+                return resp;
+            });
+    },
     feed: {
         get(id) {
             return http.get(`${base}/feed/${id}`);

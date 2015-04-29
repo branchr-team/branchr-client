@@ -3,6 +3,7 @@ import * as router from 'lib/router';
 import * as AuthService from 'services/auth';
 
 import 'components/login-dialog';
+import 'components/register-dialog';
 
 router.page('/', 'home', 'controllers/home', true);
 //router.page('/users', 'users', 'controllers/users', true);
@@ -24,6 +25,9 @@ export var vm = new Vue({
         },
         openLoginDialog() {
             return this.$.loginDialog.open().then(this.updateUser);
+        },
+        openRegisterDialog() {
+            return this.$.registerDialog.open().then(this.updateUser);
         },
         logout() {
             return AuthService.logout().then(this.updateUser);

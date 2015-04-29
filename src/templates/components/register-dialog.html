@@ -1,0 +1,19 @@
+<div class="register-overlay"v-show="show" v-transition="fade" v-on="click: close()"></div>
+<div class="register-dialog" v-show="show" v-transition="fade">
+    <button class="btn--red btn--s flt--right" v-on="click: close()">X</button>
+    <div class="clearfix"></div>
+    <form v-on="submit: submit">
+        <label for="username">Username</label>
+        <input name="username" type="text" v-model="username">
+        <label for="password">Password</label>
+        <input name="password" type="password" v-model="password">
+        <label for="fname">First Name</label>
+        <input name="fname" type="text" v-model="fname">
+        <label for="lname">Last Name</label>
+        <input name="lname" type="text" v-model="lname">
+        <input type="submit" class="btn--blue" value="Register">
+
+
+
+    </form>
+</div>

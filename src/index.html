@@ -47,6 +47,16 @@
                                 v-on="click: logout">
                             {{user.username}}
                         </button>
+                        <button class="btn btn--s"
+                                v-if="!user"
+                                v-on="click: openRegisterDialog">
+                            Register
+                        </button>
+                        <button class="btn btn--s btn--green"
+                                v-if="user"
+                                v-on="click: logout">
+                            {{user.username}}
+                        </button>
                     </li>
                 </ul>
                 <div style="clear: both"></div>
@@ -61,8 +71,11 @@
         class="measure"
 		>
 	</main>
+    <register-dialog v-ref="registerDialog"></register-dialog>
+
+
     <footer class="measure">
-        <div id="copyright"></div>
+          <footer opyright"></div>
         <a>about</a>
         <a>contact</a>
         <a>help</a>

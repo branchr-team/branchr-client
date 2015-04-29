@@ -26,6 +26,18 @@ export function login(username, password) {
         });
 }
 
+export function register(username, password,fname,lname) {
+    return APIService.login(username, password,fname,lname)
+        .then(resp => {
+            let user = resp.data.user;
+            storage.setItem('user', JSON.stringify(user));
+            this.user = user;
+            storage.setItem('token', JSON.stringify(resp.data.token));
+            this.token = resp.data.token;
+            return user;
+        });
+}
+
 export function logout() {
     if (!user) return Promise.resolve();
     let username = user.username;
