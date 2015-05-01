@@ -9,11 +9,13 @@ import 'lib/CodeMirror/theme/monokai.css!';
 var modes = [
     'javascript',
     'htmlmixed',
-    'css'
+    'css',
+    'clike'
 ];
 var modeMap = {
     'js': 'javascript',
-    'html': 'htmlmixed'
+    'html': 'htmlmixed',
+    'shader': 'clike'
 };
 var keyMaps = [
     'default',
@@ -27,7 +29,7 @@ Vue.component('code-editor', {
         editor: null,
         value: ''
     }},
-    attached() {
+    ready() {
         var deps = [];
 
         // Mode
@@ -47,9 +49,10 @@ Vue.component('code-editor', {
         else if (keyMap !== 'default') deps.push(`lib/CodeMirror/keymap/${keyMap}`);
 
         Promise.all(deps.map(dep => System.import(dep))).then(() => {
+            console.log(this.$el);
             // Create CodeMirror instance
             this.editor = new CodeMirror(this.$el, {
-                value: this.value,
+                value: this.value || "",
                 mode: mode,
                 keyMap: keyMap,
                 lineNumbers: true,

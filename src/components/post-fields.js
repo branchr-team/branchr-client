@@ -1,5 +1,7 @@
 import Vue from 'vue';
 
+import 'components/code-editor';
+
 Vue.component('post-field-string', {
 	template: '{{name}}<input type="text" value="{{default}}" v-model="model">'
 });
@@ -73,6 +75,9 @@ Vue.component('post-field-url', {
 Vue.component('post-field-week', {
     template:'{{name}}<input type="week" v-model="model">'
 });
+Vue.component('post-field-code-shader', {
+    template:'{{name}}<code-editor v-with="value: model" lang-type="shader"></code-editor>'
+});
 
 export function getComponentFromCode(code) {
     switch (code) {
@@ -122,6 +127,8 @@ export function getComponentFromCode(code) {
             return 'post-field-url';
         case 22:
             return 'post-field-week';
+        case 23:
+            return 'post-field-code-shader';
         default:
             break;
     }
