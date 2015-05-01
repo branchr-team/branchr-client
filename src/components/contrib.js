@@ -22,12 +22,16 @@ Vue.component('b-contrib', {
                 this.srcdoc = `<html>
                     <head>
                         <style type="text/css">${this.engine.css}</style>
-                        <script type="text/javascript">
-                            var params = ${JSON.stringify(this.contrib.params)};
-                            ${this.engine.js}
-                        </script>
                     </head>
-                    <body>${this.engine.html}</body>
+                    <body>
+                    ${this.engine.html}
+                        <script type="text/javascript">
+                            window.onload = function() {
+                                var $params = ${JSON.stringify(this.contrib.params)};
+                                ${this.engine.js}
+                            };
+                        </script>
+                    </body>
                     </html>`;
                 var iframe = this.$el.getElementsByTagName('iframe')[0];
                 setTimeout(() => {
