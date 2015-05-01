@@ -14,7 +14,7 @@ Vue.component('loading-content', {
 	}},
 	created: function() {
         setTimeout(() => {
-            if (this.init)
+            if (this && this.init)
                 this.init = false;
         }, showDelay);
 	}
