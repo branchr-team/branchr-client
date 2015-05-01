@@ -1,3 +1,27 @@
+/***************
+ * Custom variables
+ ***************/
+
+$subtle-gray: rgba(#D0D6DC, $alpha-value);
+
+.pHalf  { padding: $padding; }
+.pxHalf { padding-left: $padding / 2; padding-right: $padding / 2; }
+.pyHalf { padding-top: $padding / 2; padding-bottom: $padding / 2; }
+
+/********************
+ * Fonts
+ ********************/
+
+//@import url(http://fonts.googleapis.com/css?family=Viga&subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Viga|Source+Code+Pro:200,300,400,500,600,700,900&subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Muli);
+
+/********************
+ * Icon Packs
+ ********************/
+
+@import url(http://i.icomoon.io/public/temp/6e11deb35a/Branchr/style.css);
+
 /********************
  * General
  ********************/
@@ -15,55 +39,122 @@ input {
  * Header
  ********************/
 
+//$nav-colors: (
+//    ('home', 'rgb(42,220,142)'),
+//    ('users','rgb(253,209,8)'),
+//    ('feeds','rgb(214,47,28)')
+//);
+
+$nav-colors: (
+                ('explore', 'rgb(42,220,142)'),
+                ('contribute','rgb(255, 199, 0)'),
+                ('develop','rgb(239, 0, 194)')
+);
+
 header {
   @extend .bg--white;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.4);
-  box-shadow: 0px 0 15px 0 rgba(0,0,0,0.4);
+  
+  box-shadow: 0px 0 15px 0 rgba(0, 0, 0, 0.4);
+
+  position: relative;
+
+  padding-top: 4px;
+
+  .logo {
+    font-size: 1.5rem;
+    font-family: "Viga";
+    padding-right: 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $dark-gray;
+  }
+
+  nav {
+    display: block;
+    padding: 0;
+    text-transform: capitalize;
+
+    ul {
+      
+      &#navigation {
+        text-transform: uppercase;
+        font-size: $font-size-m;
+        font-weight: bold;
+      }
+
+      &#navigation li {
+
+        border-bottom: {
+          width: 6px;
+          style: solid;
+          color: transparent;
+        }
+
+        @each $page in $nav-colors {
+          body.#{nth($page,1)} &.#{nth($page,1)} {
+            border-bottom-color: #{nth($page,2)};
+          }
+        }
+
+      }
+
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+        margin: 0;
+
+        a {
+          color: inherit;
+        }
+
+        body.page &.page {
+
+        }
+      }
+
+      &.flt--left li {
+        float: left;
+      }
+
+      &.flt--right li {
+        float: left;
+      }
+    }
+
+    /* unvisited link */
+    a:link {
+      text-decoration: none;
+    }
+
+    /* visited link */
+    a:visited {
+      text-decoration: none;
+    }
+
+    /* mouse over link */
+    a:hover {
+      text-decoration: none;
+    }
+
+    /* selected link */
+    a:active {
+      text-decoration: none;
+    }
+  }
 }
 
-.logo {
-  padding-right: 1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: $dark-gray;
-}
+/********************
+ * Options pattern
+ ********************/
 
-/* unvisited link */
-.logo a:link {
-  text-decoration: none;
-}
-
-/* visited link */
-.logo a:visited {
-  text-decoration: none;
-}
-
-/* mouse over link */
-.logo a:hover {
-  text-decoration: none;
-}
-
-/* selected link */
-.logo a:active {
-  text-decoration: none;
-}
-
-nav {
-  display: block;
-  padding: 0;
-  text-transform: capitalize;
-}
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline;
-  margin: 0;
+#options {
+  @extend .bg--white;
+  @extend .small;
+  @extend .py1;
+  margin-bottom: 0.5rem;
 }
 
 /********************
@@ -71,21 +162,27 @@ nav ul li {
  ********************/
 
 footer {
+
+  margin-top: 0.5rem !important;
   padding-top: 0.5rem;
   border-top: solid $gray-mid-6 1px;
   color: $light-gray;
   text-transform: capitalize;
   font-size: $font-size;
+
+  div {
+    display: inline;
+  }
+
+  a {
+    padding-left: 0.5rem;
+  }
+
+  li {
+    margin-left: 2em;
+  }
 }
 
-footer div {
-  display: inline;
-}
-
-footer a {
-  padding-left: 0.5rem;
-}
-
-li {
-  margin-left: 2em;
-}
+/********************
+ * Editor
+ ********************/

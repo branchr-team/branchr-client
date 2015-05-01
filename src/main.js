@@ -4,11 +4,12 @@ import * as AuthService from 'services/auth';
 
 import 'components/login-dialog';
 
-router.page('/', 'home', 'controllers/home', true);
-//router.page('/users', 'users', 'controllers/users', true);
-router.page('/feeds', 'feeds', 'controllers/feeds', true);
+router.page('/', 'home', 'controllers/home');
+//router.page('/users', 'users', 'controllers/users');
+router.page('/feeds', 'explore', 'controllers/feeds', true);
+//router.page('#', 'contribute', '', true);
+router.page('/dev', 'dev', 'controllers/developer-tools');
 router.page('/feed/:feedId', 'feed', 'controllers/feed');
-router.page('/dev/:engineId', 'dev', 'controllers/developer-tools');
 router.page('/description', 'description','controllers/description');
 
 export var vm = new Vue({

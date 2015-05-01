@@ -1,10 +1,12 @@
-<!-- This block should move to user editing screen -->
-<!--<select v-model="keyMap">-->
-    <!--<option value="">Normal</option>-->
-    <!--<option value="sublime">Sublime Text</option>-->
-    <!--<option value="vim">Vim</option>-->
-<!--</select>-->
-<loading-content v-with="loadState: loadState">
+<div id="options">
+  <div class="measure">
+    <a class="btn bg--off-white">html</a>
+    <a class="btn bg--off-white">css</a>
+    <a class="btn bg--off-white">javascript</a>
+  </div>
+</div>
+<div class="measure">
+  <loading-content v-with="loadState: loadState">
     <br>
     <pre>{{feed | json 4}}</pre>
     <br>
@@ -17,4 +19,6 @@
     <code-editor v-with="value: css" lang-type="css"></code-editor>
     <br>
     <button class="btn btn--blue" v-on="click: save">Save</button>
-</loading-content>
+  </loading-content>
+</div>
+
