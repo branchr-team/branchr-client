@@ -24,6 +24,7 @@ var keyMaps = [
 ];
 
 Vue.component('code-editor', {
+    template: '<div v-el="codemirror"></div>',
     paramAttributes: ['lang-type'],
     data: function() { return {
         editor: null,
@@ -51,7 +52,7 @@ Vue.component('code-editor', {
         Promise.all(deps.map(dep => System.import(dep))).then(() => {
             console.log(this.$el);
             // Create CodeMirror instance
-            this.editor = new CodeMirror(this.$el, {
+            this.editor = new CodeMirror(this.$$.codemirror, {
                 value: this.value || "",
                 mode: mode,
                 keyMap: keyMap,
@@ -63,7 +64,7 @@ Vue.component('code-editor', {
         });
 
     },
-    destroyed() {
+    beforeDestroy() {
         this.editor.off('change');
     },
     watch: {
