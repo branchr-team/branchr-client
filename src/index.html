@@ -3,7 +3,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <!--<link rel="stylesheet" type="text/css" href="styles/semantic-ui/semantic.css">-->
     <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <!--<link rel="stylesheet" type="text/css" href="styles/icons/icomoon.css">-->
     <script src="lib/system.js"></script>
     <script>
         System.config({
@@ -24,7 +26,7 @@
 </head>
 <body id="main" v-class="ctrlName">
 <header>
-    <div class="measure">
+    <div class="measure px1">
         <a class="logo flt--left" href="#/feeds">Branchr</a>
         <nav v-cloak>
             <ul class="flt--left" id="navigation">
@@ -34,25 +36,26 @@
             </ul>
             <ul class="flt--right" id="menu">
                 <li class="pyHalf">
-                    <a href="#/description" class='btn--link small'>What is Branchr?</a>
+                    <a href="#/description" class='btn--link small'>What is Branchr</a>
                 </li>
                 <li class="pyHalf">
-                    <button class="btn btn--s"
+                    <a id="login-button" class="ui mini button basic compact"
                             v-if="!user"
                             v-on="click: openLoginDialog">
-                        Login
-                    </button>
-                    <button class="btn btn--s btn--green"
+                        Log in
+                    </a>
+                    <a class="ui mini button green compact"
                             v-if="user"
                             v-on="click: logout">
                         {{user.username}}
-                    </button>
+                    </a>
                 </li>
             </ul>
             <div style="clear: both"></div>
         </nav>
     </div>
 </header>
+<login-dialog v-ref="loginDialog"></login-dialog>
 <main
         v-cloak
         v-component="{{ctrlName}}"

@@ -94,7 +94,7 @@ gulp.task('styles', ['bower'], function() {
     return task.pipe(gulp.dest(paths.styles.dest));
 });
 
-gulp.task('copy', ['bower-folders', 'bower-js', 'bower-assets'], function() {
+gulp.task('copy', ['bower-js', 'bower-assets'], function() {
     return gulp.src([
         path.join(srcDir, '**/*'),
         path.join('!'+paths.styles.src,'**/*')
@@ -108,12 +108,12 @@ gulp.task('bower', function() {
       .pipe(install());
 });
 
-gulp.task('bower-folders', ['bower'], function() {
-    gulp.src(paths.bower.folderDeps.map(function(dep) {
-        return path.join(paths.bower.src, dep);
-    }),{base: paths.bower.src})
-        .pipe(gulp.dest(paths.bower.folderDest));
-});
+//gulp.task('bower-folders', ['bower'], function() {
+//    gulp.src(paths.bower.folderDeps.map(function(dep) {
+//        return path.join(paths.bower.src, dep);
+//    }),{base: paths.bower.src})
+//        .pipe(gulp.dest(paths.bower.folderDest));
+//});
 
 gulp.task('bower-js', ['bower'], function() {
   paths.bower.jsDeps.forEach(function(dep) {

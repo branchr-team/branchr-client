@@ -13,7 +13,7 @@ export default Vue.extend({
     created: function() {
         console.log("Home created");
         setTimeout(() => {
-          this.loadState = true;
+          if(this !== null) this.loadState = true;
         }, 5000);
     },
     destroyed: function() {

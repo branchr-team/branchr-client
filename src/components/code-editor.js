@@ -40,12 +40,13 @@ Vue.component('code-editor', {
 
         // Keymap
         let keyMap = function() {
-            try {
+            if( user && user.settings && user.settings.keyMap ) {
                 return user.settings.keyMap;
-            } catch (e) {
+            } else {
                 console.log('Could not find user keyMap setting, falling back to default');
                 return 'default';
-            }}();
+            }
+        }();
         if (keyMaps.indexOf(keyMap) == -1) return console.error("Bad keyMap", keyMap);
         else if (keyMap !== 'default') deps.push(`lib/CodeMirror/keymap/${keyMap}`);
 

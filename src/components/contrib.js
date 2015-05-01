@@ -19,12 +19,13 @@ Vue.component('b-contrib', {
             })
             .then(resp => {
                 this.engine = resp.data;
-                this.srcdoc = `<html>
+                this.srcdoc = `
+                  <html>
                     <head>
                         <style type="text/css">${this.engine.css}</style>
                     </head>
                     <body>
-                    ${this.engine.html}
+                        ${this.engine.html}
                         <script type="text/javascript">
                             window.onload = function() {
                                 var $params = ${JSON.stringify(this.contrib.params)};
@@ -32,11 +33,12 @@ Vue.component('b-contrib', {
                             };
                         </script>
                     </body>
-                    </html>`;
+                  </html>
+                  `;
                 var iframe = this.$el.getElementsByTagName('iframe')[0];
                 setTimeout(() => {
                     iframe.style.height = iframe.contentWindow.document.body.offsetHeight+'px';
-					this.loadState = true;
+					          this.loadState = true;
                 }, 1000);
             });
         if (!window.els) window.els = [];
