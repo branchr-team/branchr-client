@@ -1,15 +1,16 @@
 <loading-content v-with="loadState: loadState">
 
     <h2>New Post</h2>
-    <form class="measure" v-on="submit: createPost">
-        <div v-repeat="fields" v-component="{{component}}"></div>
-        <button class='btn--blue' type="submit">Post</button>
-        <button class='btn' v-on="click: updatePreview">Preview</button>
-    </form>
+    <div v-repeat="fields" v-component="{{component}}" v-on="save: updatePreview"></div>
+    <button class='btn--blue' v-on="click: submit">Post</button>
+    <button class='btn--green' v-on="click: updatePreview">Preview</button>
+    <br><br>
 
-    <h2>Preview</h2>
-    <div class="card" style="margin: 1rem;" v-transition="fade">
-        <b-contrib v-ref="preview" v-with="engine: engine"></b-contrib>
+    <div v-show="showPreview">
+        <h2>Preview</h2>
+        <div class="card" style="margin: 1rem;" v-transition="fade">
+            <b-contrib v-ref="preview" v-with="engine: engine"></b-contrib>
+        </div>
     </div>
 
 </loading-content>

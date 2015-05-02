@@ -58,6 +58,7 @@ Vue.component('code-editor', {
                 lineNumbers: true,
                 theme: "monokai"
             });
+            this.editor.save = () => {console.log("save");this.$emit("save");};
             // Register listener to bind with value
             this.editor.on('change', e => this.value = e.getValue());
         });

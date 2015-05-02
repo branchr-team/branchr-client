@@ -15,7 +15,7 @@ Vue.component('b-contrib', {
         updateSrcdoc(params) {
             this.loadState = true;
             let hash = ""+Date.now()+""+Math.floor(Math.random()*1000);
-            console.log('Loading contrib', hash);
+            console.log('Loading contrib', hash, this.engine);
             this.srcdoc = `<html>
                     <head>
                         <style type="text/css">${this.engine.css}</style>

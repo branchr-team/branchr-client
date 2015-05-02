@@ -18,27 +18,29 @@ export default Vue.extend({
 			loadState: false,
             feedId: null,
 			feed: null,
-            engine: null,
 			fields: null,
             contribs: null
 		}
 	},
 	methods: {
 		updateFeed() {
-			APIService.feed.get(this.feedId)
+            APIService.feed.get(this.feedId)
                 .then(resp => {
                     this.feed = resp.data;
                     try {
                         this.owner = resp.data.permissions.owners.indexOf(AuthService.user._id) != -1;
-                    } catch (e) {}
-                    APIService.contrib.listByFeedId(this.feedId).then(resp => {
-                        this.contribs = resp.data.map(c => c._id);
-                        this.loadState = true;
+                    } catch (e) {
+                    }
+                    return APIService.contrib.listByFeedId(this.feedId);
+                }).then(resp => {
+                    this.contribs = resp.data.map(c => {
+                        try {
+                            c.owner = resp.data.permissions.owners.indexOf(AuthService.user._id) != -1;
+                        } catch (e) {
+                        }
+                        return c;
                     });
-                    return APIService.engine.get(resp.data.engineId);
-                })
-                .then(resp => {
-                    this.engine = resp.data;
+                    this.loadState = true;
                 });
 		},
         deleteContrib: function(contribId) {

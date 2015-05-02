@@ -2,8 +2,8 @@
     <h1>{{feed.name}}</h1>
     <a class='btn--blue' href="#/newpost/{{feed._id}}">Post</a>
     <a v-if="owner" class="btn--green" href="#/dev/{{feed._id}}">Edit</a>
-    <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contribs">
-        <b-contrib class="bg--white" contrib-id="{{$value}}"></b-contrib>
-        <button class="btn--red" v-on="click: deleteContrib($value)">Delete</button>
+    <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contrib: contribs">
+        <b-contrib class="bg--white" contrib-id="{{contrib._id}}"></b-contrib>
+        <button class="btn--red" v-show="contrib.owner" v-on="click: deleteContrib(contrib._id)">Delete</button>
     </div>
 </loading-content>

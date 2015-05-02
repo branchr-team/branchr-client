@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import APIService from 'services/api';
+import * as AuthService from 'services/auth';
 import template from 'templates/pages/new-post.html!';
 import {stateParams} from 'lib/router';
 import * as PostFields from 'components/post-fields';
@@ -8,7 +9,8 @@ import 'components/loading-content';
 import 'components/contrib';
 import 'components/post-fields';
 
-function fieldsToParams(fields) {
+function fieldsToParams(fields = []) {
+    fields = fields || [];
     return fields.reduce((prev, cur) => {
         prev[cur.key] = cur.model;
         return prev;
@@ -21,19 +23,17 @@ export default Vue.extend({
         return {
             stateParams: null,
             loadState: false,
+            showPreview: false,
             feed: null,
             engine: null,
-            fields: null,
-            contrib: null
+            fields: null
         }
     },
-    attached() {
-        this.$watch('fields', this.updatePreview, true, true);
-    },
     methods: {
-        createPost(e) {
+        submit(e) {
             e.preventDefault();
             let contrib = {
+                userId: AuthService.user._id,
                 engineId: this.engine._id,
                 feedId: this.feed._id,
                 params: fieldsToParams(this.fields)
@@ -45,6 +45,7 @@ export default Vue.extend({
         },
         updatePreview() {
             this.$.preview.updateSrcdoc(fieldsToParams(this.fields));
+            this.showPreview = true;
         }
     },
     watch: {
