@@ -7,19 +7,16 @@ Vue.component('b-contrib', {
     paramAttributes: ['contrib-id'],
     data: function() { return {
 		loadState: false,
-        srcdoc: '',
+        engine: null,
         contrib: null,
-        engine: null
+        srcdoc: ''
     }},
-    attached: function() {
-        APIService.contrib.get(this.contribId)
-            .then(resp => {
-                this.contrib = resp.data;
-                return APIService.engine.get(resp.data.engineId)
-            })
-            .then(resp => {
-                this.engine = resp.data;
-                this.srcdoc = `<html>
+    methods: {
+        updateSrcdoc(params) {
+            this.loadState = true;
+            let hash = ""+Date.now()+""+Math.floor(Math.random()*1000);
+            console.log('Loading contrib', hash);
+            this.srcdoc = `<html>
                     <head>
                         <style type="text/css">${this.engine.css}</style>
                     </head>
@@ -27,19 +24,34 @@ Vue.component('b-contrib', {
                     ${this.engine.html}
                         <script type="text/javascript">
                             window.onload = function() {
-                                var $params = ${JSON.stringify(this.contrib.params)};
+                                var $params = ${JSON.stringify(params)};
+                                var $done = window.parent._done[${JSON.stringify(hash)}];
+                                window.parent = null;
+                                parent = null;
                                 ${this.engine.js}
                             };
                         </script>
                     </body>
                     </html>`;
-                var iframe = this.$el.getElementsByTagName('iframe')[0];
-                setTimeout(() => {
-                    iframe.style.height = iframe.contentWindow.document.body.offsetHeight+'px';
-					this.loadState = true;
-                }, 1000);
+            let self = this;
+            window._done = window._done || {};
+            window._done[hash] = function() {
+                console.log('Loaded contrib', hash);
+                self.$$.iframe.style.height = self.$$.iframe.contentWindow.document.body.offsetHeight+'px';
+                self.loadState = true;
+                delete window._done[hash];
+            };
+        }
+    },
+    attached: function() {
+        if (this.contribId) APIService.contrib.get(this.contribId)
+            .then(resp => {
+                this.contrib = resp.data;
+                return APIService.engine.get(resp.data.engineId)
+            })
+            .then(resp => {
+                this.engine = resp.data;
+                this.updateSrcdoc(this.contrib.params);
             });
-        if (!window.els) window.els = [];
-        window.els.push(this.$el);
     }
 });

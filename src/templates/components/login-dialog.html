@@ -2,6 +2,7 @@
 <div class="login-dialog" v-show="show" v-transition="fade">
     <button class="btn--red btn--s flt--right" v-on="click: close()">X</button>
     <div class="clearfix"></div>
+    <h3 v-if="message" class="txt--center">{{message}}</h3>
     <form v-on="submit: submit">
         <label for="username">Username</label>
         <input name="username" type="text" v-model="username">

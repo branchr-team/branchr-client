@@ -1,10 +1,7 @@
 <loading-content v-with="loadState: loadState">
     <h1>{{feed.name}}</h1>
-    <a href="#/dev/{{feed._id}}">Edit</a>
-    <form class="measure" v-on="submit: createPost">
-        <div v-repeat="fields" v-component="{{component}}"></div>
-        <button class='btn--blue' type="submit">Post</button>
-    </form>
+    <a class='btn--blue' href="#/newpost/{{feed._id}}">Post</a>
+    <a v-if="owner" class="btn--green" href="#/dev/{{feed._id}}">Edit</a>
     <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contribs">
         <b-contrib class="bg--white" contrib-id="{{$value}}"></b-contrib>
         <button class="btn--red" v-on="click: deleteContrib($value)">Delete</button>

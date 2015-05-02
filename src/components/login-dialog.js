@@ -6,11 +6,13 @@ Vue.component('login-dialog', {
     template: template,
     data() { return {
         show: false,
+        message: null,
         username: null,
         password: null
     }},
     methods: {
-        open() {
+        open(message = null) {
+            this.message = message;
             this.show = true;
             this.openPromise = new Promise((resolve) => {
                 this.openPromiseResolve = resolve;

@@ -10,6 +10,7 @@ router.page('/feeds', 'feeds', 'controllers/feeds', true);
 router.page('/feed/:feedId', 'feed', 'controllers/feed');
 router.page('/dev/:engineId', 'dev', 'controllers/developer-tools');
 router.page('/description', 'description','controllers/description');
+router.page('/newpost/:feedId', 'newpost','controllers/new-post');
 
 export var vm = new Vue({
     el: '#main',
@@ -22,8 +23,8 @@ export var vm = new Vue({
         updateUser() {
             this.user = AuthService.user;
         },
-        openLoginDialog() {
-            return this.$.loginDialog.open().then(this.updateUser);
+        openLoginDialog(msg) {
+            return this.$.loginDialog.open(msg).then(this.updateUser);
         },
         logout() {
             return AuthService.logout().then(this.updateUser);

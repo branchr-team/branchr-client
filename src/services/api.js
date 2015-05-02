@@ -9,7 +9,7 @@ var httpNoAuth = new HTTP();
 var http = new HTTP([
     function(resp, next, retry) {
         if (resp.status === 401 && resp.retryCount <= 3)
-            vm.openLoginDialog().then(() => {
+            vm.openLoginDialog("You must login first!").then(() => {
                 alert(`${resp.retryCount} Retrying!`);
                 retry();
             });

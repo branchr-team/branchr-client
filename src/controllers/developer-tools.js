@@ -24,10 +24,16 @@ export default Vue.extend({
                 js: this.js,
                 html: this.html,
                 css: this.css,
-                fields: this.fields
+                fields: this.fields,
+                feedId: this.feed._id
             }).then(resp => {
                 this.feed.engineId = resp.data._id;
                 return APIService.feed.update(this.feed._id, this.feed);
+            }).then(resp => {
+                alert("Saved!");
+            }).catch(resp => {
+                alert("Something went wrong!");
+                console.error(resp);
             });
         }
     },

@@ -6,10 +6,14 @@
 <!--</select>-->
 <loading-content v-with="loadState: loadState">
     <br>
-    <pre>{{feed | json 4}}</pre>
+    Feed Name<input type="text" v-model="feed.name">
     <br>
     <pre>{{fields | json 4}}</pre>
     <br>
+    <pre>
+        Params are accessible through `$params`.
+        You must call `$done` when your engine is done loading.
+    </pre>
     <code-editor v-with="value: js" lang-type="js"></code-editor>
     <br>
     <code-editor v-with="value: html" lang-type="html"></code-editor>

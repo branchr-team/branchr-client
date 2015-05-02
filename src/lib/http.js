@@ -50,8 +50,7 @@ export class HTTP {
             let retryCount = 0;
             function makeRequest() {
                 let req = createXHR(method, url);
-                for (let key in self.headers)
-                    req.setRequestHeader(key, self.headers[key]);
+                Object.keys(self.headers).forEach(k => req.setRequestHeader(k, self.headers[k]));
                 req.addEventListener('load', function() {
                     let resp = new HTTPResponse(this, retryCount);
                     let i = 0;

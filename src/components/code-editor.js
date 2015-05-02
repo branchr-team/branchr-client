@@ -50,7 +50,6 @@ Vue.component('code-editor', {
         else if (keyMap !== 'default') deps.push(`lib/CodeMirror/keymap/${keyMap}`);
 
         Promise.all(deps.map(dep => System.import(dep))).then(() => {
-            console.log(this.$el);
             // Create CodeMirror instance
             this.editor = new CodeMirror(this.$$.codemirror, {
                 value: this.value || "",

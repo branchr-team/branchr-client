@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import APIService from 'services/api';
+import * as AuthService from 'services/auth';
 import * as PostFields from 'components/post-fields';
 import template from 'templates/pages/feed.html!';
 import {stateParams} from 'lib/router';
@@ -13,6 +14,7 @@ export default Vue.extend({
 	data() {
 		return {
             stateParams: null,
+            owner: false,
 			loadState: false,
             feedId: null,
 			feed: null,
@@ -26,7 +28,10 @@ export default Vue.extend({
 			APIService.feed.get(this.feedId)
                 .then(resp => {
                     this.feed = resp.data;
-                    APIService.contrib.listByFeedId(this.feed._id).then(resp => {
+                    try {
+                        this.owner = resp.data.permissions.owners.indexOf(AuthService.user._id) != -1;
+                    } catch (e) {}
+                    APIService.contrib.listByFeedId(this.feedId).then(resp => {
                         this.contribs = resp.data.map(c => c._id);
                         this.loadState = true;
                     });
@@ -34,29 +39,7 @@ export default Vue.extend({
                 })
                 .then(resp => {
                     this.engine = resp.data;
-                    this.fields = this.engine.fields.map(f => {
-                        return {
-                            component: PostFields.getComponentFromCode(f.type),
-                            default: f.default,
-                            key: f.key,
-                            name: f.key,
-                            model: null
-                        };
-                    });
                 });
-		},
-		createPost(e) {
-			e.preventDefault();
-            let params = {};
-            this.fields.forEach(f => {
-                params[f.key] = f.model;
-            });
-            let contrib = {
-                engineId: this.engine._id,
-                feedId: this.feed._id,
-                params: params
-            };
-            APIService.contrib.create(contrib).then(this.updateFeed);
 		},
         deleteContrib: function(contribId) {
             APIService.contrib.delete(contribId).then(this.updateFeed);
