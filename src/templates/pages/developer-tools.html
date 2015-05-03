@@ -8,17 +8,30 @@
     <br>
     Feed Name<input type="text" v-model="feed.name">
     <br>
-    <pre>{{fields | json 4}}</pre>
-    <br>
     <pre>
         Params are accessible through `$params`.
         You must call `$done` when your engine is done loading.
     </pre>
-    <code-editor v-with="value: js" lang-type="js"></code-editor>
+    <a class="btn btn--blue" v-on="click: tab = 0">params</a>
+    <a class="btn btn--blue" v-on="click: tab = 1">js</a>
+    <a class="btn btn--blue" v-on="click: tab = 2">html</a>
+    <a class="btn btn--blue" v-on="click: tab = 3">css</a>
     <br>
-    <code-editor v-with="value: html" lang-type="html"></code-editor>
-    <br>
-    <code-editor v-with="value: css" lang-type="css"></code-editor>
+    <div v-if="tab == 0">
+        <div v-repeat="field: fields">
+            key<input type="text" v-model="field.key">
+            type<br><select options="fieldTypeOptions" v-model="field.type" style="color: black;" number></select>
+            <br>
+            default<div v-component="{{getComponentFromCode(field.type)}}" v-with="model: field.default"></div>
+            <br>
+            <button class="btn btn--red btn--s" v-on="click: removeField($index)">Remove</button>
+            <br><hr><br>
+        </div>
+        <button class="btn btn--green" v-on="click: addField">Add</button>
+    </div>
+    <code-editor v-if="tab == 1" v-with="value: js" lang-type="js" style="height: 1000px"></code-editor>
+    <code-editor v-if="tab == 2" v-with="value: html" lang-type="html"></code-editor>
+    <code-editor v-if="tab == 3" v-with="value: css" lang-type="css"></code-editor>
     <br>
     <button class="btn btn--blue" v-on="click: save">Save</button>
 </loading-content>

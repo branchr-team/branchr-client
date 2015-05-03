@@ -2,6 +2,7 @@ import Vue from 'vue';
 import APIService from 'services/api';
 import template from 'templates/pages/developer-tools.html!';
 import {user} from 'services/auth';
+import * as PostFields from 'components/post-fields';
 
 import 'components/loading-content';
 import 'components/code-editor';
@@ -12,13 +13,27 @@ export default Vue.extend({
     data() {return {
         stateParams: null,
         loadState: false,
-        feed: null,
-        fields: null,
+        fieldTypeOptions: PostFields.fieldTypeOptions,
+        tab: 0,
+        feed: {
+            name: ""
+        },
+        fields: [],
         js: '',
         html: '',
         css: ''
     }},
     methods: {
+        getComponentFromCode: PostFields.getComponentFromCode,
+        addField() {
+            this.fields.push({
+                key: '',
+                type: 0
+            })
+        },
+        removeField(i) {
+            this.fields.splice(i, 1);
+        },
         save() {
             APIService.engine.create({
                 js: this.js,
@@ -39,18 +54,21 @@ export default Vue.extend({
     },
     watch: {
         stateParams(stateParams) {
-            APIService.feed.get(stateParams[0])
-                .then(resp => {
-                    this.feed = resp.data;
-                    return APIService.engine.get(resp.data.engineId);
-                })
-                .then(resp => {
-                    this.fields = resp.data.fields;
-                    this.js = resp.data.js;
-                    this.html = resp.data.html;
-                    this.css = resp.data.css;
-                    this.loadState = true;
-                });
+            if (stateParams[0] === "new")
+                this.loadState = true;
+            else
+                APIService.feed.get(stateParams[0])
+                    .then(resp => {
+                        this.feed = resp.data;
+                        return APIService.engine.get(resp.data.engineId);
+                    })
+                    .then(resp => {
+                        this.fields = resp.data.fields;
+                        this.js = resp.data.js;
+                        this.html = resp.data.html;
+                        this.css = resp.data.css;
+                        this.loadState = true;
+                    });
         }
     }
 });

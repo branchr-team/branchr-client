@@ -3,7 +3,7 @@
     <a class='btn--blue' href="#/newpost/{{feed._id}}">Post</a>
     <a v-if="owner" class="btn--green" href="#/dev/{{feed._id}}">Edit</a>
     <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contrib: contribs">
-        <b-contrib class="bg--white" contrib-id="{{contrib._id}}"></b-contrib>
+        <b-contrib class="bg--white" v-with="contribId: contrib._id"></b-contrib>
         <button class="btn--red" v-show="contrib.owner" v-on="click: deleteContrib(contrib._id)">Delete</button>
     </div>
 </loading-content>

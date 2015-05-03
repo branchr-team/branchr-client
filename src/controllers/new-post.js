@@ -4,6 +4,7 @@ import * as AuthService from 'services/auth';
 import template from 'templates/pages/new-post.html!';
 import {stateParams} from 'lib/router';
 import * as PostFields from 'components/post-fields';
+import {debounce} from 'lib/util';
 
 import 'components/loading-content';
 import 'components/contrib';
@@ -60,13 +61,13 @@ export default Vue.extend({
                     this.fields = this.engine.fields.map(f => {
                         return {
                             component: PostFields.getComponentFromCode(f.type),
-                            default: f.default,
                             key: f.key,
                             name: f.key,
-                            model: null
+                            model: f.default
                         };
                     });
                     this.loadState = true;
+                    this.$watch('fields', debounce(this.updatePreview, 500), true);
                 });
         }
     }

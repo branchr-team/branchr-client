@@ -67,6 +67,9 @@ export default {
         },
         listByFeedId(feedId) {
             return http.get(`${base}/contrib/?feedId=${feedId}`);
+        },
+        list() {
+            return http.get(`${base}/contrib/`);
         }
 
     },

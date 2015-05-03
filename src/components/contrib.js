@@ -15,7 +15,6 @@ Vue.component('b-contrib', {
         updateSrcdoc(params) {
             this.loadState = true;
             let hash = ""+Date.now()+""+Math.floor(Math.random()*1000);
-            console.log('Loading contrib', hash, this.engine);
             this.srcdoc = `<html>
                     <head>
                         <style type="text/css">${this.engine.css}</style>
@@ -36,14 +35,13 @@ Vue.component('b-contrib', {
             let self = this;
             window._done = window._done || {};
             window._done[hash] = function() {
-                console.log('Loaded contrib', hash);
                 self.$$.iframe.style.height = self.$$.iframe.contentWindow.document.body.offsetHeight+'px';
                 self.loadState = true;
                 delete window._done[hash];
             };
         }
     },
-    attached: function() {
+    ready: function() {
         if (this.contribId) APIService.contrib.get(this.contribId)
             .then(resp => {
                 this.contrib = resp.data;

@@ -5,19 +5,12 @@ import 'components/code-editor';
 Vue.component('post-field-string', {
 	template: '{{name}}<input type="text" value="{{default}}" v-model="model">'
 });
-
 Vue.component('post-field-number', {
 	template: '{{name}}<input type="number" v-model="model" number>'
 });
-
 Vue.component('post-field-color', {
 	template: '{{name}}<input type="color" v-model="model"/>'
 });
-
-Vue.component('post-field-button', {
-    template:'{{name}}<input type="button" v-model="model">'
-});
-
 Vue.component('post-field-checkbox', {
     template:'{{name}}<input type="checkbox" v-model="model">'
 });
@@ -39,9 +32,6 @@ Vue.component('post-field-email', {
 Vue.component('post-field-file', {
     template:'{{name}}<input type="file" v-model="model">'
 });
-Vue.component('post-field-hidden', {
-    template:'{{name}}<input type="hidden" v-model="model">'
-});
 Vue.component('post-field-image', {
     template:'{{name}}<input type="image" v-model="model">'
 });
@@ -55,16 +45,7 @@ Vue.component('post-field-radio', {
     template:'{{name}}<input type="radio" v-model="model">'
 });
 Vue.component('post-field-range', {
-    template:'{{name}}<input type="range" v-model="model">'
-});
-Vue.component('post-field-reset', {
-    template:'{{name}}<input type="reset" v-model="model">'
-});
-Vue.component('post-field-search', {
-    template:'{{name}}<input type="search" v-model="model">'
-});
-Vue.component('post-field-submit', {
-    template:'{{name}}<input type="submit" v-model="model">'
+    template:'{{name}}<input type="range" v-model="model" v-attr="min: params.min, max: params.max, step: params.step">'
 });
 Vue.component('post-field-tel', {
     template:'{{name}}<input type="tel" v-model="model">'
@@ -79,84 +60,91 @@ Vue.component('post-field-code-shader', {
     template:'{{name}}<code-editor v-with="value: model" lang-type="shader"></code-editor>'
 });
 
-export function getComponentFromCode(code) {
-    switch (code) {
-        case 0:
-            return 'post-field-string';
-        case 1:
-            return 'post-field-number';
-        case 2:
-            return 'post-field-button';
-        case 3:
-            return 'post-field-checkbox';
-        case 4:
-            return 'post-field-color';
-        case 5:
-            return 'post-field-date';
-        case 6:
-            return 'post-field-datetime';
-        case 7:
-            return 'post-field-datetime-local';
-        case 8:
-            return 'post-field-email';
-        case 9:
-            return 'post-field-file';
-        case 10:
-            return 'post-field-hidden';
-        case 11:
-            return 'post-field-image';
-        case 12:
-            return 'post-field-month';
-        case 13:
-            return 'post-field-password';
-        case 14:
-            return 'post-field-radio';
-        case 15:
-            return 'post-field-range';
-        case 16:
-            return 'post-field-reset';
-        case 17:
-            return 'post-field-search';
-        case 18:
-            return 'post-field-submit';
-        case 19:
-            return 'post-field-tel';
-        case 20:
-            return 'post-field-time';
-        case 21:
-            return 'post-field-url';
-        case 22:
-            return 'post-field-week';
-        case 23:
-            return 'post-field-code-shader';
-        default:
-            break;
+var fieldTypes = {
+    0: {
+        component: 'post-field-string',
+        text: "Text"
+    },
+    1: {
+        component: 'post-field-number',
+        text: "Number"
+    },
+    2: {
+        component: 'post-field-checkbox',
+        text: "Checkbox"
+    },
+    3: {
+        component: 'post-field-color',
+        text: "Color"
+    },
+    4: {
+        component: 'post-field-date',
+        text: "Date"
+    },
+    5: {
+        component: 'post-field-datetime',
+        text: "Datetime"
+    },
+    6: {
+        component: 'post-field-datetime-local',
+        text: "Datetime Local"
+    },
+    7: {
+        component: 'post-field-email',
+        text: "Email"
+    },
+    8: {
+        component: 'post-field-file',
+        text: "File"
+    },
+    9: {
+        component: 'post-field-image',
+        text: "Image"
+    },
+    10: {
+        component: 'post-field-month',
+        text: "Month"
+    },
+    11: {
+        component: 'post-field-password',
+        text: "Password"
+    },
+    12: {
+        component: 'post-field-radio',
+        text: "Radio"
+    },
+    13: {
+        component: 'post-field-range',
+        text: "Range",
+        params: ["min", "max", "step"]
+    },
+    15: {
+        component: 'post-field-tel',
+        text: "Phone Number"
+    },
+    16: {
+        component: 'post-field-time',
+        text: "Time"
+    },
+    17: {
+        component: 'post-field-url',
+        text: "URL"
+    },
+    18: {
+        component: 'post-field-week',
+        text: "Week"
+    },
+    19: {
+        component: 'post-field-code-shader',
+        text: "Shader Program"
     }
-}
+};
 
-export var fieldTypeOptions = [
-    {text: "Text", value: 0},
-    {text: "Number", value: 1},
-    {text: "Button", value: 2},
-    {text: "Checkbox", value: 3},
-    {text: "Color", value: 4},
-    {text: "Date", value: 5},
-    {text: "Time", value: 6},
-    {text: "DateTime", value: 7},
-    {text: "DateTime-Local", value: 8},
-    {text: "Email", value: 9},
-    {text: "File", value: 10},
-    {text: "Hidden", value: 11},
-    {text: "Image", value: 12},
-    {text: "Month", value: 13},
-    {text: "Password", value: 14},
-    {text: "Radio", value: 15},
-    {text: "Range", value: 16},
-    {text: "Reset", value: 17},
-    {text: "Search", value: 18},
-    {text: "Submit", value: 19},
-    {text: "Tel", value: 20},
-    {text: "URL", value: 21},
-    {text: "Week", value: 22}
-];
+export var fieldTypeOptions = Object.keys(fieldTypes).map(key => {
+    return {value: key, text: fieldTypes[key].text}
+});
+
+export function getComponentFromCode(code) {
+    return fieldTypes[code].component;
+}
 

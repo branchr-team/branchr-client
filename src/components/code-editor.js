@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import APIService from 'services/api';
 import {user} from 'services/auth';
+import {debounce} from 'lib/util';
 
 import CodeMirror from 'lib/CodeMirror/lib/codemirror';
 import 'lib/CodeMirror/lib/codemirror.css!';
@@ -56,11 +57,12 @@ Vue.component('code-editor', {
                 mode: mode,
                 keyMap: keyMap,
                 lineNumbers: true,
-                theme: "monokai"
+                theme: "monokai",
+                viewportMargin: Infinity
             });
             this.editor.save = () => {console.log("save");this.$emit("save");};
             // Register listener to bind with value
-            this.editor.on('change', e => this.value = e.getValue());
+            this.editor.on('change', debounce(e => this.value = e.getValue(), 500));
         });
 
     },

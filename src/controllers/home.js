@@ -3,21 +3,25 @@ import APIService from 'services/api';
 import template from 'templates/pages/home.html!';
 
 import 'components/loading-content';
+import 'components/contrib';
 
 export default Vue.extend({
 	template: template,
     data: function() { return {
         loadState: false,
-        foo: 'bar'
+        contribs: null
     }},
-    created: function() {
-        console.log("Home created");
-		setTimeout(() => {
-			this.loadState = true;
-		}, 5000);
+    methods: {
+        updateFeed() {
+            return APIService.contrib.list()
+                .then(resp => {
+                    this.contribs = resp.data;
+                    this.loadState = true;
+                });
+        },
     },
-    destroyed: function() {
-        console.log("Home destroyed");
+    attached: function() {
+        this.updateFeed();
     }
 });
 

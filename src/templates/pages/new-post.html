@@ -2,8 +2,11 @@
 
     <h2>New Post</h2>
     <div v-repeat="fields" v-component="{{component}}" v-on="save: updatePreview"></div>
-    <button class='btn--blue' v-on="click: submit">Post</button>
-    <button class='btn--green' v-on="click: updatePreview">Preview</button>
+    <br>
+    <div class="flt--right">
+        <button class='btn btn--s' v-on="click: updatePreview">Preview</button>
+        <button class='btn--blue' v-on="click: submit">Post</button>
+    </div>
     <br><br>
 
     <div v-show="showPreview">
