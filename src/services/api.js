@@ -1,22 +1,57 @@
-import http from 'http';
+import {HTTP} from 'http';
+import {vm} from 'main';
 
 //const base = 'http://localhost:3000';
 const base = 'https://branchr.herokuapp.com';
 
+var httpNoAuth = new HTTP();
+
+var http = new HTTP([
+    function(resp, next, retry) {
+        if (resp.status === 401 && resp.retryCount <= 3)
+            vm.openLoginDialog().then(() => {
+                alert(`${resp.retryCount} Retrying!`);
+                retry();
+            });
+        else next();
+    }
+]);
+
+export function setAuthHeaders(username, token) {
+    http.setHeader('X-Username', username);
+    http.setHeader('X-Token', token);
+}
+
 var engineCache = {};
 
 export default {
+    login(username, password) {
+        return httpNoAuth.post(`${base}/login`, {username: username, password: password})
+            .then(resp => {
+                console.log('Got token: ', resp.data.token);
+                setAuthHeaders(username, resp.data.token);
+                return resp;
+            });
+    },
+    logout(username) {
+        return http.post(`${base}/logout`, {username: username})
+            .then(resp => {
+                http.setHeader('X-Username', null);
+                http.setHeader('X-Token', null);
+                return resp;
+            });
+    },
     feed: {
-        get: function(id) {
+        get(id) {
             return http.get(`${base}/feed/${id}`);
         },
-        create: function(feed) {
+        create(feed) {
             return http.post(`${base}/feed`, feed);
         },
-        update: function(id, feed) {
+        update(id, feed) {
             return http.put(`${base}/feed/${id}`, feed);
         },
-        list: function() {
+        list() {
             return http.get(`${base}/feed/`);
         }
     },
@@ -36,7 +71,7 @@ export default {
 
     },
     engine: {
-        get: function(engineId) {
+        get(engineId) {
             if (engineId in engineCache) {
                 // Cache hit
                 console.log('Cache hit!', engineId);
@@ -50,6 +85,9 @@ export default {
                         return engine;
                     });
             }
+        },
+        create(engine) {
+            return http.post(`${base}/engine`, engine);
         }
     }
 }

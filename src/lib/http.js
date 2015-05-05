@@ -13,8 +13,10 @@ function createXHR(method, url) {
     }
     return xhr;
 }
+
 class HTTPResponse {
-    constructor(xhr) {
+    constructor(xhr, retryCount = 0) {
+        this.retryCount = retryCount;
         this.status = xhr.status;
         this.headers = {
             get: function(name) {
@@ -32,27 +34,67 @@ class HTTPResponse {
         this.xhr = xhr;
     }
 }
-class HTTP {
+
+export class HTTP {
+    constructor(
+        interceptors = [],
+        headers = {}
+    ) {
+        this.interceptors = interceptors;
+        this.headers = headers;
+    }
+
     request(method, url, data) {
+        let self = this;
         return new Promise((resolve, reject) => {
-            let req = createXHR(method, url);
-            req.addEventListener('load', function() {
-                let res = new HTTPResponse(this);
-                if (res.status == 200) {
-                    resolve(res);
+            let retryCount = 0;
+            function makeRequest() {
+                let req = createXHR(method, url);
+                for (let key in self.headers)
+                    req.setRequestHeader(key, self.headers[key]);
+                req.addEventListener('load', function() {
+                    let resp = new HTTPResponse(this, retryCount);
+                    let i = 0;
+                    function getNextMiddleware() {
+                        if (i < self.interceptors.length)
+                            return self.interceptors[i++];
+                        else
+                            return () => {
+                                if (resp.status == 200) {
+                                    resolve(resp);
+                                } else {
+                                    reject(resp);
+                                }
+                            }
+                    }
+                    function callNextMiddleware() {
+                        getNextMiddleware()(resp, callNextMiddleware, makeRequest)
+                    }
+                    callNextMiddleware();
+                });
+                req.addEventListener('error', function() {
+                    let resp = new HTTPResponse(this, retryCount);
+                    let i = 0;
+                    function getNextMiddleware() {
+                        if (i < self.interceptors.length)
+                            return self.interceptors[i++];
+                        else
+                            return () => reject(resp);
+                    }
+                    function callNextMiddleware() {
+                        getNextMiddleware()(resp, callNextMiddleware, makeRequest)
+                    }
+                    callNextMiddleware();
+                });
+                if (data) {
+                    req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                    req.send(JSON.stringify(data));
                 } else {
-                    reject(res);
+                    req.send();
                 }
-            });
-            req.addEventListener('error', function() {
-                reject(new HTTPResponse(this));
-            });
-            if (data) {
-                req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-                req.send(JSON.stringify(data));
-            } else {
-                req.send();
+                retryCount++;
             }
+            makeRequest();
         });
     }
     get(url) {
@@ -66,6 +108,13 @@ class HTTP {
     }
     delete(url) {
         return this.request('DELETE', url);
+    }
+
+    addInterceptor(interceptor) {
+        this.interceptors.push(interceptor);
+    }
+    setHeader(key, value) {
+        this.headers[key] = value;
     }
 }
 

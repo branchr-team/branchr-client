@@ -14,14 +14,14 @@
     "system.js": "~0.16.7",
     "es6-module-loader": "~0.16.4",
     "traceur": "~0.0.87",
+    "plugin-text": "https://github.com/systemjs/plugin-text.git#~0.0.2",
+    "plugin-css": "systemjs/plugin-css#~0.1.9",
     "vue": "~0.11.5",
     "director": "~1.2.8",
     "bourbon": "~4.2.2",
     "plugin-text": "https://github.com/systemjs/plugin-text.git#~0.0.2",
     "furtive": "~2.1.0",
-    "CodeMirror": "~5.1.0",
-    "plugin-css": "systemjs/plugin-css#~0.1.9",
     "loading": "*",
-    "semantic-ui-button": "~1.12.0"
+    "CodeMirror": "~5.1.0"
   }
 }

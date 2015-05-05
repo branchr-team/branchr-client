@@ -1,0 +1,11 @@
+<div class="b-informer">
+    <form id="input_adder" name="input_adder" v-on="submit: addField">
+        <select name="input_type" v-model="field.type" options="fieldTypeOptions">Select</select>
+            <input name="input_id" v-model="field.name" type="text" placeholder="Enter the element name!">
+            <input name="input_options_list" v-model="field.options" type="text" placeholder="Enter a comma-separated list of options (for radio buttons, select, etc)">
+            <button id="input_adder_submit" type="submit" value="Submit">Add Element</button><br>
+    </form>
+    <ul>
+        <li v-repeat="fields">{{$key}}:{{type}}<button v-on="click: deleteField(name)">x</button></li>
+    </ul>
+</div>

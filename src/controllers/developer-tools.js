@@ -1,36 +1,50 @@
 import Vue from 'vue';
-import APIService from 'services/api-service';
+import APIService from 'services/api';
 import template from 'templates/pages/developer-tools.html!';
-import CodeMirror from 'lib/CodeMirror/lib/codemirror';
-import 'lib/CodeMirror/mode/javascript/javascript';
-import 'lib/CodeMirror/keymap/sublime';
+import {user} from 'services/auth';
 
-import 'lib/CodeMirror/theme/default.css!';
-import 'lib/CodeMirror/lib/codemirror.css!';
+import 'components/loading-content';
+import 'components/code-editor';
+import 'components/engine-form-builder';
 
 export default Vue.extend({
     template: template,
-    data: function() {
-        return {
-            loading: true
+    data() {return {
+        stateParams: null,
+        loadState: false,
+        feed: null,
+        fields: null,
+        js: '',
+        html: '',
+        css: ''
+    }},
+    methods: {
+        save() {
+            APIService.engine.create({
+                js: this.js,
+                html: this.html,
+                css: this.css,
+                fields: this.fields
+            }).then(resp => {
+                this.feed.engineId = resp.data._id;
+                return APIService.feed.update(this.feed._id, this.feed);
+            });
         }
     },
-    methods: {
-    },
-    created: function() {
-        console.log("Develop created");
-    },
-    attached: function() {
-        console.log("Develop attached");
-        this.loading = false;
-        CodeMirror(document.getElementById("codemirror"),
-          {
-              value: "function myScript(){\n\treturn 100;\n}",
-              lineNumbers: true,
-              theme: "default",
-              mode: "javascript"
-          }
-        );
-
+    watch: {
+        stateParams(stateParams) {
+            APIService.feed.get(stateParams[0])
+                .then(resp => {
+                    this.feed = resp.data;
+                    return APIService.engine.get(resp.data.engineId);
+                })
+                .then(resp => {
+                    this.fields = resp.data.fields;
+                    this.js = resp.data.js;
+                    this.html = resp.data.html;
+                    this.css = resp.data.css;
+                    this.loadState = true;
+                });
+        }
     }
 });

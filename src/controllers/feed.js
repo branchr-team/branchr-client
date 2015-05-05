@@ -1,67 +1,72 @@
 import Vue from 'vue';
-import APIService from 'services/api-service';
+import APIService from 'services/api';
 import * as PostFields from 'components/post-fields';
 import template from 'templates/pages/feed.html!';
+import {stateParams} from 'lib/router';
+
+import 'components/loading-content';
+import 'components/contrib';
+import 'components/post-fields';
 
 export default Vue.extend({
-	template: template,
-	data: function() {
-		return {
-			loading: true,
-            params: null,
-            feedId: null,
-			feed: null,
-            engine: null,
-			fields: null,
-            contribs: null
-		}
-	},
-	methods: {
-		updateFeed: function() {
-			APIService.feed.get(this.feedId)
-                .then(resp => {
-                    this.feed = resp.data;
-                    APIService.contrib.listByFeedId(this.feed._id).then(resp => {
-                        console.log(resp.data);
-                        this.contribs = resp.data.map(c => c._id);
-						this.loading = false;
-                    });
-                    return APIService.engine.get(resp.data.engineId);
-                })
-                .then(resp => {
-                    this.engine = resp.data;
-                    this.fields = this.engine.fields.map(f => {
-                        return {
-                            component: PostFields.getComponentFromCode(f.type),
-                            default: f.default,
-                            key: f.key,
-                            name: f.key,
-                            model: null
-                        };
-                    });
-                });
-		},
-		createPost: function(e) {
-			e.preventDefault();
-            let params = {};
-            this.fields.forEach(f => {
-                params[f.key] = f.model;
-            });
-            let contrib = {
-                engineId: this.engine._id,
-                feedId: this.feed._id,
-                params: params
+  template: template,
+  data() {
+    return {
+      stateParams: null,
+      loadState: false,
+      feedId: null,
+      feed: null,
+      engine: null,
+      fields: null,
+      contribs: null
+    }
+  },
+  methods: {
+    updateFeed() {
+      APIService.feed.get(this.feedId)
+        .then(resp => {
+          this.feed = resp.data;
+          APIService.contrib.listByFeedId(this.feed._id).then(resp => {
+            this.contribs = resp.data.map(c => c._id);
+            this.loadState = true;
+          });
+          return APIService.engine.get(resp.data.engineId);
+        })
+        .then(resp => {
+          this.engine = resp.data;
+          this.fields = this.engine.fields.map(f => {
+            return {
+              component: PostFields.getComponentFromCode(f.type),
+              default: f.default,
+              key: f.key,
+              name: f.key,
+              model: null
             };
-            APIService.contrib.create(contrib).then(this.updateFeed);
-		},
-        deleteContrib: function(contribId) {
-            APIService.contrib.delete(contribId).then(this.updateFeed);
-        }
-	},
-	watch: {
-		params: function(p) {
-            this.feedId = p[0];
-			this.updateFeed();
-		}
-	}
+          });
+        });
+    },
+    createPost(e) {
+      e.preventDefault();
+      let params = {};
+      this.fields.forEach(f => {
+        params[f.key] = f.model;
+      });
+      let contrib = {
+        engineId: this.engine._id,
+        feedId: this.feed._id,
+        params: params
+      };
+      debugger;
+      APIService.contrib.create(contrib).then(this.updateFeed);
+    },
+    deleteContrib: function(contribId) {
+      APIService.contrib.delete(contribId).then(this.updateFeed);
+    }
+  },
+  watch: {
+    stateParams(stateParams) {
+      this.feedId = stateParams[0];
+      this.updateFeed();
+    }
+  }
 });

@@ -6,8 +6,19 @@
   </div>
 </div>
 <div class="measure">
-    <loading-content v-with="loadState: loading">
-      <div id="codemirror">
-      </div>
-    </loading-content>
+  <loading-content v-with="loadState: loadState">
+    <br>
+    <pre>{{feed | json 4}}</pre>
+    <br>
+    <pre>{{fields | json 4}}</pre>
+    <br>
+    <code-editor v-with="value: js" lang-type="js"></code-editor>
+    <br>
+    <code-editor v-with="value: html" lang-type="html"></code-editor>
+    <br>
+    <code-editor v-with="value: css" lang-type="css"></code-editor>
+    <br>
+    <button class="btn btn--blue" v-on="click: save">Save</button>
+  </loading-content>
 </div>
+

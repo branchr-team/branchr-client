@@ -1,6 +1,9 @@
 @import '../../bower_components/bourbon/app/assets/stylesheets/bourbon';
 @import '../../bower_components/furtive/scss/all';
 
+@import 'semantic-ui/semantic';
+@import 'icons/icomoon';
+
 @import "colors";
 @import "base";
 
@@ -10,6 +13,7 @@
 
 @import 'components/loading-spinner';
 @import 'components/loading-content';
+@import 'components/login-dialog';
 @import 'components/contrib';
 
 /* WARNING!

@@ -1,24 +1,35 @@
 import Vue from 'vue';
 import * as router from 'lib/router';
+import * as AuthService from 'services/auth';
 
-import 'components/loading-spinner';
-import 'components/loading-content';
-import 'components/post-fields';
-import 'components/contrib';
+import 'components/login-dialog';
 
 router.page('/', 'home', 'controllers/home');
-router.page('/users', 'users', 'controllers/users');
-router.page('/feeds', 'explore', 'controllers/feeds', true);
-router.page('#', 'contribute', '', true)
-router.page('/develop', 'develop', 'controllers/developer-tools', true);
-router.page('/feed/:id', 'feed', 'controllers/feed');
+//router.page('/users', 'users', 'controllers/users');
+router.page('/explore', 'explore', 'controllers/feeds', true);
+router.page('#', 'contribute', '', true);
+//router.page('/develop', 'develop', 'controllers/developer-tools', true);
+router.page('/dev', 'develop', 'controllers/developer-tools', true);
+router.page('/feed/:feedId', 'feed', 'controllers/feed');
 router.page('/description', 'description','controllers/description');
 
-var vm = new Vue({
+export var vm = new Vue({
     el: '#main',
     data: {
         ctrlName: '',
-        nav: router.navPages
+        nav: router.navPages,
+        user: AuthService.user
+    },
+    methods: {
+        updateUser() {
+            this.user = AuthService.user;
+        },
+        openLoginDialog() {
+            return this.$.loginDialog.open().then(this.updateUser);
+        },
+        logout() {
+            return AuthService.logout().then(this.updateUser);
+        }
     }
 });
 

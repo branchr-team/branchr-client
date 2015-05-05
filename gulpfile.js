@@ -77,11 +77,11 @@ gulp.task('serve', ['build'], function() {
         gulp.watch([path.join(paths.styles.src, '**/*')], ['styles']);
     }
     return gulp.src(destDir)
-      .pipe(server({
-          livereload: true,
-          directoryListing: false,
-          open: false
-      }));
+        .pipe(server({
+            livereload: true,
+            directoryListing: false,
+            open: false
+        }));
 });
 
 gulp.task('styles', ['bower'], function() {
@@ -99,8 +99,8 @@ gulp.task('copy', ['bower-js', 'bower-assets'], function() {
         path.join(srcDir, '**/*'),
         path.join('!'+paths.styles.src,'**/*')
     ])
-      .pipe(changed(destDir))
-      .pipe(gulp.dest(destDir));
+        .pipe(changed(destDir))
+        .pipe(gulp.dest(destDir));
 });
 
 gulp.task('bower', function() {
@@ -108,6 +108,12 @@ gulp.task('bower', function() {
       .pipe(install());
 });
 
+//gulp.task('bower-folders', ['bower'], function() {
+//    gulp.src(paths.bower.folderDeps.map(function(dep) {
+//        return path.join(paths.bower.src, dep);
+//    }),{base: paths.bower.src})
+//        .pipe(gulp.dest(paths.bower.folderDest));
+//});
 
 gulp.task('bower-js', ['bower'], function() {
   paths.bower.jsDeps.forEach(function(dep) {
@@ -127,3 +133,4 @@ gulp.task('bower-assets', ['bower'], function() {
       .pipe(changed(paths.bower.assetDest))
       .pipe(gulp.dest(paths.bower.assetDest));
 });
+
