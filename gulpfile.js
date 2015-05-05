@@ -14,7 +14,8 @@ var gulp        = require('gulp'),
     sass        = require('gulp-ruby-sass'),
     sourcemaps  = require('gulp-sourcemaps'),
     changed     = require('gulp-changed'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+    deploy      = require('gulp-gh-pages');
 
 /*------------------------
  Environment
@@ -69,6 +70,11 @@ gulp.task('clean', function(cb) {
 
 gulp.task('build', function(cb) {
     runSequence('clean', ['copy', 'styles'], cb);
+});
+
+gulp.task('deploy', function() {
+    return gulp.src(path.join(destDir, '/**/*'))
+        .pipe(deploy());
 });
 
 gulp.task('serve', ['build'], function() {
