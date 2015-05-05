@@ -76,14 +76,15 @@ header {
     text-transform: capitalize;
 
     ul {
-      
+
       &#navigation {
         text-transform: uppercase;
         font-size: $font-size;
         font-weight: bold;
 
-        li {
+        padding-top: 4px;
 
+        li {
           border-bottom: {
             width: 6px;
             style: solid;
