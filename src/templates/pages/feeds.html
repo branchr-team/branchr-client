@@ -1,10 +1,8 @@
-<div class="measure">
-	<h1>Feeds</h1>
-	<loading-content v-with="loadState: loadState">
-		<ul>
-			<li v-repeat="feeds">
-				<a v-attr="href: '#/feed/'+id">{{name}}</a>
-			</li>
-		</ul>
-	</loading-content>
-</div>
+<h1>Feeds</h1>
+<loading-content v-with="loadState: loadState">
+<ul>
+	<li v-repeat="feeds">
+		<a v-attr="href: '#/feed/'+id">{{name}}</a>
+	</li>
+</ul>
+</loading-content>

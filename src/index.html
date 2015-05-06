@@ -22,11 +22,11 @@
         System.import('main');
     </script>
 </head>
-<body id="main">
+<body v-cloak id="main">
     <header>
         <div class="measure py1">
             <a class="logo flt--left" href="">Branchr</a>
-            <nav v-cloak>
+            <nav>
                 <ul class="flt--left">
                     <li v-repeat="nav">
                         <a class='btn--link' v-attr="href: '#'+url">{{name}}</a>
@@ -54,12 +54,9 @@
         </div>
     </header>
     <login-dialog v-ref="loginDialog"></login-dialog>
-    <main
-		v-cloak
-		v-component="{{ctrlName}}"
-		v-ref="ctrl"
-        class="measure"
-		>
+    <main v-component="{{ctrlName}}"
+		  v-ref="ctrl"
+          class="measure">
 	</main>
     <footer class="measure">
         <div id="copyright"></div>

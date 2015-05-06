@@ -2,10 +2,6 @@
   transition: opacity 0.2s ease;
 }
 
-[v-cloak] {
-  visibility: hidden;
-}
-
 .fade-enter, .fade-leave {
   opacity: 0;
 }
