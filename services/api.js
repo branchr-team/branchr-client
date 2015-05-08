@@ -1,8 +1,8 @@
 import {HTTP} from 'http';
 import {vm} from 'main';
 
-//const base = 'http://localhost:3000';
-const base = 'https://branchr.herokuapp.com';
+const base = 'http://localhost:3000';
+//const base = 'https://branchr.herokuapp.com';
 
 var httpNoAuth = new HTTP();
 
@@ -70,8 +70,10 @@ export default {
         },
         list() {
             return http.get(`${base}/contrib/`);
+        },
+        vote(contribId, vote) {
+            return http.post(`${base}/contrib/${contribId}/vote/${vote}`);
         }
-
     },
     engine: {
         get(engineId) {

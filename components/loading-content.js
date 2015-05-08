@@ -6,7 +6,7 @@ const showDelay = 500;
 Vue.component('loading-content', {
     template:   '<div class="loading-content">' +
                 '<loading-spinner v-show="!loadState && !init" v-transition="fade"></loading-spinner>' +
-                '<div v-show="loadState" v-transition="fade"><content></div>' +
+                '<content v-show="loadState" v-transition="fade">' +
                 '</div>',
 	data: function() { return {
 		init: true,

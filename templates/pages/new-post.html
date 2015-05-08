@@ -1,6 +1,7 @@
 <loading-content v-with="loadState: loadState">
 
     <h2>New Post</h2>
+    Title<input type="text" v-model="title">
     <div v-repeat="fields" v-component="{{component}}" v-on="save: updatePreview"></div>
     <br>
     <div class="flt--right">

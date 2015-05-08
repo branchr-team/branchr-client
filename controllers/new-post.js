@@ -25,6 +25,7 @@ export default Vue.extend({
             stateParams: null,
             loadState: false,
             showPreview: false,
+            title: '',
             feed: null,
             engine: null,
             fields: null
@@ -34,9 +35,10 @@ export default Vue.extend({
         submit(e) {
             e.preventDefault();
             let contrib = {
-                userId: AuthService.user._id,
-                engineId: this.engine._id,
-                feedId: this.feed._id,
+                title: this.title,
+                creator: AuthService.user._id,
+                engine: this.engine._id,
+                feed: this.feed._id,
                 params: fieldsToParams(this.fields)
             };
             APIService.contrib.create(contrib)
@@ -54,7 +56,7 @@ export default Vue.extend({
             APIService.feed.get(stateParams[0])
                 .then(resp => {
                     this.feed = resp.data;
-                    return APIService.engine.get(resp.data.engineId);
+                    return APIService.engine.get(resp.data.engine);
                 })
                 .then(resp => {
                     this.engine = resp.data;

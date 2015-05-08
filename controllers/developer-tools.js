@@ -40,9 +40,9 @@ export default Vue.extend({
                 html: this.html,
                 css: this.css,
                 fields: this.fields,
-                feedId: this.feed._id
+                feed: this.feed._id
             }).then(resp => {
-                this.feed.engineId = resp.data._id;
+                this.feed.engine = resp.data._id;
                 return APIService.feed.update(this.feed._id, this.feed);
             }).then(resp => {
                 alert("Saved!");
@@ -60,7 +60,7 @@ export default Vue.extend({
                 APIService.feed.get(stateParams[0])
                     .then(resp => {
                         this.feed = resp.data;
-                        return APIService.engine.get(resp.data.engineId);
+                        return APIService.engine.get(resp.data.engine);
                     })
                     .then(resp => {
                         this.fields = resp.data.fields;

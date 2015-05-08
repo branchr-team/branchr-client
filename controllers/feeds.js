@@ -12,7 +12,7 @@ export default Vue.extend({
             feeds: []
         }
     },
-    created: function() {
+    ready: function() {
 		setTimeout(() => {if (this.loading == null) this.loading = true}, 1000);
         this.updateFeeds();
     },
@@ -25,6 +25,7 @@ export default Vue.extend({
 						return o;
 					});
 					this.loadState = true;
+                    console.log(this.feeds);
                 })
                 .catch(err => alert(err));
         }
