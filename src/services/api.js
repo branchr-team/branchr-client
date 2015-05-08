@@ -70,8 +70,10 @@ export default {
         },
         list() {
             return http.get(`${base}/contrib/`);
+        },
+        vote(contribId, vote) {
+            return http.post(`${base}/contrib/${contribId}/vote/${vote}`);
         }
-
     },
     engine: {
         get(engineId) {
