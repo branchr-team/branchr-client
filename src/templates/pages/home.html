@@ -1,6 +1,3 @@
 <loading-content v-with="loadState: loadState">
-    <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contrib: contribs">
-        <a href="#/feed/{{contrib.feedId}}">Feed</a>
-        <b-contrib v-with="contribId: contrib._id"></b-contrib>
-    </div>
+    <contrib-summary v-repeat="contrib: contribs"></contrib-summary>
 </loading-content>

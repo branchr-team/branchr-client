@@ -6,7 +6,7 @@ Vue.component('b-contrib', {
     template: template,
     paramAttributes: ['contrib-id'],
     data: function() { return {
-		loadState: false,
+        loadState: false,
         engine: null,
         contrib: null,
         srcdoc: ''
@@ -42,12 +42,17 @@ Vue.component('b-contrib', {
         }
     },
     ready: function() {
-        if (this.contribId) APIService.contrib.get(this.contribId)
-            .then(resp => {
-                this.contrib = resp.data;
-                return APIService.engine.get(resp.data.engineId)
-            })
-            .then(resp => {
+        let p = null;
+        if (this.contribId)
+            p = APIService.contrib.get(this.contribId)
+                .then(resp => {
+                    this.contrib = resp.data;
+                    return APIService.engine.get(resp.data.engine)
+                });
+        else if (this.contrib)
+            p = APIService.engine.get(this.contrib.engine);
+        if (p)
+            p.then(resp => {
                 this.engine = resp.data;
                 this.updateSrcdoc(this.contrib.params);
             });

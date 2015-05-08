@@ -3,10 +3,10 @@ import APIService from 'services/api';
 import template from 'templates/pages/home.html!';
 
 import 'components/loading-content';
-import 'components/contrib';
+import 'components/contrib-summary';
 
 export default Vue.extend({
-	template: template,
+    template: template,
     data: function() { return {
         loadState: false,
         contribs: null
@@ -18,7 +18,7 @@ export default Vue.extend({
                     this.contribs = resp.data;
                     this.loadState = true;
                 });
-        },
+        }
     },
     attached: function() {
         this.updateFeed();

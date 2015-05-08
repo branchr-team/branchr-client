@@ -38,18 +38,15 @@ var paths = {
     },
     bower: {
         src: 'bower_components',
-        folderDeps: [
-            'CodeMirror/**/*'
-        ],
-        folderDest: path.join(destDir, 'lib'),
         jsDeps: [
-            'es6-module-loader/dist/es6-module-loader.js*',
-            'traceur/traceur.min*',
-            'system.js/dist/system.js*',
-            'plugin-text/text.js',
-            'plugin-css/css.js',
-            'vue/dist/vue.min*',
-            'director/build/director.min.js'
+          { script: 'es6-module-loader/dist/es6-module-loader.js*'},
+          { script: 'traceur/traceur.min*'},
+          { script: 'system.js/dist/system.js*'},
+          { script: 'plugin-text/text.js'},
+          { script: 'plugin-css/css.js'},
+          { script: 'vue/dist/vue.min*'},
+          { script: 'director/build/director.min.js'},
+          { script: 'CodeMirror/**/*', sub: 'CodeMirror' }
         ],
         jsDest: path.join(destDir, 'lib'),
         assetDeps: [
@@ -103,7 +100,7 @@ gulp.task('styles', ['bower'], function() {
     return task.pipe(gulp.dest(paths.styles.dest));
 });
 
-gulp.task('copy', ['bower-folders', 'bower-js', 'bower-assets'], function() {
+gulp.task('copy', ['bower-js', 'bower-assets'], function() {
     return gulp.src([
         path.join(srcDir, '**/*'),
         path.join('!'+paths.styles.src,'**/*')
@@ -117,19 +114,22 @@ gulp.task('bower', function() {
         .pipe(install());
 });
 
-gulp.task('bower-folders', ['bower'], function() {
-    gulp.src(paths.bower.folderDeps.map(function(dep) {
-        return path.join(paths.bower.src, dep);
-    }),{base: paths.bower.src})
-        .pipe(gulp.dest(paths.bower.folderDest));
-});
+//gulp.task('bower-folders', ['bower'], function() {
+//    gulp.src(paths.bower.folderDeps.map(function(dep) {
+//        return path.join(paths.bower.src, dep);
+//    }),{base: paths.bower.src})
+//        .pipe(gulp.dest(paths.bower.folderDest));
+//});
 
 gulp.task('bower-js', ['bower'], function() {
-    return gulp.src(paths.bower.jsDeps.map(function(dep) {
-        return path.join(paths.bower.src, dep);
-    }))
-        .pipe(changed(paths.bower.jsDest))
-        .pipe(gulp.dest(paths.bower.jsDest))
+  paths.bower.jsDeps.forEach(function(dep) {
+    var d = dep.sub ? path.join(paths.bower.jsDest,dep.sub) : paths.bower.jsDest;
+    var s = path.join(paths.bower.src, dep.script);
+
+    gulp.src(s)
+      .pipe(changed(d))
+      .pipe(gulp.dest(d));
+  })
 });
 
 gulp.task('bower-assets', ['bower'], function() {
@@ -139,3 +139,4 @@ gulp.task('bower-assets', ['bower'], function() {
         .pipe(changed(paths.bower.assetDest))
         .pipe(gulp.dest(paths.bower.assetDest));
 });
+

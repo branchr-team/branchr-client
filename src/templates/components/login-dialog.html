@@ -5,9 +5,9 @@
     <h3 v-if="message" class="txt--center">{{message}}</h3>
     <form v-on="submit: submit">
         <label for="username">Username</label>
-        <input name="username" type="text" v-model="username">
+        <input id="username" name="username" type="text" v-model="username">
         <label for="password">Password</label>
-        <input name="password" type="password" v-model="password">
+        <input id="password" name="password" type="password" v-model="password">
         <input type="submit" class="btn--blue" value="Login">
     </form>
 </div>

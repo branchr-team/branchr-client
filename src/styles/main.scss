@@ -1,6 +1,9 @@
 @import '../../bower_components/bourbon/app/assets/stylesheets/bourbon';
 @import '../../bower_components/furtive/scss/all';
 
+@import 'semantic-ui/semantic';
+@import 'icons/icomoon';
+
 @import "colors";
 @import "base";
 
@@ -23,6 +26,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+  	font-family: 'Muli', $font-family;
 }
 
 [v-cloak] {
