@@ -1,20 +1,22 @@
-<loading-content v-with="loadState: loadState">
+<div class="measure">
+    <loading-content v-with="loadState: loadState">
 
-    <h2>New Post</h2>
-    Title<input type="text" v-model="title">
-    <div v-repeat="fields" v-component="{{component}}" v-on="save: updatePreview"></div>
-    <br>
-    <div class="flt--right">
-        <button class='btn btn--s' v-on="click: updatePreview">Preview</button>
-        <button class='btn--blue' v-on="click: submit">Post</button>
-    </div>
-    <br><br>
-
-    <div v-show="showPreview">
-        <h2>Preview</h2>
-        <div class="card" style="margin: 1rem;" v-transition="fade">
-            <b-contrib v-ref="preview" v-with="engine: engine"></b-contrib>
+        <h2>New Post</h2>
+        Title<input type="text" v-model="title">
+        <div v-repeat="fields" v-component="{{component}}" v-on="save: updatePreview"></div>
+        <br>
+        <div class="flt--right">
+            <button class='btn btn--s' v-on="click: updatePreview">Preview</button>
+            <button class='btn--blue' v-on="click: submit">Post</button>
         </div>
-    </div>
+        <br><br>
 
-</loading-content>
+        <div v-show="showPreview">
+            <h2>Preview</h2>
+            <div class="card" style="margin: 1rem;" v-transition="fade">
+                <b-contrib v-ref="preview" v-with="engine: engine"></b-contrib>
+            </div>
+        </div>
+
+    </loading-content>
+</div>
