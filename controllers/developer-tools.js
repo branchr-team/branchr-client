@@ -11,7 +11,6 @@ import 'components/engine-form-builder';
 export default Vue.extend({
     template: template,
     data() {return {
-        stateParams: null,
         loadState: false,
         fieldTypeOptions: PostFields.fieldTypeOptions,
         tab: 0,
@@ -35,26 +34,27 @@ export default Vue.extend({
             this.fields.splice(i, 1);
         },
         save() {
-            APIService.engine.create({
-                js: this.js,
-                html: this.html,
-                css: this.css,
-                fields: this.fields,
-                feed: this.feed._id
-            }).then(resp => {
-                this.feed.engine = resp.data._id;
-                return APIService.feed.update(this.feed._id, this.feed);
-            }).then(resp => {
-                alert("Saved!");
-            }).catch(resp => {
-                alert("Something went wrong!");
-                console.error(resp);
-            });
-        }
-    },
-    watch: {
-        stateParams(stateParams) {
-            if (stateParams[0] === "new")
+            ((this.feed && this.feed._id)?
+                APIService.feed.update(this.feed._id, this.feed) :
+                APIService.feed.create(this.feed)
+            ).then(resp => {
+                    return APIService.feed.updateEngine(resp.data._id, {
+                        js: this.js,
+                        html: this.html,
+                        css: this.css,
+                        fields: this.fields,
+                        feed: resp.data._id
+                    });
+                }).then(resp => {
+                    this.feed = resp.data;
+                    alert("Saved!");
+                }).catch(resp => {
+                    alert("Something went wrong!");
+                    console.error(resp);
+                });
+        },
+        onRouteUpdate(stateParams, route) {
+            if (route[1] === "new")
                 this.loadState = true;
             else
                 APIService.feed.get(stateParams[0])
@@ -67,6 +67,9 @@ export default Vue.extend({
                         this.js = resp.data.js;
                         this.html = resp.data.html;
                         this.css = resp.data.css;
+                        this.loadState = true;
+                    })
+                    .catch(err => {
                         this.loadState = true;
                     });
         }

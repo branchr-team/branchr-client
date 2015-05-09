@@ -17,16 +17,18 @@ Vue.component('b-contrib', {
             let hash = ""+Date.now()+""+Math.floor(Math.random()*1000);
             this.srcdoc = `<html>
                     <head>
+                        <script type="text/javascript">
+                            var $params = ${JSON.stringify(params)};
+                            var $done = window.parent._done[${JSON.stringify(hash)}];
+                            window.parent = parent = null;
+                            window.alert = alert = null;
+                        </script>
                         <style type="text/css">${this.engine.css}</style>
                     </head>
                     <body>
                     ${this.engine.html}
                         <script type="text/javascript">
                             window.onload = function() {
-                                var $params = ${JSON.stringify(params)};
-                                var $done = window.parent._done[${JSON.stringify(hash)}];
-                                window.parent = null;
-                                parent = null;
                                 ${this.engine.js}
                             };
                         </script>

@@ -7818,7 +7818,7 @@ button:focus {
   background-color: rgba(1, 1, 1, 0.5); }
 
 .login-dialog {
-  background-color: rgba(72, 72, 72, 0.99);
+  background-color: #fff;
   position: fixed;
   margin: 10% auto 0;
   padding: 1rem;
@@ -7826,9 +7826,7 @@ button:focus {
   left: 0;
   right: 0;
   z-index: 10;
-  width: 50%;
-  min-width: 300px;
-  max-width: 500px; }
+  width: 300px; }
 
 .b-contrib iframe {
   border: 0;

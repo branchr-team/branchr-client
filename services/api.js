@@ -1,8 +1,8 @@
 import {HTTP} from 'http';
 import {vm} from 'main';
 
-//const base = 'http://localhost:3000';
-const base = 'https://branchr.herokuapp.com';
+const base = 'http://localhost:3000';
+//const base = 'https://branchr.herokuapp.com';
 
 var httpNoAuth = new HTTP();
 
@@ -10,7 +10,7 @@ var http = new HTTP([
     function(resp, next, retry) {
         if (resp.status === 401 && resp.retryCount <= 3)
             vm.openLoginDialog("You must login first!").then(() => {
-                alert(`${resp.retryCount} Retrying!`);
+                console.log(`Auth: ${resp.retryCount} Retrying!`);
                 retry();
             });
         else next();
@@ -50,6 +50,9 @@ export default {
         },
         update(id, feed) {
             return http.put(`${base}/feed/${id}`, feed);
+        },
+        updateEngine(id, engine) {
+            return http.put(`${base}/feed/${id}/engine`, engine);
         },
         list() {
             return http.get(`${base}/feed/`);

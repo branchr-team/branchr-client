@@ -1,6 +1,6 @@
 <loading-content v-with="loadState: loadState">
     <h1>{{feed.name}}</h1>
-    <a class='btn--blue' href="#/newpost/{{feed._id}}">Post</a>
+    <a class='btn--blue' href="#/post/new/{{feed._id}}">Post</a>
     <a v-if="owner" class="btn--green" href="#/feed/edit/{{feed._id}}">Edit</a>
     <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contrib: contribs">
         <contrib-post v-with="contrib: contrib"></contrib-post>
