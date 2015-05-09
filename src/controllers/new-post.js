@@ -22,7 +22,6 @@ export default Vue.extend({
     template: template,
     data() {
         return {
-            stateParams: null,
             loadState: false,
             showPreview: false,
             title: '',
@@ -49,11 +48,9 @@ export default Vue.extend({
         updatePreview() {
             this.$.preview.updateSrcdoc(fieldsToParams(this.fields));
             this.showPreview = true;
-        }
-    },
-    watch: {
-        stateParams(stateParams) {
-            APIService.feed.get(stateParams[0])
+        },
+        onRouteUpdate(params) {
+            APIService.feed.get(params[0])
                 .then(resp => {
                     this.feed = resp.data;
                     return APIService.engine.get(resp.data.engine);

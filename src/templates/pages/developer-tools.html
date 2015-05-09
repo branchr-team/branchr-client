@@ -2,23 +2,21 @@
     <div id="options">
         <div class="measure px1">
             <div class="ui basic mini compact buttons">
-                <div class="ui button" v-on="click: tab = 0">params</div>
-                <div class="ui button" v-on="click: tab = 1">javascript</div>
-                <div class="ui button" v-on="click: tab = 2">html</div>
-                <div class="ui button" v-on="click: tab = 3">css</div>
+                <div class="ui button" v-on="click: tab = 0" v-class="active: tab == 0">params</div>
+                <div class="ui button" v-on="click: tab = 1" v-class="active: tab == 1">javascript</div>
+                <div class="ui button" v-on="click: tab = 2" v-class="active: tab == 2">html</div>
+                <div class="ui button" v-on="click: tab = 3" v-class="active: tab == 3">css</div>
             </div>
             Feed Name<input type="text" v-model="feed.name">
+            <button class="btn btn--blue" v-on="click: save">Save</button>
         </div>
     </div>
     <div class="measure">
-        <br>
-        <br>
         <div v-if="tab == 0">
             <div v-repeat="field: fields">
                 key<input type="text" v-model="field.key">
-                type<br><select options="fieldTypeOptions" v-model="field.type" style="color: black;" number></select>
-                default<div v-component="{{getComponentFromCode(field.type)}}" v-with="model: field.default"></div>
-                <br>
+                type<br><select options="fieldTypeOptions" v-model="field.type" style="color: black;" number></select><br>
+                default<div v-component="{{getComponentFromCode(field.type)}}" v-with="model: field.default"></div><br>
                 <button class="btn btn--red btn--s" v-on="click: removeField($index)">Remove</button>
                 <br><hr><br>
             </div>
@@ -27,8 +25,6 @@
         <code-editor v-if="tab == 1" v-with="value: js" lang-type="js" style="height: 1000px"></code-editor>
         <code-editor v-if="tab == 2" v-with="value: html" lang-type="html"></code-editor>
         <code-editor v-if="tab == 3" v-with="value: css" lang-type="css"></code-editor>
-        <br>
-        <button class="btn btn--blue" v-on="click: save">Save</button>
     </div>
 </loading-content>
 

@@ -1,75 +1,83 @@
-<div id="options">
-    <div class="measure px1">
-        <div class="ui basic mini compact buttons">
-            <div class="ui button active">recent</div>
-            <div class="ui button">popular</div>
-            <div class="ui button">random</div>
-        </div>
-        <div class="ui transparent left icon large input mx1 contrib-search">
-            <input type="text" placeholder="Search...">
-            <i class="ui search large icon"></i>
-        </div>
-    </div>
-</div>
-<div class="measure px1">
-    <loading-content v-with="loadState: loadState">
-        <div class="ui items py2">
-            <template v-repeat="feed: feeds">
+<h1>Feeds</h1>
+<loading-content v-with="loadState: loadState">
+    <ul>
+        <li v-repeat="feeds">
+            <a v-attr="href: '#/feed/'+id">{{name}}</a>
+        </li>
+    </ul>
+</loading-content>
+<!--<div id="options">-->
+    <!--<div class="measure px1">-->
+        <!--<div class="ui basic mini compact buttons">-->
+            <!--<div class="ui button active">recent</div>-->
+            <!--<div class="ui button">popular</div>-->
+            <!--<div class="ui button">random</div>-->
+        <!--</div>-->
+        <!--<div class="ui transparent left icon large input mx1 contrib-search">-->
+            <!--<input type="text" placeholder="Search...">-->
+            <!--<i class="ui search large icon"></i>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="measure px1">-->
+    <!--<loading-content v-with="loadState: loadState">-->
+        <!--<div class="ui items py2">-->
+            <!--<template v-repeat="feed: feeds">-->
 
-                <div class="ui item" >
-                    <div class="content">
+                <!--<div class="ui item" >-->
+                    <!--<div class="content">-->
 
-                        <div class="ui header contrib-title">
-                            <a v-attr="href: '#/feed/' + feed.id">&lt;Contribution-Title&gt;</a>
-                            <div class="sub header muted">
-                                &nbsp;| Contributed by
-                                <a class="user-link" v-attr="href: '#/user/' + feed.permissions.owners[0]">
-                                    <!--{{ '@' + feed.permissions.owners[0] }}-->
-                                    @username1
-                                </a>
-                            </div>
-                        </div>
+                        <!--<div class="ui header contrib-title">-->
+                            <!--<a v-attr="href: '#/feed/' + feed.id">&lt;Contribution-Title&gt;</a>-->
+                            <!--<div class="sub header muted">-->
+                                <!--&nbsp;| Contributed by-->
+                                <!--<a class="user-link" v-attr="href: '#/user/' + feed.permissions.owners[0]">-->
+                                    <!--&lt;!&ndash;{{ '@' + feed.permissions.owners[0] }}&ndash;&gt;-->
+                                    <!--@username1-->
+                                <!--</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div class="ui header engine-name">
-                            <a v-attr="href: '#/feed/' + feed.id">{{ feed.name }}</a>
-                            <div class="sub header muted">
-                                &nbsp;| Developed by
-                                <a class="user-link" v-attr="href: '#/user/' + feed.permissions.owners[0]">
-                                    <!--{{ '@' + feed.permissions.owners[0] }}-->
-                                    @username2
-                                </a>
-                            </div>
-                        </div>
-                        <div class="description">
-                            <img src="http://placehold.it/500x300/666&text=Content" alt=""/>
-                        </div>
-                        <div class="extra social-meta">
-                            <div class="ui medium basic compact button">
-                                <i class="chevron circle up black icon"></i> 24
-                            </div>
-                            <div class="ui medium basic compact button">
-                                <i class="add circle black icon"></i> 17
-                            </div>
-                            <span>Source 1</span>
-                            <span>Source 2</span>
-                        </div>
-                        <div class="extra contrib-tags">
-                            <div class="ui mini tag label">
-                                Tag name 1
-                            </div>
-                            <div class="ui mini tag label">
-                                Tag name 2
-                            </div>
-                            <div class="ui mini tag label">
-                                Tag name 3
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <!--<div class="ui header engine-name">-->
+                            <!--<a v-attr="href: '#/feed/' + feed.id">{{ feed.name }}</a>-->
+                            <!--<div class="sub header muted">-->
+                                <!--&nbsp;| Developed by-->
+                                <!--<a class="user-link" v-attr="href: '#/user/' + feed.permissions.owners[0]">-->
+                                    <!--&lt;!&ndash;{{ '@' + feed.permissions.owners[0] }}&ndash;&gt;-->
+                                    <!--@username2-->
+                                <!--</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="description">-->
+                            <!--<img src="http://placehold.it/500x300/666&text=Content" alt=""/>-->
+                        <!--</div>-->
+                        <!--<div class="extra social-meta">-->
+                            <!--<div class="ui medium basic compact button">-->
+                                <!--<i class="chevron circle up black icon"></i> 24-->
+                            <!--</div>-->
+                            <!--<div class="ui medium basic compact button">-->
+                                <!--<i class="add circle black icon"></i> 17-->
+                            <!--</div>-->
+                            <!--<span>Source 1</span>-->
+                            <!--<span>Source 2</span>-->
+                        <!--</div>-->
+                        <!--<div class="extra contrib-tags">-->
+                            <!--<div class="ui mini tag label">-->
+                                <!--Tag name 1-->
+                            <!--</div>-->
+                            <!--<div class="ui mini tag label">-->
+                                <!--Tag name 2-->
+                            <!--</div>-->
+                            <!--<div class="ui mini tag label">-->
+                                <!--Tag name 3-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="ui divider"></div>
+                <!--<div class="ui divider"></div>-->
 
-            </template>
-        </div>
-    </loading-content>
-</div>
+            <!--</template>-->
+        <!--</div>-->
+    <!--</loading-content>-->
+<!--</div>-->

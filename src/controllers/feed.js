@@ -12,7 +12,6 @@ export default Vue.extend({
     template: template,
     data() {
         return {
-            stateParams: null,
             owner: false,
             loadState: false,
             feedId: null,
@@ -41,11 +40,9 @@ export default Vue.extend({
         },
         deleteContrib: function(contribId) {
             APIService.contrib.delete(contribId).then(this.updateFeed);
-        }
-    },
-    watch: {
-        stateParams(stateParams) {
-            this.feedId = stateParams[0];
+        },
+        onRouteUpdate(params) {
+            this.feedId = params[0];
             this.updateFeed();
         }
     }

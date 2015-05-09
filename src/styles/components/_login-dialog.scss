@@ -8,7 +8,7 @@
   background-color: rgba(1, 1, 1, 0.5);
 }
 .login-dialog {
-  background-color: $dark-gray;
+  background-color: $white;
 
   position: fixed;
 
@@ -20,7 +20,5 @@
   right: 0;
   z-index: 10;
 
-  width: 50%;
-  min-width: 300px;
-  max-width: 500px;
+  width: 300px;
 }
