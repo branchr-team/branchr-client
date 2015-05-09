@@ -18,6 +18,12 @@ Vue.component('contrib-post', {
             this.contrib = contrib;
             this.feed = contrib.feed;
             this.loadState = true;
+        },
+        vote(vote) {
+            APIService.contrib.vote(this.contrib._id, vote)
+                .then(resp => {
+                    this.contrib.score = resp.data.score;
+                });
         }
     },
     ready: function() {
