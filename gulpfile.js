@@ -69,7 +69,7 @@ gulp.task('build', function(cb) {
     runSequence('clean', ['copy', 'styles'], cb);
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['build'], function() {
     return gulp.src(path.join(destDir, '/**/*'))
         .pipe(deploy());
 });
