@@ -1,11 +1,33 @@
-<div class="measure">
-    <h1>Feeds</h1>
+<div id="options">
+    <div class="measure px1">
+        <!--<div class="ui mini buttons flt&#45;&#45;right post-edit-buttons">-->
+            <!--<a class='ui blue button' href="#/post/new/{{feed._id}}">-->
+                <!--<i class="plus icon"></i>-->
+                <!--Post-->
+            <!--</a>-->
+            <!--<div v-if="owner" class="or"></div>-->
+            <!--<a v-if="owner" class="ui green button" href="#/feed/edit/{{feed._id}}">-->
+                <!--Edit-->
+                <!--<i class="pencil right icon"></i>-->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="feed-title">
+            <span class="h3">
+                Feeds
+            </span>
+        </div>
+    </div>
+</div>
+<div class="measure px1">
     <loading-content v-with="loadState: loadState">
-        <ul>
-            <li v-repeat="feeds">
-                <a v-attr="href: '#/feed/'+id">{{name}}</a>
-            </li>
-        </ul>
+        <div class="ui list feed-list">
+            <div class="item" v-repeat="feed : feeds">
+                <i class="right triangle icon"></i>
+                <div class="content">
+                    <a v-attr="href: '#/feed/'+ feed.id" class="header">{{feed.name}}</a>
+                </div>
+            </div>
+        </div>
     </loading-content>
 </div>
 <!--<div id="options">-->
