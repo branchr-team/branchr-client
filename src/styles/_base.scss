@@ -254,7 +254,6 @@ footer {
 /********************
  * Editor
  ********************/
-
 .explore {
 
   #options {
@@ -312,6 +311,9 @@ footer {
 
   .user-link {
     text-decoration: none;
+    &.anon {
+      color: black;
+    }
   }
 
   .description {

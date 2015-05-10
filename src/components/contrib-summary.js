@@ -20,6 +20,15 @@ Vue.component('contrib-summary', {
             this.loadState = true;
         }
     },
+    //compiled: function() {
+    //    if( this.contrib.compiled$el ) {
+    //        this.contrib.precompiled = true;
+    //        this.$el = this.contrib.compiled$el;
+    //    } else {
+    //        this.contrib.precompiled = false;
+    //        this.contrib.compiled$el = this.$el;
+    //    }
+    //},
     ready: function() {
         if (this.contrib)
             this.init(this.contrib);

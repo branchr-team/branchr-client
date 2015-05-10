@@ -5,8 +5,8 @@
             <a v-attr="href: '#/feed/' + feed.id">{{contrib.title ? contrib.title : 'UNTITLED'}}</a>
             <div class="sub header muted">
                 &nbsp;| Contributed by
-                <a class="user-link" v-attr="href: '#/user/' + contrib.creator.username">
-                    @{{ contrib.creator ? contrib.creator.username : "anonymous" }}
+                <a class="user-link" v-attr="href: '#/user/' + contrib.creator.username" v-class="anon: !contrib.creator">
+                    {{ contrib.creator ? '@' + contrib.creator.username : "anonymous" }}
                 </a>
             </div>
         </div>
@@ -14,8 +14,8 @@
             <a v-attr="href: '#/feed/' + feed._id">{{ feed.name }}</a>
             <div class="sub header muted">
                 &nbsp;| Developed by
-                <a class="user-link" v-attr="href: '#/user/' + feed.permissions.owners[0]">
-                    @{{ feed.owners[0].username ? feed.owners[0].username : "anonymous" }}
+                <a class="user-link" v-attr="href: '#/user/' + feed.owners[0].username">
+                    {{ feed.owners[0].username ? '@' + feed.owners[0].username : "anonymous" }}
                 </a>
             </div>
         </div>
@@ -24,7 +24,7 @@
         </div>
         <div class="extra social-meta">
             <div class="ui medium basic compact button">
-                <i class="chevron circle up black icon"></i> 24
+                <i class="chevron circle up black icon"></i> {{contrib.score}}
             </div>
             <div class="ui medium basic compact button">
                 <i class="add circle black icon"></i> 17
