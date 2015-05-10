@@ -44,11 +44,19 @@
                            v-on="click: openLoginDialog()">
                             Log in
                         </a>
-                        <a class="ui mini button green compact"
+                        <div class="profile-button"
                            v-if="user"
-                           v-on="click: logout">
-                            {{user.username}}
-                        </a>
+                           >
+                            <div class="ui pointing red mini compact label logout-button"
+                                 v-if="showLogout"
+                                 v-on="click: logout">
+                                Logout
+                            </div>
+                            <a class="ui mini button green compact"
+                               v-on="click: showLogout = !showLogout">
+                                {{user.username}}
+                            </a>
+                        </div>
                     </li>
                 </ul>
                 <div style="clear: both"></div>

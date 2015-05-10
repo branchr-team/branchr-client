@@ -162,6 +162,19 @@ header {
         a#login-button {
           box-shadow: 0px 0px 1px 1px rgba(39, 41, 43, 0.34);
         }
+
+        .logout-button {
+          cursor: pointer;
+        }
+
+        .profile-button {
+          position: relative;
+        }
+
+        .profile-button .ui.pointing.label {
+          position: absolute;
+          top: 21px;
+        }
       }
     }
 

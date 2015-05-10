@@ -19,7 +19,8 @@ export var vm = new Vue({
     data: {
         ctrlName: '',
         nav: router.navPages,
-        user: AuthService.user
+        user: AuthService.user,
+        showLogout: false
     },
     methods: {
         updateUser() {
