@@ -67,6 +67,7 @@ header {
     color: $dark-gray;
     position: relative;
 
+    margin-left: 19px;
     &:before {
       content: "";
       background-image: url(/assets/images/branchr_leaf.svg);
