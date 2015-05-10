@@ -1,6 +1,6 @@
-<div class="login-overlay"v-show="show" v-transition="fade" v-on="click: close()"></div>
+<div class="login-overlay"v-show="show" v-transition="fade" v-on="click: close(false)"></div>
 <div class="login-dialog" v-show="show" v-transition="fade">
-    <button class="btn--red btn--s flt--right" v-on="click: close()">X</button>
+    <button class="btn--red btn--s flt--right" v-on="click: close(false)">X</button>
     <div class="clearfix"></div>
     <h3 v-if="message" class="txt--center">{{message}}</h3>
     <form v-on="submit: submit">

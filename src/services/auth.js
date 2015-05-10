@@ -15,15 +15,20 @@ try {
 }
 
 export function login(username, password) {
-    return APIService.login(username, password)
-        .then(resp => {
-            let user = resp.data.user;
-            storage.setItem('user', JSON.stringify(user));
-            this.user = user;
-            storage.setItem('token', JSON.stringify(resp.data.token));
-            this.token = resp.data.token;
-            return user;
-        });
+    return new Promise((resolve,reject) => {
+        APIService.login(username, password)
+          .then(
+            resp => {
+              let user = resp.data.user;
+              storage.setItem('user', JSON.stringify(user));
+              this.user = user;
+              storage.setItem('token', JSON.stringify(resp.data.token));
+              this.token = resp.data.token;
+              resolve(user);
+          },
+            err => reject(err)
+        );
+    })
 }
 
 export function logout() {
