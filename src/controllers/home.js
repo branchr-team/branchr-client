@@ -3,7 +3,7 @@ import APIService from 'services/api';
 import template from 'templates/pages/home.html!';
 
 import 'components/loading-content';
-import 'components/contrib-summary';
+import 'components/contrib-post';
 
 export default Vue.extend({
     template: template,
