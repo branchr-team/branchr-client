@@ -44,7 +44,7 @@ var paths = {
           { script: 'system.js/dist/system.js*'},
           { script: 'plugin-text/text.js'},
           { script: 'plugin-css/css.js'},
-          { script: 'vue/dist/vue.min*'},
+          { script: 'vue/dist/vue*'},
           { script: 'director/build/director.min.js'},
           { script: 'CodeMirror/**/*', sub: 'CodeMirror' }
         ],
@@ -84,7 +84,12 @@ gulp.task('serve', ['build'], function() {
     }
     return gulp.src(destDir)
         .pipe(server({
-            livereload: true,
+            livereload: {
+              enable: true,
+              filter: function(filePath, cb) {
+                cb( !(/DS_Store/.test(filePath)) );
+              }
+            },
             directoryListing: false,
             open: false
         }));
