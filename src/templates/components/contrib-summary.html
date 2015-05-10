@@ -2,10 +2,10 @@
     <div class="content">
 
         <div class="ui header contrib-title">
-            <a v-attr="href: '#/feed/' + feed.id">{{contrib.title ? contrib.title : 'UNTITLED'}}</a>
+            <a v-attr="href: '#/feed/' + feed._id">{{contrib.title ? contrib.title : 'UNTITLED'}}</a>
             <div class="sub header muted">
                 &nbsp;| Contributed by
-                <a class="user-link" v-attr="href: '#/user/' + contrib.creator.username" v-class="anon: !contrib.creator">
+                <a class="user-link" v-attr="href: contrib.creator ? '#/user/' + contrib.creator.username : '#'" v-class="anon: !contrib.creator">
                     {{ contrib.creator ? '@' + contrib.creator.username : "anonymous" }}
                 </a>
             </div>
@@ -23,14 +23,14 @@
             <b-contrib v-with="contrib: contrib"></b-contrib>
         </div>
         <div class="extra social-meta">
-            <div class="ui medium basic compact button">
+            <div class="ui medium basic compact button" v-on="click: vote(1)">
                 <i class="chevron circle up black icon"></i> {{contrib.score}}
             </div>
-            <div class="ui medium basic compact button">
-                <i class="add circle black icon"></i> 17
-            </div>
-            <span>Source 1</span>
-            <span>Source 2</span>
+            <!--<div class="ui medium basic compact button">-->
+                <!--<i class="add circle black icon"></i> 17-->
+            <!--</div>-->
+            <!--<span>Source 1</span>-->
+            <!--<span>Source 2</span>-->
         </div>
         <div class="extra contrib-tags">
             <div class="ui mini tag label">

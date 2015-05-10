@@ -27,7 +27,7 @@ Vue.component('b-contrib', {
                         </script>
                         <style type="text/css">${this.engine.css}</style>
                     </head>
-                    <body>
+                    <body style="padding:0;margin:0;position:relative;">
                     ${this.engine.html}
                         <script type="text/javascript">
                             window.onload = function() {

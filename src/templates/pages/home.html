@@ -17,7 +17,7 @@
 <div class="measure px1">
     <loading-content v-with="loadState: loadState">
         <div class="ui items">
-            <contrib-summary v-repeat="contrib: contribs | orderBy order.field order.reverse | filterBy searchInput"></contrib-summary>
+            <contrib-post v-repeat="contrib: contribs | orderBy order.field order.reverse | filterBy searchInput"></contrib-post>
         </div>
     </loading-content>
 </div>

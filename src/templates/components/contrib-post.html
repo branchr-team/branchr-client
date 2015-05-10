@@ -2,15 +2,24 @@
     <div class="content">
 
         <div class="ui header contrib-title">
-            <span>{{contrib.title}}</span>
+            <span v-if="ctrlName == 'feed'">{{contrib.title ? contrib.title : 'UNTITLED'}}</span>
+            <a v-if="ctrlName == 'explore'" v-attr="href: '#/feed/' + feed._id">{{contrib.title ? contrib.title : 'UNTITLED'}}</a>
             <div class="sub header muted">
                 &nbsp;| Contributed by
-                <a class="user-link" v-attr="href: '#/user/' + contrib.creator.username">
-                    {{ '@' + contrib.creator.username }}
+                <a class="user-link" v-attr="href: contrib.creator ? '#/user/' + contrib.creator.username : '#'" v-class="anon: !contrib.creator">
+                    {{ contrib.creator ? '@' + contrib.creator.username : "anonymous" }}
                 </a>
             </div>
         </div>
-
+        <div v-if="ctrlName == 'explore'" class="ui header engine-name">
+            <a v-attr="href: '#/feed/' + feed._id">{{ feed.name }}</a>
+            <div class="sub header muted">
+                &nbsp;| Developed by
+                <a class="user-link" v-attr="href: '#/user/' + feed.owners[0].username">
+                    {{ feed.owners[0].username ? '@' + feed.owners[0].username : "anonymous" }}
+                </a>
+            </div>
+        </div>
         <div class="description">
             <b-contrib v-with="contrib: contrib"></b-contrib>
         </div>
@@ -18,8 +27,11 @@
             <div class="ui medium basic compact button" v-on="click: vote(1)">
                 <i class="chevron circle up black icon"></i> {{contrib.score}}
             </div>
-            <span>Source 1</span>
-            <span>Source 2</span>
+            <!--<div class="ui medium basic compact button">-->
+                <!--<i class="add circle black icon"></i> 17-->
+            <!--</div>-->
+            <!--<span>Source 1</span>-->
+            <!--<span>Source 2</span>-->
         </div>
         <div class="extra contrib-tags">
             <div class="ui mini tag label">
@@ -34,3 +46,4 @@
         </div>
     </div>
 </div>
+<div class="ui divider"></div>

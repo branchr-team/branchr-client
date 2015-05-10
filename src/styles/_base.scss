@@ -27,6 +27,7 @@ $subtle-gray: rgba(#D0D6DC, $alpha-value);
 
 body {
   color: black;
+  position: relative;
 }
 
 input {
@@ -254,7 +255,8 @@ footer {
 /********************
  * Editor
  ********************/
-.explore {
+.explore,
+.feed {
 
   #options {
     .button {
@@ -265,7 +267,8 @@ footer {
   .contrib-title {
     clear: both;
 
-    & > a {
+    & > a,
+    & > span {
       text-transform: uppercase;
       font-family: "Viga", sans-serif;
     }
@@ -280,7 +283,8 @@ footer {
   .engine-name,
   .contrib-title {
 
-    & > a {
+    & > a,
+    & > span {
       float: left;
       text-decoration: none;
       color: black

@@ -9,6 +9,7 @@ Vue.component('contrib-summary', {
     paramAttributes: ['contrib-id'],
     data: function() { return {
         loadState: false,
+        ctrlName: this.$parent.$root.ctrlName,
         feed: null,
         engine: null,
         contrib: null
@@ -18,17 +19,14 @@ Vue.component('contrib-summary', {
             this.contrib = contrib;
             this.feed = contrib.feed;
             this.loadState = true;
+        },
+        vote(vote) {
+            APIService.contrib.vote(this.contrib._id, vote)
+              .then(resp => {
+                  this.contrib.score = resp.data.score;
+              });
         }
     },
-    //compiled: function() {
-    //    if( this.contrib.compiled$el ) {
-    //        this.contrib.precompiled = true;
-    //        this.$el = this.contrib.compiled$el;
-    //    } else {
-    //        this.contrib.precompiled = false;
-    //        this.contrib.compiled$el = this.$el;
-    //    }
-    //},
     ready: function() {
         if (this.contrib)
             this.init(this.contrib);
