@@ -10,6 +10,7 @@ export default Vue.extend({
     data: function() { return {
         loadState: false,
         contribs: null,
+        sortModes: ['recent','popular','random'],
         order: {
             mode: 'recent',
             field: '',
