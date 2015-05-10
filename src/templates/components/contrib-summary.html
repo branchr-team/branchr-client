@@ -2,21 +2,20 @@
     <div class="content">
 
         <div class="ui header contrib-title">
-            <span>{{contrib.title}}</span>
+            <a v-attr="href: '#/feed/' + feed.id">{{contrib.title ? contrib.title : 'UNTITLED'}}</a>
             <div class="sub header muted">
                 &nbsp;| Contributed by
                 <a class="user-link" v-attr="href: '#/user/' + contrib.creator.username">
-                    {{ '@' + contrib.creator.username }}
+                    @{{ contrib.creator ? contrib.creator.username : "anonymous" }}
                 </a>
             </div>
         </div>
-
         <div class="ui header engine-name">
             <a v-attr="href: '#/feed/' + feed._id">{{ feed.name }}</a>
             <div class="sub header muted">
                 &nbsp;| Developed by
                 <a class="user-link" v-attr="href: '#/user/' + feed.permissions.owners[0]">
-                    {{ '@' + feed.permissions.owners[0] }}
+                    @{{ feed.owners[0].username ? feed.owners[0].username : "anonymous" }}
                 </a>
             </div>
         </div>
@@ -25,7 +24,7 @@
         </div>
         <div class="extra social-meta">
             <div class="ui medium basic compact button">
-                <i class="chevron circle up black icon"></i> {{contrib.score}}
+                <i class="chevron circle up black icon"></i> 24
             </div>
             <div class="ui medium basic compact button">
                 <i class="add circle black icon"></i> 17
@@ -46,3 +45,4 @@
         </div>
     </div>
 </div>
+<div class="ui divider"></div>

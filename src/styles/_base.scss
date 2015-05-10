@@ -44,14 +44,14 @@ input {
 //);
 
 $nav-colors: (
-  ('explore', 'rgb(42,220,142)'),
-  ('contribute','rgb(255, 199, 0)'),
-  ('develop','rgb(239, 0, 194)')
+                ('explore', 'rgb(42,220,142)'),
+                ('contribute','rgb(255, 199, 0)'),
+                ('develop','rgb(239, 0, 194)')
 );
 
 header {
   @extend .bg--white;
-  
+
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.4);
 
   position: relative;
@@ -65,9 +65,33 @@ header {
     text-decoration: none;
     text-transform: uppercase;
     color: $dark-gray;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  }
+    position: relative;
 
+    &:before {
+      content: "";
+      background-image: url(/assets/images/branchr_leaf.svg);
+      background-size: contain;
+      display: block;
+      position: absolute;
+      height: 19px;
+      width: 19px;
+      max-width: 100%;
+      max-height: 100%;
+      left: -20px;
+      top: 12.4px;
+    }
+    /*
+        &:after {
+          @include background-image(linear-gradient(to right,  #2adc8e 0%,#2adc8e 27.38%,#ffc700 27.39%,#ffc700 71.186%,#ef00c2 71.187%,#ef00c2 100%));
+          content: "";
+          display: block;
+          width: calc(100% - 1rem);
+          position: absolute;
+          height: 3px;
+          bottom: 9px;
+        }
+    */
+  }
   nav {
     display: block;
     padding: 0;

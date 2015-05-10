@@ -1,5 +1,21 @@
-<div class="measure">
+<div id="options">
+    <div class="measure px1">
+        <div class="ui basic mini compact buttons">
+            <div class="ui button active">recent</div>
+            <div class="ui button">popular</div>
+            <div class="ui button">random</div>
+        </div>
+        <div class="ui transparent left icon large input mx1 contrib-search">
+            <input type="text" placeholder="Search...">
+            <i class="ui search large icon"></i>
+        </div>
+    </div>
+</div>
+<div class="measure px1">
     <loading-content v-with="loadState: loadState">
-        <contrib-summary v-repeat="contrib: contribs"></contrib-summary>
+        <div class="ui items">
+            <contrib-summary v-repeat="contrib: contribs"></contrib-summary>
+        </div>
     </loading-content>
 </div>
+
