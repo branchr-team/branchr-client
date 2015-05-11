@@ -2,16 +2,20 @@ import {HTTP} from 'http';
 import {vm} from 'main';
 
 const base = 'https://branchr.herokuapp.com';
-//const base = 'http://localhost:3000';
+//const base = 'http//localhost:3000';
 
 var httpNoAuth = new HTTP();
 
 var http = new HTTP([
     function(resp, next, retry) {
         if (resp.status === 401 && resp.retryCount <= 1)
-            vm.openLoginDialog("You must login first!").then(() => {
-                console.log(`Auth: ${resp.retryCount} Retrying!`);
-                retry();
+            vm.openLoginDialog("You must login first!").then(loginStatus => {
+                if (loginStatus) {
+                    console.log(`Auth: ${resp.retryCount} Retrying!`);
+                    retry();
+                } else {
+                    next();
+                }
             });
         else next();
     }

@@ -3,7 +3,7 @@
         <div class="ui basic mini compact buttons">
             <div v-repeat="mode : sortModes"
                  class="ui button"
-                 v-class="active : sort.mode == mode"
+                 v-class="active : order.mode == mode"
                  v-on="click: sortBy(mode)">
                 {{mode}}
             </div>

@@ -2,8 +2,7 @@
     <div class="content">
 
         <div class="ui header contrib-title">
-            <span v-if="ctrlName == 'feed'">{{contrib.title ? contrib.title : 'UNTITLED'}}</span>
-            <a v-if="ctrlName == 'explore'" v-attr="href: '#/feed/' + feed._id">{{contrib.title ? contrib.title : 'UNTITLED'}}</a>
+            <span>{{contrib.title ? contrib.title : 'UNTITLED'}}</span>
             <div class="sub header muted">
                 &nbsp;| Contributed by
                 <a class="user-link" v-attr="href: contrib.creator ? '#/user/' + contrib.creator.username : '#'" v-class="anon: !contrib.creator">
@@ -25,7 +24,11 @@
         </div>
         <div class="extra social-meta">
             <div class="ui medium basic compact button" v-on="click: vote(1)">
-                <i class="chevron circle up black icon"></i> {{contrib.score}}
+                <i class="chevron circle up black icon"></i>
+            </div>
+            {{contrib.score}}
+            <div class="ui medium basic compact button" v-on="click: vote(-1)">
+                <i class="chevron circle down black icon"></i>
             </div>
             <!--<div class="ui medium basic compact button">-->
                 <!--<i class="add circle black icon"></i> 17-->

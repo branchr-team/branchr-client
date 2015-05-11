@@ -24,7 +24,11 @@
         </div>
         <div class="extra social-meta">
             <div class="ui medium basic compact button" v-on="click: vote(1)">
-                <i class="chevron circle up black icon"></i> {{contrib.score}}
+                <i class="chevron circle up black icon"></i>
+            </div>
+            {{contrib.score}}
+            <div class="ui medium basic compact button" v-on="click: vote(-1)">
+                <i class="chevron circle down black icon"></i>
             </div>
             <!--<div class="ui medium basic compact button">-->
                 <!--<i class="add circle black icon"></i> 17-->

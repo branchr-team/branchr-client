@@ -1,5 +1,6 @@
 import APIService from 'services/api';
 import {setAuthHeaders} from 'services/api';
+import * as Main from 'main';
 
 var storage = window.localStorage;
 
@@ -21,7 +22,7 @@ export function login(username, password) {
             resp => {
               let user = resp.data.user;
               storage.setItem('user', JSON.stringify(user));
-              this.user = user;
+              this.user = Main.vm.user = user;
               storage.setItem('token', JSON.stringify(resp.data.token));
               this.token = resp.data.token;
               resolve(user);
@@ -35,7 +36,7 @@ export function logout() {
     if (!user) return Promise.resolve();
     let username = user.username;
     storage.removeItem('user');
-    this.user = null;
+    this.user = Main.vm.user = null;
     storage.removeItem('token');
     this.token = null;
     return APIService.logout(username);
