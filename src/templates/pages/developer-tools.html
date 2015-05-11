@@ -38,7 +38,7 @@
                          "
                          tabindex="0" v-on="click: $parent.toggleDropdownVisible($index)">
                         <input type="hidden" name="type" v-model="field.type">
-                        <div class="default text" v-text="field.fieldLabel"></div>
+                        <div class="default text">{{ getLabelFromCode(field.type) }}</div>
                         <i class="dropdown icon"></i>
                         <span>{{dropdownVisible[$index]}}</span>
                         <div class="menu transition"

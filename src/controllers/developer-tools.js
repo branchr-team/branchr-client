@@ -40,6 +40,7 @@ export default Vue.extend({
     }},
     methods: {
         getComponentFromCode: PostFields.getComponentFromCode,
+        getLabelFromCode: PostFields.getLabelFromCode,
         addField() {
             this.engine.fields.push({
                 key: '',
@@ -74,7 +75,7 @@ export default Vue.extend({
                     this.feed = resp.data;
                     alert("Saved!");
                 }).catch(resp => {
-                    alert("Something went wrong!");
+                    console.error("Something went wrong!");
                     console.error(resp);
                 });
         },
@@ -115,6 +116,7 @@ export default Vue.extend({
     },
     ready() {
         this.$watch('engine.fields', fields => {
+
             this.fields = this.engine.fields.map(f => {
                 return {
                     component: PostFields.getComponentFromCode(f.type),
