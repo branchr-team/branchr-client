@@ -65,8 +65,10 @@ export default {
         update(id, feed) {
             return http.put(`${base}/feed/${id}`, feed);
         },
-        updateEngine(id, engine) {
-            return http.put(`${base}/feed/${id}/engine`, engine);
+        updateEngine(id, engine, force = false) {
+            let uri = `${base}/feed/${id}/engine`;
+            if (force) uri += "?force=1";
+            return http.put(uri, engine);
         },
         list() {
             return http.get(`${base}/feed/`);
@@ -96,20 +98,15 @@ export default {
         get(engineId) {
             if (engineId in engineCache) {
                 // Cache hit
-                console.log('Cache hit!', engineId);
                 return Promise.resolve(engineCache[engineId]);
             } else {
                 // Cache miss
-                console.log('Cache miss!', engineId);
                 return http.get(`${base}/engine/${engineId}`)
                     .then(engine => {
                         engineCache[engineId] = engine;
                         return engine;
                     });
             }
-        },
-        create(engine) {
-            return http.post(`${base}/engine`, engine);
         }
     }
 }

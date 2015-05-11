@@ -5,6 +5,7 @@
             <div class="ui button" v-on="click: tab = 1" v-class="active: tab == 1">javascript</div>
             <div class="ui button" v-on="click: tab = 2" v-class="active: tab == 2">html</div>
             <div class="ui button" v-on="click: tab = 3" v-class="active: tab == 3">css</div>
+            <div class="ui button" v-on="click: tab = 4" v-class="active: tab == 4">preview</div>
         </div>
         <div class="ui mini compact action input" style="float: right; top: -8px;">
             <input type="text" v-model="feed.name" placeholder="Feed Name" style="font-size: small;">
@@ -12,12 +13,16 @@
                 <i class="ui icon save" style="margin: 0"></i>
             </button>
         </div>
+        <button class="ui mini float right compact blue button" v-on="click: force = !force">
+            <i v-show="!force" class="ui icon" style="margin: 0"></i>
+            <i v-show="force" class="ui warning circle icon" style="margin: 0"></i>
+        </button>
     </div>
 </div>
 <loading-content v-with="loadState: loadState">
     <div class="measure px1">
         <div v-if="tab == 0">
-            <div v-repeat="field: fields">
+            <div v-repeat="field: engine.fields">
                 key<input type="text" v-model="field.key">
                 type<br><select options="fieldTypeOptions" v-model="field.type" style="color: black;" number></select><br>
                 default<div v-component="{{getComponentFromCode(field.type)}}" v-with="model: field.default"></div><br>
@@ -26,9 +31,23 @@
             </div>
             <button class="btn btn--green" v-on="click: addField">Add</button>
         </div>
-        <code-editor v-if="tab == 1" v-with="value: js" lang-type="js" style="height: 1000px"></code-editor>
-        <code-editor v-if="tab == 2" v-with="value: html" lang-type="html"></code-editor>
-        <code-editor v-if="tab == 3" v-with="value: css" lang-type="css"></code-editor>
+        <code-editor v-if="tab == 1" v-with="value: engine.js" lang-type="js" style="height: 1000px"></code-editor>
+        <code-editor v-if="tab == 2" v-with="value: engine.html" lang-type="html"></code-editor>
+        <code-editor v-if="tab == 3" v-with="value: engine.css" lang-type="css"></code-editor>
+        <div v-if="tab == 4">
+            <h2>Preview</h2>
+            <div v-repeat="fields" v-component="{{component}}" v-on="save: updatePreview"></div>
+            <br>
+            <div class="flt--right">
+                <button class='btn btn--s' v-on="click: updatePreview">Preview</button>
+            </div>
+            <br><br>
+            <div v-show="showPreview">
+                <div class="card" style="margin: 1rem;" v-transition="fade">
+                    <b-contrib v-ref="preview" v-with="engine: engine"></b-contrib>
+                </div>
+            </div>
+        </div>
     </div>
 </loading-content>
 

@@ -62,7 +62,7 @@ export default Vue.extend({
                             component: PostFields.getComponentFromCode(f.type),
                             key: f.key,
                             name: f.key,
-                            model: f.default
+                            model: f.default || null
                         };
                     });
                     this.loadState = true;

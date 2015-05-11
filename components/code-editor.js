@@ -44,7 +44,6 @@ Vue.component('code-editor', {
             if( user && user.settings && user.settings.keyMap ) {
                 return user.settings.keyMap;
             } else {
-                console.log('Could not find user keyMap setting, falling back to default');
                 return 'default';
             }
         }();
