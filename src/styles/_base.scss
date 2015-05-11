@@ -34,6 +34,22 @@ input {
   color: black;
 }
 
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -39px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+  height: 22px; /* .push must be the same height as .footer */
+}
+
 /********************
  * Header
  ********************/
@@ -48,7 +64,7 @@ $nav-colors: (
                 ('explore', 'rgb(42,220,142)'),
                 ('contribute','rgb(255, 199, 0)'),
                 ('develop','rgb(239, 0, 194)'),
-                ('feeds','rgb(42, 220, 142)')
+                ('feeds','rgb(255, 199, 0)')
 );
 
 header {
@@ -68,19 +84,20 @@ header {
     text-transform: uppercase;
     color: $dark-gray;
     position: relative;
+    margin-left: 22px;
 
-    margin-left: 19px;
     &:before {
       content: "";
       background-image: url(/assets/images/branchr_leaf.svg);
       background-size: contain;
+      background-repeat: no-repeat;
       display: block;
       position: absolute;
       height: 19px;
       width: 19px;
       max-width: 100%;
       max-height: 100%;
-      left: -20px;
+      left: -23px;
       top: 12.4px;
     }
     /*
@@ -292,7 +309,7 @@ footer {
   .engine-name {
     clear: both;
     line-height: 14px;
-    margin-bottom: 22px !important;
+    margin-bottom: 38px !important;
   }
 
   .engine-name,
@@ -433,4 +450,14 @@ footer {
       text-decoration: none;
     }
   }
+}
+
+
+.visible.transition {
+  display: block!important;
+  visibility: visible!important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0)
 }

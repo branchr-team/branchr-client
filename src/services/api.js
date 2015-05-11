@@ -55,6 +55,21 @@ export default {
             );
         })
     },
+    register(email, username, password){
+        return new Promise(function(resolve,reject) {
+            httpNoAuth.post(`${base}/user`, {
+                email: email,
+                username: username,
+                password: password
+            })
+              .then(
+                resp => {
+                  resolve(resp);
+              },
+                err => reject(err)
+            );
+        })
+    },
     feed: {
         get(id) {
             return http.get(`${base}/feed/${id}`);

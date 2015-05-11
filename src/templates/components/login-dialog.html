@@ -4,10 +4,19 @@
     <div class="clearfix"></div>
     <h3 v-if="message" class="txt--center">{{message}}</h3>
     <form v-on="submit: submit">
+        <label v-if="formMode == 'register'" for="email">Email</label>
+        <input v-if="formMode == 'register'" id="email" name="email" type="text" v-model="email">
         <label for="username">Username</label>
         <input id="username" name="username" type="text" v-model="username">
         <label for="password">Password</label>
         <input id="password" name="password" type="password" v-model="password">
-        <input type="submit" class="btn--blue" value="Login">
+        <input v-if="formMode == 'login'"    type="submit" class="btn--blue"  value="Login">
+        <input v-if="formMode == 'register'" type="submit" class="btn--green" value="Register">
     </form>
+    <div v-show="formMode == 'login'" style="width:100%;text-align: center;cursor:pointer;">
+        <span v-on="click: setFormMode('register')">Create New Account</span>
+    </div>
+    <div v-show="formMode == 'register'" style="width:100%;text-align: center;cursor:pointer;">
+        <span v-on="click: setFormMode('login')">Return to Login</span>
+    </div>
 </div>

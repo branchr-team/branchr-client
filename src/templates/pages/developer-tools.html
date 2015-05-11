@@ -22,10 +22,40 @@
 <loading-content v-with="loadState: loadState">
     <div class="measure px1">
         <div v-if="tab == 0">
+            <!--<div v-repeat="field: engine.fields">-->
+                <!--key<input type="text" v-model="field.key">-->
+                <!--type<br><select options="fieldTypeOptions" v-model="field.type" style="color: black;" number></select><br>-->
+                <!--default<div v-component="{{getComponentFromCode(field.type)}}" v-with="model: field.default"></div><br>-->
+                <!--<button class="btn btn&#45;&#45;red btn&#45;&#45;s" v-on="click: removeField($index)">Remove</button>-->
+                <!--<br><hr><br>-->
+            <!--</div>-->
             <div v-repeat="field: engine.fields">
-                key<input type="text" v-model="field.key">
-                type<br><select options="fieldTypeOptions" v-model="field.type" style="color: black;" number></select><br>
-                default<div v-component="{{getComponentFromCode(field.type)}}" v-with="model: field.default"></div><br>
+                <div class="ui labeled fluid input">
+                    <div class="ui selection label dropdown"
+                         v-class="
+                            active: $parent.dropdownVisible === $index,
+                            visible: $parent.dropdownVisible === $index
+                         "
+                         tabindex="0" v-on="click: $parent.toggleDropdownVisible($index)">
+                        <input type="hidden" name="type" v-model="field.type">
+                        <div class="default text" v-text="field.fieldLabel"></div>
+                        <i class="dropdown icon"></i>
+                        <span>{{dropdownVisible[$index]}}</span>
+                        <div class="menu transition"
+                             v-class="
+                                hidden:  $parent.dropdownVisible !== $index,
+                                visible: $parent.dropdownVisible === $index
+                             "
+                             tabindex="-1" style="">
+                            <div v-repeat="fieldType : fieldTypeOptions"
+                                 v-on="click: setFieldType(field,fieldType)"
+                                 class="item" data-value="{{fieldType.value}}">{{fieldType.text}}</div>
+                        </div>
+                    </div>
+                    <input type="text" v-model="field.key" placeholder="Field Key">
+                </div>
+                <div class="ui pointing below label" style="margin-top: 10px">Default Value</div>
+                <div v-component="{{getComponentFromCode(field.type)}}" v-with="model: field.default"></div><br>
                 <button class="btn btn--red btn--s" v-on="click: removeField($index)">Remove</button>
                 <br><hr><br>
             </div>

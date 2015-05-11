@@ -8,7 +8,8 @@ Vue.component('login-dialog', {
         show: false,
         message: null,
         username: null,
-        password: null
+        password: null,
+        formMode: 'login'
     }},
     methods: {
         open(message = null) {
@@ -25,14 +26,27 @@ Vue.component('login-dialog', {
             this.username = null;
             this.password = null;
         },
+        setFormMode(newFormMode) {
+            this.formMode = newFormMode;
+        },
         submit(e) {
             e.preventDefault();
-            AuthService.login(this.username, this.password)
-                .then(user => this.close(true))
-                .catch(err => {
-                    alert('Nope!');
-                    console.error(err);
-                });
+
+            if(this.formMode == 'login') {
+                AuthService.login(this.username, this.password)
+                  .then(user => this.close(true))
+                  .catch(err => {
+                      alert('Nope!');
+                      console.error(err);
+                  });
+            } else if (this.formMode == 'register') {
+                AuthService.register(this.email, this.username, this.password)
+                  .then(user => this.close(true))
+                  .catch(err => {
+                      alert('Nope!');
+                      console.error(err);
+                  });
+            }
         }
     }
 });
