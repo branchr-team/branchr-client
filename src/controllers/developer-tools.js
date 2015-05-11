@@ -54,9 +54,17 @@ export default Vue.extend({
                 });
         },
         onRouteUpdate(stateParams, route) {
-            if (route[1] === "new")
+            if (route[1] === "new") {
                 this.loadState = true;
-            else
+                this.tab = 0;
+                this.feed = {
+                    name: ""
+                };
+                this.fields = [];
+                this.js = '';
+                this.html = '';
+                this.css = '';
+            } else
                 APIService.feed.get(stateParams[0])
                     .then(resp => {
                         this.feed = resp.data;
