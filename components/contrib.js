@@ -26,14 +26,10 @@ Vue.component('b-contrib', {
                             window.alert = alert = null;
                         </script>
                         <style type="text/css">${this.engine.css}</style>
+                        <script type="text/javascript">${this.engine.js}</script>
                     </head>
                     <body style="padding:0;margin:0;position:relative;">
                     ${this.engine.html}
-                        <script type="text/javascript">
-                            window.onload = function() {
-                                ${this.engine.js}
-                            };
-                        </script>
                     </body>
                     </html>`;
             let self = this;
