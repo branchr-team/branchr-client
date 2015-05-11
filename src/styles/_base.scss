@@ -50,6 +50,10 @@ html, body {
   height: 22px; /* .push must be the same height as .footer */
 }
 
+input[type="color"] {
+  height: 50px;
+}
+
 /********************
  * Header
  ********************/
