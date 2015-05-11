@@ -41,3 +41,16 @@ export function logout() {
     this.token = null;
     return APIService.logout(username);
 }
+
+export function register(email, username, password) {
+  return new Promise((resolve,reject) => {
+    APIService.register(email, username, password)
+      .then(
+        resp => {
+        this.login(username, password);
+        resolve(user);
+      },
+        err => reject(err)
+    );
+  })
+}

@@ -35,18 +35,28 @@ export default Vue.extend({
             js: '',
             html: '',
             css: ''
-        }
+        },
+        dropdownVisible: -1
     }},
     methods: {
         getComponentFromCode: PostFields.getComponentFromCode,
         addField() {
             this.engine.fields.push({
                 key: '',
-                type: 0
+                type: 0,
+                fieldLabel: 'Field Type'
             })
+        },
+        setFieldType(field,fieldType) {
+            field.type = fieldType.value;
+            field.fieldLabel = fieldType.text;
         },
         removeField(i) {
             this.engine.fields.splice(i, 1);
+        },
+        toggleDropdownVisible(i) {
+            this.dropdownVisible = i == this.dropdownVisible ? -1 : i;
+            //console.log(`this.dropdownVisible[${i}] == ${this.dropdownVisible[i]}`)
         },
         save() {
             ((this.feed && this.feed._id)?

@@ -3,9 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <!--<link rel="stylesheet" type="text/css" href="styles/semantic-ui/semantic.css">-->
     <link rel="stylesheet" type="text/css" href="styles/main.css">
-    <!--<link rel="stylesheet" type="text/css" href="styles/icons/icomoon.css">-->
     <script src="lib/system.js"></script>
     <script>
         System.config({
@@ -25,6 +23,7 @@
     </script>
 </head>
 <body v-cloak id="main" v-class="ctrlName">
+<div class="wrapper">
     <header>
         <div class="measure px1">
             <a class="logo flt--left" href="#/">Branchr</a>
@@ -70,12 +69,16 @@
     <main v-component="{{ctrlName}}"
           v-ref="ctrl">
     </main>
+    <div class="push"></div>
+</div>
+<div class="footer">
     <footer class="measure">
         <div id="copyright"></div>
         <a>about</a>
         <a>contact</a>
         <a>help</a>
     </footer>
+</div>
     <script>
         var d = new Date().getFullYear();
         document.getElementById("copyright").innerHTML = "&copy; " + d + " Branchr";
