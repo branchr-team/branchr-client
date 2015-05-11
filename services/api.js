@@ -2,16 +2,20 @@ import {HTTP} from 'http';
 import {vm} from 'main';
 
 const base = 'https://branchr.herokuapp.com';
-//const base = 'http://localhost:3000';
+//const base = 'http//localhost:3000';
 
 var httpNoAuth = new HTTP();
 
 var http = new HTTP([
     function(resp, next, retry) {
-        if (resp.status === 401 && resp.retryCount <= 3)
-            vm.openLoginDialog("You must login first!").then(() => {
-                console.log(`Auth: ${resp.retryCount} Retrying!`);
-                retry();
+        if (resp.status === 401 && resp.retryCount <= 1)
+            vm.openLoginDialog("You must login first!").then(loginStatus => {
+                if (loginStatus) {
+                    console.log(`Auth: ${resp.retryCount} Retrying!`);
+                    retry();
+                } else {
+                    next();
+                }
             });
         else next();
     }
@@ -26,20 +30,30 @@ var engineCache = {};
 
 export default {
     login(username, password) {
-        return httpNoAuth.post(`${base}/login`, {username: username, password: password})
-            .then(resp => {
-                console.log('Got token: ', resp.data.token);
-                setAuthHeaders(username, resp.data.token);
-                return resp;
-            });
+        return new Promise(function(resolve,reject) {
+            httpNoAuth.post(`${base}/login`, {username: username, password: password})
+              .then(
+                resp => {
+                  console.log('Got token: ', resp.data.token);
+                  setAuthHeaders(username, resp.data.token);
+                  resolve(resp);
+              },
+                err => reject(err)
+            );
+        })
     },
     logout(username) {
-        return http.post(`${base}/logout`, {username: username})
-            .then(resp => {
-                http.setHeader('X-Username', null);
-                http.setHeader('X-Token', null);
-                return resp;
-            });
+        return new Promise(function(resolve,reject) {
+            http.post(`${base}/logout`, {username: username})
+              .then(
+                resp => {
+                  http.setHeader('X-Username', null);
+                  http.setHeader('X-Token', null);
+                  resolve(resp);
+              },
+                err => reject(err)
+            );
+        })
     },
     feed: {
         get(id) {

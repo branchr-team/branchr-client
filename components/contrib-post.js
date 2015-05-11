@@ -9,6 +9,7 @@ Vue.component('contrib-post', {
     paramAttributes: ['contrib-id'],
     data: function() { return {
         loadState: false,
+        ctrlName: this.$parent.$root.ctrlName,
         feed: null,
         engine: null,
         contrib: null

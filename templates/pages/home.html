@@ -1,5 +1,24 @@
-<div class="measure">
+<div id="options">
+    <div class="measure px1">
+        <div class="ui basic mini compact buttons">
+            <div v-repeat="mode : sortModes"
+                 class="ui button"
+                 v-class="active : order.mode == mode"
+                 v-on="click: sortBy(mode)">
+                {{mode}}
+            </div>
+        </div>
+        <div class="ui transparent left icon large input mx1 contrib-search">
+            <input type="text" placeholder="Search..." v-model="searchInput">
+            <i class="ui search large icon"></i>
+        </div>
+    </div>
+</div>
+<div class="measure px1">
     <loading-content v-with="loadState: loadState">
-        <contrib-summary v-repeat="contrib: contribs"></contrib-summary>
+        <div class="ui items">
+            <contrib-post v-repeat="contrib: contribs | orderBy order.field order.reverse | filterBy searchInput"></contrib-post>
+        </div>
     </loading-content>
 </div>
+

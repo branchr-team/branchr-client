@@ -19,19 +19,19 @@ Vue.component('login-dialog', {
             });
             return this.openPromise;
         },
-        close() {
+        close(loginStatus) {
             this.show = false;
-            this.openPromiseResolve();
+            this.openPromiseResolve(loginStatus);
             this.username = null;
             this.password = null;
         },
         submit(e) {
             e.preventDefault();
             AuthService.login(this.username, this.password)
-                .then(user => this.close())
+                .then(user => this.close(true))
                 .catch(err => {
                     alert('Nope!');
-                    console.error(err)
+                    console.error(err);
                 });
         }
     }

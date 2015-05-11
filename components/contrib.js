@@ -20,12 +20,14 @@ Vue.component('b-contrib', {
                         <script type="text/javascript">
                             var $params = ${JSON.stringify(params)};
                             var $done = window.parent._done[${JSON.stringify(hash)}];
+                            console = {};
+                            console.log = window.parent._consoleLog[${JSON.stringify(hash)}]
                             window.parent = parent = null;
                             window.alert = alert = null;
                         </script>
                         <style type="text/css">${this.engine.css}</style>
                     </head>
-                    <body>
+                    <body style="padding:0;margin:0;position:relative;">
                     ${this.engine.html}
                         <script type="text/javascript">
                             window.onload = function() {
@@ -39,7 +41,11 @@ Vue.component('b-contrib', {
             window._done[hash] = function() {
                 self.$$.iframe.style.height = self.$$.iframe.contentWindow.document.body.offsetHeight+'px';
                 self.loadState = true;
-                delete window._done[hash];
+            };
+            window._consoleLog = window._consoleLog || {};
+            window._consoleLog[hash] = function(msg) {
+                if( window._contribConsoleEnabled )
+                    console.log("contrib log: " + msg);
             };
         }
     },

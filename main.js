@@ -6,7 +6,7 @@ import 'components/login-dialog';
 
 router.page('/', 'explore', 'controllers/home', true);
 //router.page('/contribute', 'contribute', 'controllers/myContribs', true);
-router.page('/feed/new', 'develop', 'controllers/developer-tools', true);
+router.page('/feed/new', 'develop', 'controllers/developer-tools');
 router.page('/feeds', 'feeds', 'controllers/feeds', true);
 router.page('/feed/edit/:feedId', 'develop', 'controllers/developer-tools');
 router.page('/feed/:feedId', 'feed', 'controllers/feed');
@@ -19,17 +19,15 @@ export var vm = new Vue({
     data: {
         ctrlName: '',
         nav: router.navPages,
-        user: AuthService.user
+        user: AuthService.user,
+        showLogout: false
     },
     methods: {
-        updateUser() {
-            this.user = AuthService.user;
-        },
         openLoginDialog(msg) {
-            return this.$.loginDialog.open(msg).then(this.updateUser);
+            return this.$.loginDialog.open(msg);
         },
         logout() {
-            return AuthService.logout().then(this.updateUser);
+            return AuthService.logout();
         }
     }
 });

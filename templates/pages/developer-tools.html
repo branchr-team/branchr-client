@@ -1,17 +1,21 @@
-<loading-content v-with="loadState: loadState">
-    <div id="options">
-        <div class="measure px1">
-            <div class="ui basic mini compact buttons">
-                <div class="ui button" v-on="click: tab = 0" v-class="active: tab == 0">params</div>
-                <div class="ui button" v-on="click: tab = 1" v-class="active: tab == 1">javascript</div>
-                <div class="ui button" v-on="click: tab = 2" v-class="active: tab == 2">html</div>
-                <div class="ui button" v-on="click: tab = 3" v-class="active: tab == 3">css</div>
-            </div>
-            Feed Name<input type="text" v-model="feed.name">
-            <button class="btn btn--blue" v-on="click: save">Save</button>
+<div id="options">
+    <div class="measure px1">
+        <div class="ui basic mini compact buttons">
+            <div class="ui button" v-on="click: tab = 0" v-class="active: tab == 0">params</div>
+            <div class="ui button" v-on="click: tab = 1" v-class="active: tab == 1">javascript</div>
+            <div class="ui button" v-on="click: tab = 2" v-class="active: tab == 2">html</div>
+            <div class="ui button" v-on="click: tab = 3" v-class="active: tab == 3">css</div>
+        </div>
+        <div class="ui mini compact action input" style="float: right; top: -8px;">
+            <input type="text" v-model="feed.name" placeholder="Feed Name" style="font-size: small;">
+            <button class="ui compact blue button" v-on="click: save">
+                <i class="ui icon save" style="margin: 0"></i>
+            </button>
         </div>
     </div>
-    <div class="measure">
+</div>
+<loading-content v-with="loadState: loadState">
+    <div class="measure px1">
         <div v-if="tab == 0">
             <div v-repeat="field: fields">
                 key<input type="text" v-model="field.key">

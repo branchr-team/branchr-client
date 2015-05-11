@@ -12,7 +12,7 @@
             baseURL: '',
             paths: {
                 'traceur': 'lib/traceur.min.js',
-                'vue': 'lib/vue.min.js',
+                'vue': 'lib/vue.js',
                 'director': 'lib/director.min.js',
                 'http': 'lib/http.js'
             },
@@ -33,6 +33,9 @@
                     <li v-repeat="nav" class="pyHalf" v-class="name">
                         <a class='btn--link' v-attr="href: '#'+url">{{name}}</a>
                     </li>
+                    <li class="pyHalf" class="develop">
+                        <a class='btn--link' href="#/feed/new">Develop</a>
+                    </li>
                 </ul>
                 <ul class="flt--right" id="menu">
                     <li class="pyHalf">
@@ -44,11 +47,19 @@
                            v-on="click: openLoginDialog()">
                             Log in
                         </a>
-                        <a class="ui mini button green compact"
+                        <div class="profile-button"
                            v-if="user"
-                           v-on="click: logout">
-                            {{user.username}}
-                        </a>
+                           >
+                            <div class="ui pointing red mini compact label logout-button"
+                                 v-if="showLogout"
+                                 v-on="click: logout">
+                                Logout
+                            </div>
+                            <a class="ui mini button green compact"
+                               v-on="click: showLogout = !showLogout">
+                                {{user.username}}
+                            </a>
+                        </div>
                     </li>
                 </ul>
                 <div style="clear: both"></div>
