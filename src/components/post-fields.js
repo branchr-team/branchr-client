@@ -9,7 +9,7 @@ Vue.component('post-field-number', {
 	template: '{{name}}<input type="number" v-model="model" number>'
 });
 Vue.component('post-field-color', {
-	template: '{{name}}<input type="color" v-model="model"/>'
+	template: '{{name}}<input type="color" v-model="model">'
 });
 Vue.component('post-field-checkbox', {
     template:'{{name}}<input type="checkbox" v-model="model">'
@@ -29,12 +29,12 @@ Vue.component('post-field-datetime-local', {
 Vue.component('post-field-email', {
     template:'{{name}}<input type="email" v-model="model">'
 });
-Vue.component('post-field-file', {
-    template:'{{name}}<input type="file" v-model="model">'
-});
-Vue.component('post-field-image', {
-    template:'{{name}}<input type="image" v-model="model">'
-});
+//Vue.component('post-field-file', {
+//    template:'{{name}}<input type="file" v-model="model">'
+//});
+//Vue.component('post-field-image', {
+//    template:'{{name}}<input type="image" v-model="model">'
+//});
 Vue.component('post-field-month', {
     template:'{{name}}<input type="month" v-model="model">'
 });
@@ -93,14 +93,14 @@ var fieldTypes = {
         component: 'post-field-email',
         text: "Email"
     },
-    8: {
-        component: 'post-field-file',
-        text: "File"
-    },
-    9: {
-        component: 'post-field-image',
-        text: "Image"
-    },
+    //8: {
+    //    component: 'post-field-file',
+    //    text: "File"
+    //},
+    //9: {
+    //    component: 'post-field-image',
+    //    text: "Image"
+    //},
     10: {
         component: 'post-field-month',
         text: "Month"

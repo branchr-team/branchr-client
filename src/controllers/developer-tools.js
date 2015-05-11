@@ -7,6 +7,16 @@ import * as PostFields from 'components/post-fields';
 import 'components/loading-content';
 import 'components/code-editor';
 import 'components/engine-form-builder';
+import 'components/contrib';
+import 'components/post-fields';
+
+function fieldsToParams(fields = []) {
+    fields = fields || [];
+    return fields.reduce((prev, cur) => {
+        prev[cur.key] = cur.model;
+        return prev;
+    }, {});
+}
 
 export default Vue.extend({
     template: template,
@@ -14,24 +24,29 @@ export default Vue.extend({
         loadState: false,
         fieldTypeOptions: PostFields.fieldTypeOptions,
         tab: 0,
+        force: false,
+        fields: null,
+        showPreview: false,
         feed: {
             name: ""
         },
-        fields: [],
-        js: '',
-        html: '',
-        css: ''
+        engine: {
+            fields: [],
+            js: '',
+            html: '',
+            css: ''
+        }
     }},
     methods: {
         getComponentFromCode: PostFields.getComponentFromCode,
         addField() {
-            this.fields.push({
+            this.engine.fields.push({
                 key: '',
                 type: 0
             })
         },
         removeField(i) {
-            this.fields.splice(i, 1);
+            this.engine.fields.splice(i, 1);
         },
         save() {
             ((this.feed && this.feed._id)?
@@ -39,12 +54,12 @@ export default Vue.extend({
                 APIService.feed.create(this.feed)
             ).then(resp => {
                     return APIService.feed.updateEngine(resp.data._id, {
-                        js: this.js,
-                        html: this.html,
-                        css: this.css,
-                        fields: this.fields,
+                        js: this.engine.js,
+                        html: this.engine.html,
+                        css: this.engine.css,
+                        fields: this.engine.fields,
                         feed: resp.data._id
-                    });
+                    }, this.force);
                 }).then(resp => {
                     this.feed = resp.data;
                     alert("Saved!");
@@ -53,6 +68,10 @@ export default Vue.extend({
                     console.error(resp);
                 });
         },
+        updatePreview() {
+            this.$.preview.updateSrcdoc(fieldsToParams(this.fields));
+            this.showPreview = true;
+        },
         onRouteUpdate(stateParams, route) {
             if (route[1] === "new") {
                 this.loadState = true;
@@ -60,10 +79,12 @@ export default Vue.extend({
                 this.feed = {
                     name: ""
                 };
-                this.fields = [];
-                this.js = '';
-                this.html = '';
-                this.css = '';
+                this.engine = {
+                    fields: [],
+                        js: '',
+                        html: '',
+                        css: ''
+                };
             } else
                 APIService.feed.get(stateParams[0])
                     .then(resp => {
@@ -71,15 +92,27 @@ export default Vue.extend({
                         return APIService.engine.get(resp.data.engine);
                     })
                     .then(resp => {
-                        this.fields = resp.data.fields;
-                        this.js = resp.data.js;
-                        this.html = resp.data.html;
-                        this.css = resp.data.css;
+                        this.engine.fields = resp.data.fields;
+                        this.engine.js = resp.data.js;
+                        this.engine.html = resp.data.html;
+                        this.engine.css = resp.data.css;
                         this.loadState = true;
                     })
                     .catch(err => {
                         this.loadState = true;
                     });
         }
+    },
+    ready() {
+        this.$watch('engine.fields', fields => {
+            this.fields = this.engine.fields.map(f => {
+                return {
+                    component: PostFields.getComponentFromCode(f.type),
+                    key: f.key,
+                    name: f.key,
+                    model: f.default || null
+                };
+            });
+        }, true, true)
     }
 });
