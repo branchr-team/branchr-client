@@ -148,3 +148,6 @@ export function getComponentFromCode(code) {
     return fieldTypes[code].component;
 }
 
+export function getLabelFromCode(code) {
+    return fieldTypes[code].text;
+}
