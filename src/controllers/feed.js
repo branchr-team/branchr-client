@@ -31,7 +31,7 @@ export default Vue.extend({
                 }).then(resp => {
                     this.contribs = resp.data.map(c => {
                         try {
-                            c.owner = resp.data.owners.map(o => o._id).indexOf(AuthService.user._id) != -1;
+                            c.owner = c.creator._id === AuthService.user._id;
                         } catch (e) {}
                         return c;
                     });
