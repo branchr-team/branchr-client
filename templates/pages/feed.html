@@ -1,26 +1,26 @@
-<loading-content v-with="loadState: loadState">
-    <div id="options">
-        <div class="measure px1">
-            <div class="ui mini buttons flt--right post-edit-buttons">
-                <a class='ui blue button' href="#/post/new/{{feed._id}}">
-                    <i class="plus icon"></i>
-                    Post
-                </a>
-                <div v-if="owner" class="or"></div>
-                <a v-if="owner" class="ui green button" href="#/feed/edit/{{feed._id}}">
-                    Edit
-                    <i class="pencil right icon"></i>
-                </a>
-            </div>
-            <div class="feed-title">
+<div id="options">
+    <div class="measure px1">
+        <div class="ui mini buttons flt--right post-edit-buttons">
+            <a class='ui blue button' href="#/post/new/{{feed._id}}">
+                <i class="plus icon"></i>
+                Post
+            </a>
+            <div v-if="owner" class="or"></div>
+            <a v-if="owner" class="ui green button" href="#/feed/edit/{{feed._id}}">
+                Edit
+                <i class="pencil right icon"></i>
+            </a>
+        </div>
+        <div class="feed-title">
             <span class="h3">
                 <span>&ldquo;</span>
                 {{feed.name}}
                 <span>&rdquo;</span>
             </span>
-            </div>
         </div>
     </div>
+</div>
+<loading-content v-with="loadState: loadState">
     <div class="measure px1">
         <div class="card" style="margin: 1rem;" v-transition="fade" v-repeat="contrib: contribs">
             <contrib-post v-with="contrib: contrib"></contrib-post>
