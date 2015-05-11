@@ -2,7 +2,7 @@ import {HTTP} from 'http';
 import {vm} from 'main';
 
 const base = 'https://branchr.herokuapp.com';
-//const base = 'http//localhost:3000';
+//const base = 'http://localhost:3000';
 
 var httpNoAuth = new HTTP();
 
