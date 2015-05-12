@@ -34,8 +34,13 @@ Vue.component('b-contrib', {
                     </html>`;
             let self = this;
             window._done = window._done || {};
-            window._done[hash] = function() {
-                self.$$.iframe.style.height = self.$$.iframe.contentWindow.document.body.offsetHeight+'px';
+            window._done[hash] = function(requestedHeight) {
+                if (requestedHeight) {
+                    requestedHeight = Math.min(requestedHeight, 500);
+                } else {
+                    requestedHeight = self.$$.iframe.contentWindow.document.body.offsetHeight;
+                }
+                self.$$.iframe.style.height = requestedHeight + 'px';
                 self.loadState = true;
             };
             window._consoleLog = window._consoleLog || {};
