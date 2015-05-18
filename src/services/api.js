@@ -1,8 +1,8 @@
 import {HTTP} from 'http';
 import {vm} from 'main';
 
-const base = 'https://branchr.herokuapp.com';
-//const base = 'http://localhost:3000';
+//const base = 'https://branchr.herokuapp.com';
+const base = 'http://localhost:3000';
 
 var httpNoAuth = new HTTP();
 
@@ -30,45 +30,26 @@ var engineCache = {};
 
 export default {
     login(username, password) {
-        return new Promise(function(resolve,reject) {
-            httpNoAuth.post(`${base}/login`, {username: username, password: password})
-              .then(
-                resp => {
-                  console.log('Got token: ', resp.data.token);
-                  setAuthHeaders(username, resp.data.token);
-                  resolve(resp);
-              },
-                err => reject(err)
-            );
-        })
+        return httpNoAuth.post(`${base}/login`, {username: username, password: password})
+            .then(resp => {
+                console.log('Got token: ', resp.data.token);
+                setAuthHeaders(username, resp.data.token);
+                resolve(resp);
+            });
     },
     logout(username) {
-        return new Promise(function(resolve,reject) {
-            http.post(`${base}/logout`, {username: username})
-              .then(
-                resp => {
-                  http.setHeader('X-Username', null);
-                  http.setHeader('X-Token', null);
-                  resolve(resp);
-              },
-                err => reject(err)
-            );
-        })
+        return http.post(`${base}/logout`, {username: username})
+            .then(resp => {
+                http.setHeader('X-Username', null);
+                http.setHeader('X-Token', null);
+            });
     },
     register(email, username, password){
-        return new Promise(function(resolve,reject) {
-            httpNoAuth.post(`${base}/user`, {
-                email: email,
-                username: username,
-                password: password
-            })
-              .then(
-                resp => {
-                  resolve(resp);
-              },
-                err => reject(err)
-            );
-        })
+        return httpNoAuth.post(`${base}/user`, {
+            email: email,
+            username: username,
+            password: password
+        });
     },
     feed: {
         get(id) {
